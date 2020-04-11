@@ -30,7 +30,11 @@ class SnakeChef extends Game with KeyboardEvents, HasWidgetsOverlay {
     board[5][6].type = CellType.SNAKE_PART;
 
     board[2][3].type = CellType.INGREDIENT_TOMATO;
-    board[4][8].type = CellType.INGREDIENT_LETTUCE;
+    board[1][5].type = CellType.INGREDIENT_LETTUCE;
+    board[6][9].type = CellType.INGREDIENT_TOMATO;
+    board[3][1].type = CellType.INGREDIENT_LETTUCE;
+    board[3][7].type = CellType.INGREDIENT_TOMATO;
+    board[7][4].type = CellType.INGREDIENT_LETTUCE;
 
     snake = [];
     snake.add(Position(5, 5));
@@ -129,7 +133,7 @@ class SnakeChef extends Game with KeyboardEvents, HasWidgetsOverlay {
     for (var y = 0; y < board.length; y++) {
       for (var x = 0; x < board[y].length; x++) {
         final cell = board[y][x];
-        cell.render(canvas, board);
+        cell.render(canvas, board, direction, snake);
       }
     }
   }
