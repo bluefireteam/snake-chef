@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:snake_chef/game/assets.dart';
+
 enum CellType { SNAKE_HEAD, SNAKE_PART, INGREDIENT_TOMATO, INGREDIENT_LETTUCE }
 
 class Cell {
@@ -10,23 +12,29 @@ class Cell {
   int y;
   CellType type;
 
-  void render(Canvas canvas) {
+  void render(Canvas canvas, List<List<Cell>> board) {
+    final rect = Rect.fromLTWH(x * cellSize, y * cellSize, cellSize, cellSize);
+
+    Floor.getFloorTile().renderRect(canvas, rect);
+
+    if (board.length - 1 == y) {
+      Floor.getFloorBorder().renderRect(canvas, rect.translate(0, cellSize));
+    }
+
     if (type == CellType.SNAKE_HEAD) {
-      canvas.drawRect(Rect.fromLTWH(x * cellSize, y * cellSize, cellSize, cellSize), blue);
+      canvas.drawRect(rect, blue);
     }
     if (type == CellType.SNAKE_PART) {
-      canvas.drawRect(Rect.fromLTWH(x * cellSize, y * cellSize, cellSize, cellSize), white);
+      canvas.drawRect(rect, white);
     }
     if (type == CellType.INGREDIENT_TOMATO) {
-      canvas.drawRect(Rect.fromLTWH(x * cellSize, y * cellSize, cellSize, cellSize), red);
+      Ingredients.getTomato().renderRect(canvas, rect);
     }
     if (type == CellType.INGREDIENT_LETTUCE) {
-      canvas.drawRect(Rect.fromLTWH(x * cellSize, y * cellSize, cellSize, cellSize), green);
+      Ingredients.getLettuce().renderRect(canvas, rect);
     }
   }
 
   final Paint white = Paint()..color = Color(0xFFFFFFFF);
   final Paint blue = Paint()..color = Color(0xFF0000FF);
-  final Paint green = Paint()..color = Color(0xFF00FF00);
-  final Paint red = Paint()..color = Color(0xFFFF0000);
 }

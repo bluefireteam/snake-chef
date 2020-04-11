@@ -81,13 +81,18 @@ class SnakeChef extends Game with KeyboardEvents, HasWidgetsOverlay {
     final newX = head.x + direction.x;
     final newY = head.y + direction.y;
 
-    final objectInFrontOfSnake = board[newY.toInt()][newX.toInt()].type;
     
-    if ((newX == boardWidth || newX == -1) || (newY == boardHeight || newY == -1) || objectInFrontOfSnake == CellType.SNAKE_PART) {
+    if ((newX == boardWidth || newX == -1) || (newY == boardHeight || newY == -1)) {
       gameOver();
       return;
     }
 
+    final objectInFrontOfSnake = board[newY.toInt()][newX.toInt()].type;
+
+    if (objectInFrontOfSnake == CellType.SNAKE_PART) {
+      gameOver();
+      return;
+    }
 
     for (var i = snake.length - 1; i >= 0; i--) {
       final snakePart = snake[i];
@@ -124,17 +129,8 @@ class SnakeChef extends Game with KeyboardEvents, HasWidgetsOverlay {
     for (var y = 0; y < board.length; y++) {
       for (var x = 0; x < board[y].length; x++) {
         final cell = board[y][x];
-        cell.render(canvas);
+        cell.render(canvas, board);
       }
     }
-    canvas.drawRect(
-        Rect.fromLTWH(
-            0, 0, boardWidth * Cell.cellSize, boardHeight * Cell.cellSize),
-        _white);
   }
-
-  final Paint _white = Paint()
-    ..color = Color(0xFFFFFFFF)
-    ..style = PaintingStyle.stroke
-    ..strokeWidth = 2;
 }
