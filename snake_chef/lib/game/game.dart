@@ -2,12 +2,14 @@ import 'package:flame/game.dart';
 import 'package:flame/position.dart';
 import 'package:flame/time.dart';
 import 'package:flame/keyboard.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'dart:ui';
 
 import './cell.dart';
 
-class SnakeChef extends Game with KeyboardEvents {
+class SnakeChef extends Game with KeyboardEvents, HasWidgetsOverlay {
   List<List<Cell>> board;
   Timer timer;
   List<Position> snake = [];
@@ -48,19 +50,53 @@ class SnakeChef extends Game with KeyboardEvents {
     }
   }
 
+  void restartGame() {
+    for (var i = 0; i < snake.length; i++) {
+      Position s = snake[i];
+
+      board[(s.y).toInt()][(s.x).toInt()].type = null;
+    }
+
+    snake[0].x = 5;
+    snake[0].y = 5;
+
+    snake[1].x = 5;
+    snake[1].y = 6;
+
+    removeWidgetOverlay('GameOverMenu');
+    timer.start();
+  }
+
   void gameOver() {
-    print('Game over');
     timer.stop();
+
+    addWidgetOverlay(
+      'GameOverMenu',
+      Center(
+        child: Container(
+            width: 100,
+            height: 100,
+            color: const Color(0xFFFF0000),
+            child: Column(
+              children: [
+                Text('Paused'),
+                RaisedButton(
+                    onPressed: restartGame,
+                    child: Text('Restart', style: TextStyle(fontSize: 20)))
+              ],
+            )),
+      ),
+    );
   }
 
   void tick() {
     final head = snake[0];
 
-    if (head.y + direction.y == boardHeight || head.y + direction.y  == -1) {
-      gameOver();
-      return;
-    }
-    if (head.x + direction.x == boardWidth || head.x + direction.x  == -1) {
+    final over =
+        (head.x + direction.x == boardWidth || head.x + direction.x == -1) ||
+            (head.y + direction.y == boardHeight || head.y + direction.y == -1);
+
+    if (over) {
       gameOver();
       return;
     }
@@ -75,13 +111,15 @@ class SnakeChef extends Game with KeyboardEvents {
       if (i == 0) {
         snakePart.x += direction.x;
         snakePart.y += direction.y;
-        
-        board[(snakePart.y).toInt()][(snakePart.x).toInt()].type = CellType.SNAKE_HEAD;
+
+        board[(snakePart.y).toInt()][(snakePart.x).toInt()].type =
+            CellType.SNAKE_HEAD;
       } else {
         snakePart.x = snake[i - 1].x;
         snakePart.y = snake[i - 1].y;
 
-        board[(snakePart.y).toInt()][(snakePart.x).toInt()].type = CellType.SNAKE_PART;
+        board[(snakePart.y).toInt()][(snakePart.x).toInt()].type =
+            CellType.SNAKE_PART;
       }
     }
   }
@@ -99,9 +137,14 @@ class SnakeChef extends Game with KeyboardEvents {
         cell.render(canvas);
       }
     }
-    canvas.drawRect(Rect.fromLTWH(0, 0, boardWidth * Cell.cellSize, boardHeight * Cell.cellSize), _white);
+    canvas.drawRect(
+        Rect.fromLTWH(
+            0, 0, boardWidth * Cell.cellSize, boardHeight * Cell.cellSize),
+        _white);
   }
-  
-  final Paint _white = Paint()..color = Color(0xFFFFFFFF)..style = PaintingStyle.stroke..strokeWidth = 2;
-}
 
+  final Paint _white = Paint()
+    ..color = Color(0xFFFFFFFF)
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 2;
+}
