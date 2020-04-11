@@ -81,12 +81,13 @@ class SnakeChef extends Game with KeyboardEvents, HasWidgetsOverlay {
     final newX = head.x + direction.x;
     final newY = head.y + direction.y;
 
-    if ((newX == boardWidth || newX == -1) || (newY == boardHeight || newY == -1)) {
+    final objectInFrontOfSnake = board[newY.toInt()][newX.toInt()].type;
+    
+    if ((newX == boardWidth || newX == -1) || (newY == boardHeight || newY == -1) || objectInFrontOfSnake == CellType.SNAKE_PART) {
       gameOver();
       return;
     }
 
-    final objectInFrontOfSnake = board[newY.toInt()][newX.toInt()].type;
 
     for (var i = snake.length - 1; i >= 0; i--) {
       final snakePart = snake[i];
