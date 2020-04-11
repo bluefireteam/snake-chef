@@ -4,6 +4,7 @@ import 'package:flame/time.dart';
 import 'package:flame/keyboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:snake_chef/game/widgets/game_over.dart';
 
 import 'dart:ui';
 
@@ -18,14 +19,24 @@ class SnakeChef extends Game with KeyboardEvents, HasWidgetsOverlay {
   int boardHeight;
 
   SnakeChef({this.boardWidth, this.boardHeight}) {
+    resetGame();
+  }
+
+  void resetGame() {
     board = List.generate(
         boardHeight, (y) => List.generate(boardWidth, (x) => Cell(x: x, y: y)));
 
     board[5][5].type = CellType.SNAKE_HEAD;
     board[5][6].type = CellType.SNAKE_PART;
 
+    board[2][3].type = CellType.INGREDIENT_TOMATO;
+    board[4][8].type = CellType.INGREDIENT_LETTUCE;
+
+    snake = [];
     snake.add(Position(5, 5));
     snake.add(Position(6, 5));
+
+    direction = Position(-1, 0);
 
     timer = Timer(0.5, repeat: true, callback: tick)..start();
   }
@@ -51,20 +62,8 @@ class SnakeChef extends Game with KeyboardEvents, HasWidgetsOverlay {
   }
 
   void restartGame() {
-    for (var i = 0; i < snake.length; i++) {
-      Position s = snake[i];
-
-      board[(s.y).toInt()][(s.x).toInt()].type = null;
-    }
-
-    snake[0].x = 5;
-    snake[0].y = 5;
-
-    snake[1].x = 5;
-    snake[1].y = 6;
-
     removeWidgetOverlay('GameOverMenu');
-    timer.start();
+    resetGame();
   }
 
   void gameOver() {
@@ -72,54 +71,44 @@ class SnakeChef extends Game with KeyboardEvents, HasWidgetsOverlay {
 
     addWidgetOverlay(
       'GameOverMenu',
-      Center(
-        child: Container(
-            width: 100,
-            height: 100,
-            color: const Color(0xFFFF0000),
-            child: Column(
-              children: [
-                Text('Paused'),
-                RaisedButton(
-                    onPressed: restartGame,
-                    child: Text('Restart', style: TextStyle(fontSize: 20)))
-              ],
-            )),
-      ),
+      GameOver(restartGame: restartGame),
     );
   }
 
   void tick() {
     final head = snake[0];
 
-    final over =
-        (head.x + direction.x == boardWidth || head.x + direction.x == -1) ||
-            (head.y + direction.y == boardHeight || head.y + direction.y == -1);
+    final newX = head.x + direction.x;
+    final newY = head.y + direction.y;
 
-    if (over) {
+    if ((newX == boardWidth || newX == -1) || (newY == boardHeight || newY == -1)) {
       gameOver();
       return;
     }
+
+    final objectInFrontOfSnake = board[newY.toInt()][newX.toInt()].type;
 
     for (var i = snake.length - 1; i >= 0; i--) {
       final snakePart = snake[i];
 
       if (i == snake.length - 1) {
-        board[(snakePart.y).toInt()][(snakePart.x).toInt()].type = null;
+        if (objectInFrontOfSnake != null && objectInFrontOfSnake.toString().startsWith("CellType.INGREDIENT")) {
+          snake.add(Position(snakePart.x, snakePart.y));
+        } else {
+          board[(snakePart.y).toInt()][(snakePart.x).toInt()].type = null;
+        }
       }
 
       if (i == 0) {
         snakePart.x += direction.x;
         snakePart.y += direction.y;
 
-        board[(snakePart.y).toInt()][(snakePart.x).toInt()].type =
-            CellType.SNAKE_HEAD;
+        board[(snakePart.y).toInt()][(snakePart.x).toInt()].type = CellType.SNAKE_HEAD;
       } else {
         snakePart.x = snake[i - 1].x;
         snakePart.y = snake[i - 1].y;
 
-        board[(snakePart.y).toInt()][(snakePart.x).toInt()].type =
-            CellType.SNAKE_PART;
+        board[(snakePart.y).toInt()][(snakePart.x).toInt()].type = CellType.SNAKE_PART;
       }
     }
   }
