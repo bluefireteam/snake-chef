@@ -11,7 +11,7 @@ class Assets {
     await Flame.images.loadAll(["floor.png", "ingredients.png", "snake.png"]);
     ingredients = SpriteSheet(imageName: "ingredients.png", textureHeight: 16, textureWidth: 16, columns: 2, rows: 1);
     floor = SpriteSheet(imageName: "floor.png", textureHeight: 16, textureWidth: 16, columns: 1, rows: 2);
-    snake = SpriteSheet(imageName: "snake.png", textureHeight: 16, textureWidth: 16, columns: 4, rows: 5);
+    snake = SpriteSheet(imageName: "snake.png", textureHeight: 16, textureWidth: 16, columns: 5, rows: 5);
   }
 }
 
