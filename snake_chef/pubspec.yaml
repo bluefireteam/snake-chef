@@ -22,4 +22,5 @@ flutter:
   assets:
     - assets/images/floor.png
     - assets/images/ingredients.png
+    - assets/images/plates.png
     - assets/images/snake.png
