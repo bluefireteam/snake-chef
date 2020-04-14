@@ -23,8 +23,7 @@ class SnakeChef extends Game with KeyboardEvents, HasWidgetsOverlay {
   }
 
   void resetGame() {
-    board = List.generate(
-        boardHeight, (y) => List.generate(boardWidth, (x) => Cell(x: x, y: y)));
+    board = List.generate(boardHeight, (y) => List.generate(boardWidth, (x) => Cell(x: x, y: y)));
 
     board[5][5].type = CellType.SNAKE_HEAD;
     board[5][6].type = CellType.SNAKE_PART;
@@ -85,7 +84,6 @@ class SnakeChef extends Game with KeyboardEvents, HasWidgetsOverlay {
     final newX = head.x + direction.x;
     final newY = head.y + direction.y;
 
-    
     if ((newX == boardWidth || newX == -1) || (newY == boardHeight || newY == -1)) {
       gameOver();
       return;

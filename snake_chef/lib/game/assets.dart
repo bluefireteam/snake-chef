@@ -16,7 +16,6 @@ class Assets {
 }
 
 class Ingredients {
-
   static Sprite getLettuce() {
     return Assets.ingredients.getSprite(0, 1);
   }
@@ -27,7 +26,6 @@ class Ingredients {
 }
 
 class Floor {
-
   static Sprite getFloorBorder() {
     return Assets.floor.getSprite(1, 0);
   }
@@ -38,7 +36,6 @@ class Floor {
 }
 
 class Snake {
-
   static Sprite getHeadFacingLeft() {
     return Assets.snake.getSprite(0, 0);
   }
@@ -53,6 +50,22 @@ class Snake {
 
   static Sprite getHeadFacingDown() {
     return Assets.snake.getSprite(3, 0);
+  }
+
+  static Sprite getHeadCornerTopRight() {
+    return Assets.snake.getSprite(2, 4);
+  }
+
+  static Sprite getHeadCornerTopLeft() {
+    return Assets.snake.getSprite(3, 4);
+  }
+
+  static Sprite getHeadCornerBottomRight() {
+    return Assets.snake.getSprite(1, 4);
+  }
+
+  static Sprite getHeadCornerBottomLeft() {
+    return Assets.snake.getSprite(0, 4);
   }
 
   static Sprite getTopViewBodyPart() {

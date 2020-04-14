@@ -26,10 +26,25 @@ class Cell {
     if (type == CellType.SNAKE_HEAD) {
       Sprite sprite;
 
+      final head = snake[0];
+      final next = snake[1];
+
       if (direction.x == 1) {
-        sprite = Snake.getHeadFacingRight();
+        if (head.y == next.y) {
+          sprite = Snake.getHeadFacingRight();
+        } else if (head.y > next.y) {
+          sprite = Snake.getHeadCornerBottomRight();
+        } else if (head.y < next.y) {
+          sprite = Snake.getHeadCornerTopRight();
+        }
       } else if (direction.x == -1) {
-        sprite = Snake.getHeadFacingLeft();
+        if (head.y == next.y) {
+          sprite = Snake.getHeadFacingLeft();
+        } else if (head.y > next.y) {
+          sprite = Snake.getHeadCornerBottomLeft();
+        } else if (head.y < next.y) {
+          sprite = Snake.getHeadCornerTopLeft();
+        }
       } else if (direction.y == 1) {
         sprite = Snake.getHeadFacingDown();
       } else if (direction.y == -1) {
