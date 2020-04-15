@@ -24,3 +24,11 @@ flutter:
     - assets/images/ingredients.png
     - assets/images/plates.png
     - assets/images/snake.png
+    - assets/images/buttons.png
+    - assets/images/background_pattern.png
+    - assets/images/title.png
+
+  fonts:
+   - family: VictorPixel
+     fonts:
+       - asset: assets/fonts/victor-pixel.ttf

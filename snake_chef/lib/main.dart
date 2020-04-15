@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:snake_chef/game/assets.dart';
 
-import './game/game.dart';
-import './game/stage.dart';
+import 'package:snake_chef/game/assets.dart';
+import './widgets/assets.dart';
+
+import './screens/title_screen.dart';
+import './screens/game_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Assets.load();
+  await WidgetsAssets.load();
 
-  final stage = Stage(
-      recipes: [Recipe.salad(), Recipe.salad()],
-      initialX: 5,
-      initialY: 5,
+  runApp(
+      MaterialApp(
+          routes: {
+            '/title': (ctx) => TitleScreen(),
+            '/game': (ctx) => GameScreen(),
+          },
+          initialRoute: '/title',
+
+      )
   );
-  runApp(SnakeChef(boardWidth: 10, boardHeight: 10, stage: stage).widget);
 }
