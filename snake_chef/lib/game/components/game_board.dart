@@ -17,16 +17,20 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
   int boardWidth;
   int boardHeight;
 
-  GameBoard({this.boardWidth, this.boardHeight}) {
+  GameBoard({this.boardWidth, this.boardHeight});
+
+  @override
+  void onMount() {
     resetGame();
   }
 
   void resetGame() {
     board = List.generate(boardHeight, (y) => List.generate(boardWidth, (x) => Cell(x: x, y: y)));
 
-    board[5][5].type = SnakeCell(SnakeCellType.HEAD);
-    board[5][6].type = SnakeCell(SnakeCellType.PART);
+    board[gameRef.stage.initialY][gameRef.stage.initialX].type = SnakeCell(SnakeCellType.HEAD);
+    board[gameRef.stage.initialY][gameRef.stage.initialX + 1].type = SnakeCell(SnakeCellType.PART);
 
+    // TODO Read from stage to spawn all ingredients
     board[2][3].type = IngredientCell(Ingredient.TOMATO);
     board[1][5].type = IngredientCell(Ingredient.LETTUCE);
     board[6][9].type = IngredientCell(Ingredient.TOMATO);
@@ -73,6 +77,8 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
 
   void restartGame() {
     gameRef.hideGameOver();
+    gameRef.recipeIndex = 0;
+    gameRef.collectedIngredients = [];
     resetGame();
   }
 
@@ -105,6 +111,7 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
       if (i == snake.length - 1) {
         if (objectInFrontOfSnake != null && objectInFrontOfSnake is IngredientCell) {
           snake.add(Position(snakePart.x, snakePart.y));
+          gameRef.collectIngredient(objectInFrontOfSnake.ingredient);
         } else {
           board[(snakePart.y).toInt()][(snakePart.x).toInt()].type = null;
         }
