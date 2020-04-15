@@ -4,6 +4,7 @@ import 'package:flame/position.dart';
 import 'package:flame/time.dart';
 import 'package:flutter/material.dart';
 import 'package:snake_chef/game/game.dart';
+import 'package:snake_chef/game/stage.dart';
 
 import 'dart:ui';
 import '../cell.dart';
@@ -23,15 +24,15 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
   void resetGame() {
     board = List.generate(boardHeight, (y) => List.generate(boardWidth, (x) => Cell(x: x, y: y)));
 
-    board[5][5].type = CellType.SNAKE_HEAD;
-    board[5][6].type = CellType.SNAKE_PART;
+    board[5][5].type = SnakeCell(SnakeCellType.HEAD);
+    board[5][6].type = SnakeCell(SnakeCellType.PART);
 
-    board[2][3].type = CellType.INGREDIENT_TOMATO;
-    board[1][5].type = CellType.INGREDIENT_LETTUCE;
-    board[6][9].type = CellType.INGREDIENT_TOMATO;
-    board[3][1].type = CellType.INGREDIENT_LETTUCE;
-    board[3][7].type = CellType.INGREDIENT_TOMATO;
-    board[7][4].type = CellType.INGREDIENT_LETTUCE;
+    board[2][3].type = IngredientCell(Ingredient.TOMATO);
+    board[1][5].type = IngredientCell(Ingredient.LETTUCE);
+    board[6][9].type = IngredientCell(Ingredient.TOMATO);
+    board[3][1].type = IngredientCell(Ingredient.LETTUCE);
+    board[3][7].type = IngredientCell(Ingredient.TOMATO);
+    board[7][4].type = IngredientCell(Ingredient.LETTUCE);
 
     snake = [];
     snake.add(Position(5, 5));
@@ -93,7 +94,7 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
 
     final objectInFrontOfSnake = board[newY.toInt()][newX.toInt()].type;
 
-    if (objectInFrontOfSnake == CellType.SNAKE_PART) {
+    if (objectInFrontOfSnake is SnakeCell && objectInFrontOfSnake.type == SnakeCellType.PART) {
       gameOver();
       return;
     }
@@ -102,7 +103,7 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
       final snakePart = snake[i];
 
       if (i == snake.length - 1) {
-        if (objectInFrontOfSnake != null && objectInFrontOfSnake.toString().startsWith("CellType.INGREDIENT")) {
+        if (objectInFrontOfSnake != null && objectInFrontOfSnake is IngredientCell) {
           snake.add(Position(snakePart.x, snakePart.y));
         } else {
           board[(snakePart.y).toInt()][(snakePart.x).toInt()].type = null;
@@ -113,12 +114,12 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
         snakePart.x += direction.x;
         snakePart.y += direction.y;
 
-        board[(snakePart.y).toInt()][(snakePart.x).toInt()].type = CellType.SNAKE_HEAD;
+        board[(snakePart.y).toInt()][(snakePart.x).toInt()].type = SnakeCell(SnakeCellType.HEAD);
       } else {
         snakePart.x = snake[i - 1].x;
         snakePart.y = snake[i - 1].y;
 
-        board[(snakePart.y).toInt()][(snakePart.x).toInt()].type = CellType.SNAKE_PART;
+        board[(snakePart.y).toInt()][(snakePart.x).toInt()].type = SnakeCell(SnakeCellType.PART);
       }
     }
   }
@@ -133,7 +134,7 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
     for (var y = 0; y < board.length; y++) {
       for (var x = 0; x < board[y].length; x++) {
         final cell = board[y][x];
-        cell.render(canvas, board, direction, snake);
+        cell.render(canvas, this);
       }
     }
   }
