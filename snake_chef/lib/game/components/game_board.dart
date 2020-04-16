@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flame/components/component.dart';
 import 'package:flame/components/mixins/has_game_ref.dart';
 import 'package:flame/position.dart';
@@ -30,13 +32,10 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
     board[gameRef.stage.initialY][gameRef.stage.initialX].type = SnakeCell(SnakeCellType.HEAD);
     board[gameRef.stage.initialY][gameRef.stage.initialX + 1].type = SnakeCell(SnakeCellType.PART);
 
-    // TODO Read from stage to spawn all ingredients
-    board[2][3].type = IngredientCell(Ingredient.TOMATO);
-    board[1][5].type = IngredientCell(Ingredient.LETTUCE);
-    board[6][9].type = IngredientCell(Ingredient.TOMATO);
-    board[3][1].type = IngredientCell(Ingredient.LETTUCE);
-    board[3][7].type = IngredientCell(Ingredient.TOMATO);
-    board[7][4].type = IngredientCell(Ingredient.LETTUCE);
+    gameRef.stage.stageIngredients().forEach((ingredient) {
+      final emptyPosition = getRandomEmptySpace();
+      board[emptyPosition.y.toInt()][emptyPosition.x.toInt()].type = IngredientCell(ingredient);
+    });
 
     snake = [];
     snake.add(Position(5, 5));
@@ -49,6 +48,20 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
     });
 
     timer = Timer(0.5, repeat: true, callback: tick)..start();
+  }
+
+  Position getRandomEmptySpace() {
+    List<Position> emptySpaces = [];
+
+    for (var y = 0; y < board.length; y++) {
+      for (var x = 0; x < board[y].length; x++) {
+        if (board[y][x].type == null) {
+          emptySpaces.add(Position(x.toDouble(), y.toDouble()));
+        }
+      }
+    }
+
+    return emptySpaces[Random().nextInt(emptySpaces.length - 1)];
   }
 
   void turnRight() {
@@ -89,6 +102,11 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
   void gameOver() {
     timer.stop();
     gameRef.showGameOver();
+  }
+
+  void spawnIngredient(Ingredient ingredient) {
+    final emptyPosition = getRandomEmptySpace();
+    board[emptyPosition.y.toInt()][emptyPosition.x.toInt()].type = IngredientCell(ingredient);
   }
 
   void tick() {

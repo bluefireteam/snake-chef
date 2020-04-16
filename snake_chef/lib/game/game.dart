@@ -25,6 +25,7 @@ class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay {
     print(ingredient);
     if (currentRecipe.validIngredient(ingredient)) {
       collectedIngredients.add(ingredient);
+      gameBoard.spawnIngredient(ingredient);
 
       if (currentRecipe.ingredients.length == collectedIngredients.length) {
         if (currentRecipe.checkCompletion(collectedIngredients)) {
