@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flame/position.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/material.dart';
 import 'package:snake_chef/game/assets.dart';
@@ -16,7 +17,9 @@ class Cell {
 
   void render(Canvas canvas, GameBoard gameBoard) {
     final rect = Rect.fromLTWH(x * Cell.cellSize, y * Cell.cellSize, Cell.cellSize, Cell.cellSize);
-    Floor.getFloorTile().renderRect(canvas, rect);
+    if (!(type is ObstacleCell)) {
+      Floor.getFloorTile().renderRect(canvas, rect);
+    }
 
     type?.render(canvas, gameBoard, this, rect);
 
@@ -28,6 +31,17 @@ class Cell {
 
 abstract class CellType {
   void render(Canvas canvas, GameBoard gameBoard, Cell cell, Rect rect);
+}
+
+class ObstacleCell extends CellType {
+  Position obstacle;
+
+  ObstacleCell(this.obstacle);
+
+  @override
+  void render(Canvas canvas, GameBoard gameBoard, Cell cell, Rect rect) {
+    Floor.getFloorBorder().renderRect(canvas, rect);
+  }
 }
 
 class IngredientCell extends CellType {

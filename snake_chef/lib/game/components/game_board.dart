@@ -44,6 +44,10 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
 
     direction = Position(-1, 0);
 
+    gameRef.stage.obstacles.forEach((obstacle) {
+      board[obstacle.y.toInt()][obstacle.x.toInt()].type = ObstacleCell(obstacle);
+    });
+
     timer = Timer(0.5, repeat: true, callback: tick)..start();
   }
 
@@ -100,7 +104,7 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
 
     final objectInFrontOfSnake = board[newY.toInt()][newX.toInt()].type;
 
-    if (objectInFrontOfSnake is SnakeCell && objectInFrontOfSnake.type == SnakeCellType.PART) {
+    if (objectInFrontOfSnake is ObstacleCell || objectInFrontOfSnake is SnakeCell) {
       gameOver();
       return;
     }
