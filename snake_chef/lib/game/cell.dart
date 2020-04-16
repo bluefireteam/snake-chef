@@ -2,10 +2,11 @@ import 'dart:ui';
 
 import 'package:flame/position.dart';
 import 'package:flame/sprite.dart';
-import 'package:flutter/material.dart';
 import 'package:snake_chef/game/assets.dart';
 import 'package:snake_chef/game/components/game_board.dart';
 import 'package:snake_chef/game/stage.dart';
+
+import './ingredient_renderer.dart';
 
 class Cell {
   Cell({this.x, this.y});
@@ -51,12 +52,7 @@ class IngredientCell extends CellType {
 
   @override
   void render(Canvas canvas, GameBoard gameBoard, Cell cell, Rect rect) {
-    if (ingredient == Ingredient.TOMATO) {
-      Ingredients.getTomato().renderRect(canvas, rect);
-    }
-    if (ingredient == Ingredient.LETTUCE) {
-      Ingredients.getLettuce().renderRect(canvas, rect);
-    }
+    renderIngredient(canvas, ingredient, rect);
   }
 }
 

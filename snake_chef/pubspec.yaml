@@ -27,6 +27,8 @@ flutter:
     - assets/images/buttons.png
     - assets/images/background_pattern.png
     - assets/images/title.png
+    - assets/images/nine_box_tileset.png
+    - assets/images/nine_box_white_tileset.png
 
   fonts:
    - family: VictorPixel

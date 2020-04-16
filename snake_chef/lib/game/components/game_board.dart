@@ -19,7 +19,9 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
   int boardWidth;
   int boardHeight;
 
-  GameBoard({this.boardWidth, this.boardHeight});
+  Position renderOffset;
+
+  GameBoard({this.boardWidth, this.boardHeight, this.renderOffset});
 
   @override
   void onMount() {
@@ -96,12 +98,17 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
     gameRef.hideGameOver();
     gameRef.recipeIndex = 0;
     gameRef.collectedIngredients = [];
+
+    gameRef.stageTimer = 0;
+    gameRef.stageTimerController.start();
     resetGame();
   }
 
   void gameOver() {
     timer.stop();
     gameRef.showGameOver();
+
+    gameRef.stageTimerController.stop();
   }
 
   void spawnIngredient(Ingredient ingredient) {
@@ -160,11 +167,16 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
 
   @override
   void render(Canvas canvas) {
+    canvas.save();
+    canvas.translate(renderOffset.x, renderOffset.y);
+
     for (var y = 0; y < board.length; y++) {
       for (var x = 0; x < board[y].length; x++) {
         final cell = board[y][x];
         cell.render(canvas, this);
       }
     }
+
+    canvas.restore();
   }
 }

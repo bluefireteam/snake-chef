@@ -1,10 +1,15 @@
 import 'package:flame/game.dart';
 import 'package:flame/keyboard.dart';
+import 'package:flame/position.dart';
 import 'package:flutter/services.dart';
+import 'package:flame/time.dart';
+import 'package:flame/components/timer_component.dart';
 
 import './components/game_board.dart';
+import './components/top_bar.dart';
 import './widgets/game_over.dart';
 import './stage.dart';
+import './cell.dart';
 
 class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay {
   GameBoard gameBoard;
@@ -13,12 +18,33 @@ class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay {
   Stage stage;
   int recipeIndex = 0;
 
+  Timer stageTimerController;
+  int stageTimer = 0;
+
   Recipe get currentRecipe => stage.recipes[recipeIndex];
 
   List<Ingredient> collectedIngredients = [];
 
   SnakeChef({this.boardWidth, this.boardHeight, this.stage}) {
-    add(gameBoard = GameBoard(boardHeight: boardHeight, boardWidth: boardWidth));
+    final renderOffset = Position(300, 100);
+    add(gameBoard = GameBoard(
+            boardHeight: boardHeight,
+            boardWidth: boardWidth,
+            renderOffset: renderOffset,
+    ));
+
+    add(
+        TopBar()
+        ..x = renderOffset.x
+        ..height = renderOffset.y
+        ..width = boardWidth * Cell.cellSize
+    );
+
+    stageTimerController = Timer(1, repeat: true, callback: () {
+      stageTimer++;
+    })..start();
+
+    add(TimerComponent(stageTimerController));
   }
 
   void collectIngredient(Ingredient ingredient) {

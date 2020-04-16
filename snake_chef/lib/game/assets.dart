@@ -2,13 +2,17 @@ import 'package:flame/sprite.dart';
 import 'package:flame/spritesheet.dart';
 import 'package:flame/flame.dart';
 
+import 'dart:ui';
+
 class Assets {
   static SpriteSheet ingredients;
   static SpriteSheet floor;
   static SpriteSheet snake;
 
   static Future<void> load() async {
-    await Flame.images.loadAll(["floor.png", "ingredients.png", "snake.png"]);
+    await Flame.images.loadAll([
+      "floor.png", "ingredients.png", "snake.png", "nine_box_tileset.png", "nine_box_white_tileset.png",
+    ]);
     ingredients = SpriteSheet(imageName: "ingredients.png", textureHeight: 16, textureWidth: 16, columns: 7, rows: 1);
     floor = SpriteSheet(imageName: "floor.png", textureHeight: 16, textureWidth: 16, columns: 1, rows: 2);
     snake = SpriteSheet(imageName: "snake.png", textureHeight: 16, textureWidth: 16, columns: 5, rows: 5);
