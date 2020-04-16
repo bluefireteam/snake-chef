@@ -2,20 +2,22 @@ import 'package:flame/sprite.dart';
 import 'package:flame/spritesheet.dart';
 import 'package:flame/flame.dart';
 
-import 'dart:ui';
+import './stage.dart';
 
 class Assets {
   static SpriteSheet ingredients;
   static SpriteSheet floor;
   static SpriteSheet snake;
+  static SpriteSheet plates;
 
   static Future<void> load() async {
     await Flame.images.loadAll([
-      "floor.png", "ingredients.png", "snake.png", "nine_box_tileset.png", "nine_box_white_tileset.png",
+      "floor.png", "ingredients.png", "snake.png", "nine_box_tileset.png", "nine_box_white_tileset.png", "plates.png",
     ]);
     ingredients = SpriteSheet(imageName: "ingredients.png", textureHeight: 16, textureWidth: 16, columns: 7, rows: 1);
     floor = SpriteSheet(imageName: "floor.png", textureHeight: 16, textureWidth: 16, columns: 1, rows: 2);
     snake = SpriteSheet(imageName: "snake.png", textureHeight: 16, textureWidth: 16, columns: 5, rows: 5);
+    plates = SpriteSheet(imageName: "plates.png", textureHeight: 32, textureWidth: 48, columns: 1, rows: 3);
   }
 }
 
@@ -110,5 +112,20 @@ class Snake {
 
   static Sprite getBottomRightCorner() {
     return Assets.snake.getSprite(3, 3);
+  }
+}
+
+class Plates {
+  static Sprite getSprite(RecipeName recipe) {
+    switch(recipe) {
+      case RecipeName.SALAD:
+        return Assets.plates.getSprite(0, 0);
+      case RecipeName.PASTA:
+        return Assets.plates.getSprite(1, 0);
+      case RecipeName.BURGER:
+        return Assets.plates.getSprite(2, 0);
+    }
+
+    return null;
   }
 }

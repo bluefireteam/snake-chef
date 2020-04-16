@@ -2,6 +2,7 @@
     "time": 50,
     "recipes": [
         {
+            "recipe": "SALAD",
             "ingredients": [
                 "TOMATO",
                 "LETTUCE"

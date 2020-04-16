@@ -15,7 +15,7 @@ class GameScreen extends StatelessWidget {
             if (snapshot.hasData) {
               final Stage stage = snapshot.data;
 
-              return SnakeChef(boardWidth: 10, boardHeight: 10, stage: stage).widget;
+              return Center(child: SnakeChef(boardWidth: 10, boardHeight: 10, stage: stage).widget);
             }
             return Container();
           }),

@@ -7,6 +7,8 @@ import 'package:flame/components/timer_component.dart';
 
 import './components/game_board.dart';
 import './components/top_bar.dart';
+import './components/top_left_bar.dart';
+import './components/bottom_left_bar.dart';
 import './widgets/game_over.dart';
 import './stage.dart';
 import './cell.dart';
@@ -38,6 +40,22 @@ class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay {
         ..x = renderOffset.x
         ..height = renderOffset.y
         ..width = boardWidth * Cell.cellSize
+    );
+
+    final middleY = ((boardHeight * Cell.cellSize) + renderOffset.y) / 2;
+    add(
+        TopLeftBar()
+        ..x = 0 
+        ..height = middleY
+        ..width = renderOffset.x 
+    );
+
+    add(
+        BottomLeftBar()
+        ..x = 0 
+        ..y = middleY
+        ..height = middleY
+        ..width = renderOffset.x 
     );
 
     stageTimerController = Timer(1, repeat: true, callback: () {

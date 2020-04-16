@@ -35,16 +35,24 @@ class Stage {
   }
 }
 
+enum RecipeName {
+  SALAD,
+  PASTA,
+  BURGER,
+}
+
 class Recipe {
   final List<Ingredient> ingredients;
+  RecipeName recipe;
 
-  Recipe({this.ingredients});
-  Recipe.salad() : this(ingredients: [Ingredient.TOMATO, Ingredient.LETTUCE]);
+  Recipe({this.ingredients, this.recipe});
 
   factory Recipe.fromJson(Map<String, dynamic> json) {
     final ingredients = json["ingredients"].map((ingredient) => Ingredient.values.firstWhere((e) => e.toString() == 'Ingredient.$ingredient'));
 
-    return Recipe(ingredients: ingredients.toList().cast<Ingredient>());
+    final recipe = RecipeName.values.firstWhere((e) => e.toString() == 'RecipeName.${json['recipe']}');
+
+    return Recipe(ingredients: ingredients.toList().cast<Ingredient>(), recipe: recipe);
   }
 
   bool checkCompletion(List<Ingredient> collectedIngredients) {
