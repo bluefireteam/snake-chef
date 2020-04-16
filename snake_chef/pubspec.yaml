@@ -30,6 +30,8 @@ flutter:
     - assets/images/nine_box_tileset.png
     - assets/images/nine_box_white_tileset.png
 
+    - assets/stages/0.json
+
   fonts:
    - family: VictorPixel
      fonts:
