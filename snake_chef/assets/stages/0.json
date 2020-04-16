@@ -7,6 +7,13 @@
                 "TOMATO",
                 "LETTUCE"
             ]
+        },
+        {
+            "recipe": "SALAD",
+            "ingredients": [
+                "TOMATO",
+                "LETTUCE"
+            ]
         }
     ],
     "obstacles": [

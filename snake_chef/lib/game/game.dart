@@ -23,6 +23,9 @@ class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay {
   Timer stageTimerController;
   int stageTimer = 0;
 
+  TopLeftBar topLeftBar;
+  BottomLeftBar bottomLeftBar;
+
   Recipe get currentRecipe => stage.recipes[recipeIndex];
 
   List<Ingredient> collectedIngredients = [];
@@ -44,14 +47,14 @@ class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay {
 
     final middleY = ((boardHeight * Cell.cellSize) + renderOffset.y) / 2;
     add(
-        TopLeftBar()
+        topLeftBar = TopLeftBar()
         ..x = 0 
         ..height = middleY
         ..width = renderOffset.x 
     );
 
     add(
-        BottomLeftBar()
+        bottomLeftBar = BottomLeftBar()
         ..x = 0 
         ..y = middleY
         ..height = middleY
@@ -76,6 +79,8 @@ class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay {
           collectedIngredients = [];
 
           if (recipeIndex + 1 < stage.recipes.length) {
+            topLeftBar.justCompletedOrder();
+            bottomLeftBar.justCompletedOrder();
             print("next recipe");
             recipeIndex++;
           } else {
