@@ -15,8 +15,7 @@ class TitleScreen extends StatelessWidget {
                   Button.primaryButton(
                       label: 'Play',
                       onPressed: () {
-                        // TODO go to stage selection
-                        Navigator.of(ctx).pushNamed('/game');
+                        Navigator.of(ctx).pushNamed('/stage_select');
                       }
                   ),
                 ],
