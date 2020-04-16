@@ -32,6 +32,11 @@ flutter:
 
     - assets/stages/0.json
 
+    - assets/audio/gameover.wav
+    - assets/audio/gameplay.wav
+    - assets/audio/title.wav
+    - assets/audio/win_fanfarre.wav
+
   fonts:
    - family: VictorPixel
      fonts:
