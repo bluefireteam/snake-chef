@@ -20,7 +20,7 @@ class TopBar extends NineTileBoxComponent with HasGameRef<SnakeChef> {
   final counterText = TextConfig(
       fontFamily: 'VictorPixel',
       fontSize: 22,
-      color: Color(0xFF94b0c2),
+      color: Color(0xFF333c57),
   );
 
 
