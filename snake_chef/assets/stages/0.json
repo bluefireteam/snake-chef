@@ -1,0 +1,27 @@
+{
+    "time": 50,
+    "recipes": [
+        {
+            "ingredients": [
+                "TOMATO",
+                "LETTUCE"
+            ]
+        }
+    ],
+    "obstacles": [
+        {
+            "x": 0,
+            "y": 0
+        },
+        {
+            "x": 3,
+            "y": 2
+        },
+        {
+            "x": 4,
+            "y": 6
+        }
+    ],
+    "initialX": 5,
+    "initialY": 5
+}

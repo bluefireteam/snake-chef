@@ -27,6 +27,7 @@ flutter:
     - assets/images/buttons.png
     - assets/images/background_pattern.png
     - assets/images/title.png
+    - assets/stages/0.json
 
   fonts:
    - family: VictorPixel
