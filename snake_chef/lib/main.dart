@@ -5,6 +5,7 @@ import './widgets/assets.dart';
 
 import './screens/title_screen.dart';
 import './screens/game_screen.dart';
+import './screens/stage_select_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,6 +17,7 @@ void main() async {
           routes: {
             '/title': (ctx) => TitleScreen(),
             '/game': (ctx) => GameScreen(),
+            '/stage_select': (ctx) => StageSelectScreen(),
           },
           initialRoute: '/title',
 
