@@ -4,6 +4,7 @@ import 'package:flame/position.dart';
 import 'package:flutter/services.dart';
 import 'package:flame/time.dart';
 import 'package:flame/components/timer_component.dart';
+import 'package:snake_chef/game/widgets/game_win.dart';
 
 import './components/game_board.dart';
 import './components/top_bar.dart';
@@ -33,37 +34,32 @@ class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay {
   SnakeChef({this.boardWidth, this.boardHeight, this.stage}) {
     final renderOffset = Position(300, 100);
     add(gameBoard = GameBoard(
-            boardHeight: boardHeight,
-            boardWidth: boardWidth,
-            renderOffset: renderOffset,
+      boardHeight: boardHeight,
+      boardWidth: boardWidth,
+      renderOffset: renderOffset,
     ));
 
-    add(
-        TopBar()
-        ..x = renderOffset.x
-        ..height = renderOffset.y
-        ..width = boardWidth * Cell.cellSize
-    );
+    add(TopBar()
+      ..x = renderOffset.x
+      ..height = renderOffset.y
+      ..width = boardWidth * Cell.cellSize);
 
     final middleY = ((boardHeight * Cell.cellSize) + renderOffset.y) / 2;
-    add(
-        topLeftBar = TopLeftBar()
-        ..x = 0 
-        ..height = middleY
-        ..width = renderOffset.x 
-    );
+    add(topLeftBar = TopLeftBar()
+      ..x = 0
+      ..height = middleY
+      ..width = renderOffset.x);
 
-    add(
-        bottomLeftBar = BottomLeftBar()
-        ..x = 0 
-        ..y = middleY
-        ..height = middleY
-        ..width = renderOffset.x 
-    );
+    add(bottomLeftBar = BottomLeftBar()
+      ..x = 0
+      ..y = middleY
+      ..height = middleY
+      ..width = renderOffset.x);
 
     stageTimerController = Timer(1, repeat: true, callback: () {
       stageTimer++;
-    })..start();
+    })
+      ..start();
 
     add(TimerComponent(stageTimerController));
   }
@@ -84,8 +80,8 @@ class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay {
             print("next recipe");
             recipeIndex++;
           } else {
-            // TODO show win and go to next level
-            print("Ganhouuuuu");
+            showGameWin();
+            pauseEngine();
           }
         } else {
           gameBoard.gameOver();
@@ -116,6 +112,13 @@ class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay {
     addWidgetOverlay(
       'GameOverMenu',
       GameOver(restartGame: gameBoard.restartGame),
+    );
+  }
+
+  void showGameWin() {
+    addWidgetOverlay(
+      'GameWinMenu',
+      GameWin(),
     );
   }
 
