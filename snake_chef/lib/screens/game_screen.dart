@@ -8,7 +8,7 @@ import '../audio_manager.dart';
 class GameScreen extends StatelessWidget {
   @override
   Widget build(ctx) {
-    AudioManager.loopBackgroundMusic('gameplay.mp3');
+    AudioManager.loopBackgroundMusic('gameplay.ogg');
 
     final stageNumber = ModalRoute.of(ctx).settings.arguments;
 

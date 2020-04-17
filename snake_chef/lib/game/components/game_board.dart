@@ -98,7 +98,7 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
   }
 
   void restartGame() {
-    AudioManager.loopBackgroundMusic('gameplay.mp3');
+    AudioManager.loopBackgroundMusic('gameplay.ogg');
     gameRef.hideGameOver();
     gameRef.recipeIndex = 0;
     gameRef.recipeLabelCounter = 0;
@@ -110,7 +110,7 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
   }
 
   void gameOver({String label}) {
-    AudioManager.playBackgroundMusic('gameover.wav');
+    AudioManager.playBackgroundMusic('gameover.ogg');
     timer.stop();
     gameRef.showGameOver(label: label);
 

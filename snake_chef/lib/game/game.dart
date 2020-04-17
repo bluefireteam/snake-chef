@@ -88,7 +88,7 @@ class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay {
             bottomLeftBar.justCompletedOrder();
             recipeIndex++;
           } else {
-            AudioManager.playBackgroundMusic('win_fanfarre.wav');
+            AudioManager.playBackgroundMusic('win_fanfarre.ogg');
             pauseEngine();
             showGameWin();
           }
