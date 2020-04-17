@@ -20,7 +20,8 @@ class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay {
   int boardWidth;
   int boardHeight;
   Stage stage;
-  int recipeIndex = 0;
+  int recipeIndex = 1;
+  int recipeLabelCounter = 1;
 
   Timer stageTimerController;
   int stageTimer = 0;
@@ -80,16 +81,16 @@ class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay {
         if (currentRecipe.checkCompletion(collectedIngredients)) {
           collectedIngredients = [];
 
-          recipeIndex++;
-
+          recipeLabelCounter++;
           if (recipeIndex + 1 < stage.recipes.length) {
             AudioManager.playSfx('recipe_done.wav');
             topLeftBar.justCompletedOrder();
             bottomLeftBar.justCompletedOrder();
+            recipeIndex++;
           } else {
             AudioManager.playBackgroundMusic('win_fanfarre.wav');
-            showGameWin();
             pauseEngine();
+            showGameWin();
           }
         } else {
           gameBoard.gameOver();

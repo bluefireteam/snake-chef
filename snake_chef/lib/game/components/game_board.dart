@@ -35,11 +35,6 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
     board[gameRef.stage.initialY][gameRef.stage.initialX].type = SnakeCell(SnakeCellType.HEAD);
     board[gameRef.stage.initialY][gameRef.stage.initialX + 1].type = SnakeCell(SnakeCellType.PART);
 
-    gameRef.stage.stageIngredients().forEach((ingredient) {
-      final emptyPosition = getRandomEmptySpace();
-      board[emptyPosition.y.toInt()][emptyPosition.x.toInt()].type = IngredientCell(ingredient);
-    });
-
     snake = [];
 
     snake.add(Position(gameRef.stage.initialX.toDouble(), gameRef.stage.initialY.toDouble()));
@@ -49,6 +44,11 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
 
     gameRef.stage.obstacles.forEach((obstacle) {
       board[obstacle.y.toInt()][obstacle.x.toInt()].type = ObstacleCell(obstacle);
+    });
+
+    gameRef.stage.stageIngredients().forEach((ingredient) {
+      final emptyPosition = getRandomEmptySpace();
+      board[emptyPosition.y.toInt()][emptyPosition.x.toInt()].type = IngredientCell(ingredient);
     });
 
     gameRef.stageTimer = gameRef.stage.time;
@@ -101,6 +101,7 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
     AudioManager.loopBackgroundMusic('gameplay.mp3');
     gameRef.hideGameOver();
     gameRef.recipeIndex = 0;
+    gameRef.recipeLabelCounter = 0;
     gameRef.collectedIngredients = [];
 
     gameRef.stageTimer = 0;
