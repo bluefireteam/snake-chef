@@ -16,7 +16,7 @@ class TitleScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Image.asset('images/title.png', width: 700),
+            Image.asset('assets/images/title.png', width: 700),
             Column(
               children: [
                 Button.primaryButton(

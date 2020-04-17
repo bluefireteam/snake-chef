@@ -10,7 +10,7 @@ class PatternContainer extends StatelessWidget {
     return Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("images/background_pattern.png"),
+                image: AssetImage("assets/images/pattern.png"),
                 repeat: ImageRepeat.repeat,
             ),
         ),
