@@ -1,6 +1,20 @@
 {
-    "time": 50,
+    "time": 40,
     "recipes": [
+        {
+            "recipe": "SALAD",
+            "ingredients": [
+                "TOMATO",
+                "LETTUCE"
+            ]
+        },
+        {
+            "recipe": "SALAD",
+            "ingredients": [
+                "TOMATO",
+                "LETTUCE"
+            ]
+        },
         {
             "recipe": "SALAD",
             "ingredients": [
@@ -18,15 +32,15 @@
     ],
     "obstacles": [
         {
-            "x": 0,
-            "y": 0
+            "x": 2,
+            "y": 7
         },
         {
             "x": 3,
             "y": 2
         },
         {
-            "x": 4,
+            "x": 6,
             "y": 6
         }
     ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import './screens/credits_screen.dart';
 import './screens/title_screen.dart';
 import './screens/game_screen.dart';
 import './screens/stage_select_screen.dart';
@@ -15,6 +16,7 @@ void main() async {
             '/title': (ctx) => TitleScreen(),
             '/game': (ctx) => GameScreen(),
             '/stage_select': (ctx) => StageSelectScreen(),
+            '/credits': (ctx) => CreditsScreen(),
           },
           initialRoute: '/loading',
 

@@ -3,12 +3,7 @@ import 'package:flutter/material.dart';
 import '../../widgets/button.dart';
 import '../../widgets/label.dart';
 
-class GameOver extends StatelessWidget {
-  final VoidCallback restartGame;
-  final String label;
-
-  GameOver({this.restartGame, this.label});
-
+class GameWin extends StatelessWidget {
   @override
   Widget build(ctx) {
     return Center(
@@ -22,13 +17,15 @@ class GameOver extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Label(label: label, fontSize: 45, fontColor: Color(0xFF94b0c2)),
+              Label(label: 'Stage Clear!', fontSize: 35, fontColor: Color(0xFF94b0c2)),
               Button.primaryButton(
-                label: 'Restart',
-                onPressed: restartGame,
+                label: 'Next stage',
+                onPressed: () {
+                  Navigator.of(ctx).pushNamed('/stage_select');
+                },
               ),
               Button.secondaryButton(
-                label: 'Back',
+                label: 'Home',
                 onPressed: () {
                   Navigator.of(ctx).pushReplacementNamed("/title");
                 },

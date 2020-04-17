@@ -41,8 +41,9 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
     });
 
     snake = [];
-    snake.add(Position(5, 5));
-    snake.add(Position(6, 5));
+
+    snake.add(Position(gameRef.stage.initialX.toDouble(), gameRef.stage.initialY.toDouble()));
+    snake.add(Position((gameRef.stage.initialX.toDouble() + 1), gameRef.stage.initialY.toDouble()));
 
     direction = Position(-1, 0);
 
@@ -50,6 +51,7 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
       board[obstacle.y.toInt()][obstacle.x.toInt()].type = ObstacleCell(obstacle);
     });
 
+    gameRef.stageTimer = gameRef.stage.time;
     timer = Timer(0.5, repeat: true, callback: tick)..start();
   }
 
@@ -106,10 +108,10 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
     resetGame();
   }
 
-  void gameOver() {
+  void gameOver({String label}) {
     AudioManager.playBackgroundMusic('gameover.wav');
     timer.stop();
-    gameRef.showGameOver();
+    gameRef.showGameOver(label: label);
 
     gameRef.stageTimerController.stop();
   }
