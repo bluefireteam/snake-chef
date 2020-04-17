@@ -56,8 +56,12 @@ class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay {
       ..height = middleY
       ..width = renderOffset.x);
 
+    stageTimer = stage.time;
     stageTimerController = Timer(1, repeat: true, callback: () {
-      stageTimer++;
+      stageTimer--;
+      if (stageTimer == 0) {
+        gameBoard.gameOver(label: "Time's Up!");
+      }
     })
       ..start();
 
@@ -108,10 +112,10 @@ class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay {
     }
   }
 
-  void showGameOver() {
+  void showGameOver({String label}) {
     addWidgetOverlay(
       'GameOverMenu',
-      GameOver(restartGame: gameBoard.restartGame),
+      GameOver(restartGame: gameBoard.restartGame, label: label ?? "Game Over"),
     );
   }
 

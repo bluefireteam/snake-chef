@@ -17,7 +17,7 @@ class GameWin extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Label(label: 'Stage clear!', fontSize: 35, fontColor: Color(0xFF94b0c2)),
+              Label(label: 'Stage Clear!', fontSize: 35, fontColor: Color(0xFF94b0c2)),
               Button.primaryButton(
                 label: 'Next stage',
                 onPressed: () {

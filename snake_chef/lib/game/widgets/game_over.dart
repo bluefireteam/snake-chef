@@ -5,8 +5,9 @@ import '../../widgets/label.dart';
 
 class GameOver extends StatelessWidget {
   final VoidCallback restartGame;
+  final String label;
 
-  GameOver({this.restartGame});
+  GameOver({this.restartGame, this.label});
 
   @override
   Widget build(ctx) {
@@ -21,7 +22,7 @@ class GameOver extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Label(label: 'Game Over', fontSize: 45, fontColor: Color(0xFF94b0c2)),
+              Label(label: label, fontSize: 45, fontColor: Color(0xFF94b0c2)),
               Button.primaryButton(
                 label: 'Restart',
                 onPressed: restartGame,
