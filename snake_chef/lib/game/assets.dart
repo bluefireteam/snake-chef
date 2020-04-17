@@ -12,7 +12,12 @@ class Assets {
 
   static Future<void> load() async {
     await Flame.images.loadAll([
-      "floor.png", "ingredients.png", "snake.png", "nine_box_tileset.png", "nine_box_white_tileset.png", "plates.png",
+      "floor.png",
+      "ingredients.png",
+      "snake.png",
+      "nine_box_tileset.png",
+      "nine_box_white_tileset.png",
+      "plates.png",
     ]);
     ingredients = SpriteSheet(imageName: "ingredients.png", textureHeight: 16, textureWidth: 16, columns: 7, rows: 1);
     floor = SpriteSheet(imageName: "floor.png", textureHeight: 16, textureWidth: 16, columns: 1, rows: 2);
@@ -22,12 +27,32 @@ class Assets {
 }
 
 class Ingredients {
+  static Sprite getTomato() {
+    return Assets.ingredients.getSprite(0, 0);
+  }
+
   static Sprite getLettuce() {
     return Assets.ingredients.getSprite(0, 1);
   }
 
-  static Sprite getTomato() {
-    return Assets.ingredients.getSprite(0, 0);
+  static Sprite getPasta() {
+    return Assets.ingredients.getSprite(0, 2);
+  }
+
+  static Sprite getMeatBalls() {
+    return Assets.ingredients.getSprite(0, 3);
+  }
+
+  static Sprite getBread() {
+    return Assets.ingredients.getSprite(0, 4);
+  }
+
+  static Sprite getCheese() {
+    return Assets.ingredients.getSprite(0, 5);
+  }
+
+  static Sprite getHamburguer() {
+    return Assets.ingredients.getSprite(0, 6);
   }
 }
 
@@ -117,7 +142,7 @@ class Snake {
 
 class Plates {
   static Sprite getSprite(RecipeName recipe) {
-    switch(recipe) {
+    switch (recipe) {
       case RecipeName.SALAD:
         return Assets.plates.getSprite(0, 0);
       case RecipeName.PASTA:

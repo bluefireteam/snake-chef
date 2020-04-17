@@ -1,47 +1,51 @@
 {
-    "time": 60,
+    "time": 80,
     "recipes": [
         {
-            "recipe": "SALAD",
+            "recipe": "PASTA",
             "ingredients": [
                 "TOMATO",
-                "LETTUCE"
+                "PASTA",
+                "MEAT_BALLS"
             ]
         },
         {
-            "recipe": "SALAD",
+            "recipe": "PASTA",
             "ingredients": [
                 "TOMATO",
-                "LETTUCE"
+                "PASTA",
+                "MEAT_BALLS"
             ]
         },
         {
-            "recipe": "SALAD",
+            "recipe": "PASTA",
             "ingredients": [
                 "TOMATO",
-                "LETTUCE"
+                "PASTA",
+                "MEAT_BALLS"
             ]
         },
         {
-            "recipe": "SALAD",
+            "recipe": "PASTA",
             "ingredients": [
                 "TOMATO",
-                "LETTUCE"
+                "PASTA",
+                "MEAT_BALLS"
             ]
         }
     ],
     "obstacles": [
         {
-            "x": 2,
-            "y": 7
-        },
-        {
             "x": 3,
-            "y": 2
+            "y": 9
         },
         {
-            "x": 6,
-            "y": 6
+            "x": 4,
+            "y": 3
+        },
+        {
+            "x": 7,
+            "y": 7
         }
     ],
     "initialX": 5,

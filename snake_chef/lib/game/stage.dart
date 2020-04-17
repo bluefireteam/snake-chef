@@ -1,6 +1,6 @@
 import 'package:flame/position.dart';
 
-enum Ingredient { TOMATO, LETTUCE }
+enum Ingredient { TOMATO, LETTUCE, PASTA, MEAT_BALLS, BREAD, CHEESE, HAMBURGUER }
 
 class Stage {
   final List<Recipe> recipes;
