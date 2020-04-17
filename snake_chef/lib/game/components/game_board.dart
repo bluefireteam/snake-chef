@@ -10,6 +10,7 @@ import 'package:snake_chef/game/stage.dart';
 
 import 'dart:ui';
 import '../cell.dart';
+import '../../audio_manager.dart';
 
 class GameBoard extends Component with HasGameRef<SnakeChef> {
   List<List<Cell>> board;
@@ -33,7 +34,7 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
 
     board[gameRef.stage.initialY][gameRef.stage.initialX].type = SnakeCell(SnakeCellType.HEAD);
     board[gameRef.stage.initialY][gameRef.stage.initialX + 1].type = SnakeCell(SnakeCellType.PART);
-
+//
     gameRef.stage.stageIngredients().forEach((ingredient) {
       final emptyPosition = getRandomEmptySpace();
       board[emptyPosition.y.toInt()][emptyPosition.x.toInt()].type = IngredientCell(ingredient);
@@ -97,6 +98,7 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
   }
 
   void restartGame() {
+    AudioManager.loopBackgroundMusic('gameplay.mp3');
     gameRef.hideGameOver();
     gameRef.recipeIndex = 0;
     gameRef.collectedIngredients = [];
@@ -107,6 +109,7 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
   }
 
   void gameOver({String label}) {
+    AudioManager.playBackgroundMusic('gameover.wav');
     timer.stop();
     gameRef.showGameOver(label: label);
 

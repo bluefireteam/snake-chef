@@ -13,6 +13,7 @@ import './components/bottom_left_bar.dart';
 import './widgets/game_over.dart';
 import './stage.dart';
 import './cell.dart';
+import '../audio_manager.dart';
 
 class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay {
   GameBoard gameBoard;
@@ -69,8 +70,9 @@ class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay {
   }
 
   void collectIngredient(Ingredient ingredient) {
-    print(ingredient);
     if (currentRecipe.validIngredient(ingredient)) {
+      AudioManager.playSfx('ingredient_collected.wav');
+
       collectedIngredients.add(ingredient);
       gameBoard.spawnIngredient(ingredient);
 
@@ -79,11 +81,13 @@ class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay {
           collectedIngredients = [];
 
           if (recipeIndex + 1 < stage.recipes.length) {
+            AudioManager.playSfx('recipe_done.wav');
             topLeftBar.justCompletedOrder();
             bottomLeftBar.justCompletedOrder();
             print("next recipe");
             recipeIndex++;
           } else {
+            AudioManager.playBackgroundMusic('win_fanfarre.wav');
             showGameWin();
             pauseEngine();
           }
