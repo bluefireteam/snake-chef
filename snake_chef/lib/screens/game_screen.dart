@@ -3,9 +3,14 @@ import '../game/game.dart';
 import '../game/stage.dart';
 import '../stage_loader.dart';
 
+import '../audio_manager.dart';
+
 class GameScreen extends StatelessWidget {
   @override
   Widget build(ctx) {
+
+    AudioManager.loopBackgroundMusic('gameplay.mp3');
+
     final stageNumber = ModalRoute.of(ctx).settings.arguments;
 
     return Scaffold(

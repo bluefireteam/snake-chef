@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 import '../widgets/pattern_container.dart';
 import '../widgets/button.dart';
 
+import '../audio_manager.dart';
+
 class TitleScreen extends StatelessWidget {
   @override
   Widget build(ctx) {
+
+    AudioManager.loopBackgroundMusic('title.wav');
+
     return PatternContainer(
         child: Center(
             child: Column(
