@@ -12,19 +12,18 @@ import '../ingredient_renderer.dart';
 
 class TopBar extends NineTileBoxComponent with HasGameRef<SnakeChef> {
   final labelText = TextConfig(
-      fontFamily: 'VictorPixel',
-      fontSize: 22,
-      color: Color(0xFF94b0c2),
+    fontFamily: 'VictorPixel',
+    fontSize: 22,
+    color: Color(0xFF94b0c2),
   );
 
   final counterText = TextConfig(
-      fontFamily: 'VictorPixel',
-      fontSize: 22,
-      color: Color(0xFF333c57),
+    fontFamily: 'VictorPixel',
+    fontSize: 22,
+    color: Color(0xFF333c57),
   );
 
-
-  TopBar(): super(NineTileBox(Sprite('nine_box_white_tileset.png'), tileSize: 16, destTileSize: 50));
+  TopBar() : super(NineTileBox(Sprite('nine_box_white_tileset.png'), tileSize: 16, destTileSize: 50));
 
   @override
   void render(Canvas canvas) {
@@ -32,6 +31,9 @@ class TopBar extends NineTileBoxComponent with HasGameRef<SnakeChef> {
 
     final refLeft = x + 30;
     labelText.render(canvas, 'Collected', Position(refLeft, 20));
+
+    labelText.render(canvas, 'Recipe', Position(x + width - 230, 20));
+    counterText.render(canvas, '${gameRef.recipeIndex + 1}/${gameRef.stage.recipes.length}', Position(x + width - 230, 45));
 
     var i = 0;
     gameRef.collectedIngredients.forEach((ingredient) {
