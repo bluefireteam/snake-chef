@@ -4,20 +4,25 @@ import 'package:snake_chef/game/assets.dart';
 import 'dart:ui';
 
 Sprite mapIngredientSprite(Ingredient ingredient) {
-  if (ingredient == Ingredient.TOMATO) {
-    return Ingredients.getTomato();
-  } else if (ingredient == Ingredient.LETTUCE) {
-    return Ingredients.getLettuce();
-  } else if (ingredient == Ingredient.PASTA) {
-    return Ingredients.getPasta();
-  } else if (ingredient == Ingredient.MEAT_BALLS) {
-    return Ingredients.getMeatBalls();
-  } else if (ingredient == Ingredient.BREAD) {
-    return Ingredients.getBread();
-  } else if (ingredient == Ingredient.CHEESE) {
-    return Ingredients.getCheese();
-  } else if (ingredient == Ingredient.HAMBURGUER) {
-    return Ingredients.getHamburguer();
+  switch (ingredient) {
+    case Ingredient.TOMATO:
+      return Ingredients.getTomato();
+    case Ingredient.LETTUCE:
+      return Ingredients.getLettuce();
+    case Ingredient.PASTA:
+      return Ingredients.getPasta();
+    case Ingredient.MEAT_BALLS:
+      return Ingredients.getMeatBalls();
+    case Ingredient.BREAD:
+      return Ingredients.getBread();
+    case Ingredient.CHEESE:
+      return Ingredients.getCheese();
+    case Ingredient.HAMBURGUER:
+      return Ingredients.getHamburguer();
+    case Ingredient.ONION:
+      return Ingredients.getOnion();
+    case Ingredient.MUSHROOM:
+      return Ingredients.getMushroom();
   }
 
   return null;

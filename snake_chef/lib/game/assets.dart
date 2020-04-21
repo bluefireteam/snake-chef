@@ -19,10 +19,10 @@ class Assets {
       "nine_box_white_tileset.png",
       "plates.png",
     ]);
-    ingredients = SpriteSheet(imageName: "ingredients.png", textureHeight: 16, textureWidth: 16, columns: 7, rows: 1);
+    ingredients = SpriteSheet(imageName: "ingredients.png", textureHeight: 16, textureWidth: 16, columns: 7, rows: 2);
     floor = SpriteSheet(imageName: "floor.png", textureHeight: 16, textureWidth: 16, columns: 1, rows: 2);
     snake = SpriteSheet(imageName: "snake.png", textureHeight: 16, textureWidth: 16, columns: 5, rows: 5);
-    plates = SpriteSheet(imageName: "plates.png", textureHeight: 32, textureWidth: 48, columns: 1, rows: 3);
+    plates = SpriteSheet(imageName: "plates.png", textureHeight: 32, textureWidth: 48, columns: 2, rows: 3);
   }
 }
 
@@ -53,6 +53,14 @@ class Ingredients {
 
   static Sprite getHamburguer() {
     return Assets.ingredients.getSprite(0, 6);
+  }
+
+  static Sprite getOnion() {
+    return Assets.ingredients.getSprite(1, 0);
+  }
+
+  static Sprite getMushroom() {
+    return Assets.ingredients.getSprite(1, 1);
   }
 }
 
@@ -149,6 +157,12 @@ class Plates {
         return Assets.plates.getSprite(1, 0);
       case RecipeName.BURGER:
         return Assets.plates.getSprite(2, 0);
+      case RecipeName.MUSHROOM_SOUP:
+        return Assets.plates.getSprite(0, 1);
+      case RecipeName.ONION_SOUP:
+        return Assets.plates.getSprite(1, 1);
+      case RecipeName.TOMATO_SOUP:
+        return Assets.plates.getSprite(2, 1);
     }
 
     return null;

@@ -4,7 +4,7 @@ import 'dart:convert';
 import './game/stage.dart';
 
 class StageLoader {
-  static const STAGE_COUNT = 3;
+  static const STAGE_COUNT = 4;
 
   static Future<Stage> loadStage(int id) async {
     final raw = await Flame.assets.readFile("stages/${id ?? 0}.json");

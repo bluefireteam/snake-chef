@@ -121,9 +121,9 @@ class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay, Horizon
           recipeLabelCounter++;
           if (recipeIndex + 1 < stage.recipes.length) {
             AudioManager.playSfx('recipe_done.wav');
+            recipeIndex++;
             topLeftBar.justCompletedOrder();
             bottomLeftBar.justCompletedOrder();
-            recipeIndex++;
           } else {
             AudioManager.playBackgroundMusic('win_fanfarre.ogg');
             addCelebrationComponent();

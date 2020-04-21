@@ -1,0 +1,45 @@
+{
+    "time": 120,
+    "recipes": [
+        {
+            "recipe": "MUSHROOM_SOUP",
+            "ingredients": [
+                "MUSHROOM",
+                "MUSHROOM",
+                "MUSHROOM"
+            ]
+        },
+        {
+            "recipe": "ONION_SOUP",
+            "ingredients": [
+                "ONION",
+                "ONION",
+                "ONION"
+            ]
+        },
+        {
+            "recipe": "TOMATO_SOUP",
+            "ingredients": [
+                "TOMATO",
+                "TOMATO",
+                "TOMATO"
+            ]
+        }
+    ],
+    "obstacles": [
+        {
+            "x": 3,
+            "y": 9
+        },
+        {
+            "x": 4,
+            "y": 3
+        },
+        {
+            "x": 7,
+            "y": 7
+        }
+    ],
+    "initialX": 5,
+    "initialY": 5
+}

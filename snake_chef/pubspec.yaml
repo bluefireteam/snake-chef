@@ -37,6 +37,7 @@ flutter:
     - assets/stages/0.json
     - assets/stages/1.json
     - assets/stages/2.json
+    - assets/stages/3.json
 
     - assets/audio/gameover.ogg
     - assets/audio/gameplay.ogg

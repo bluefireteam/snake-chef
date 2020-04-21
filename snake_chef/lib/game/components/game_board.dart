@@ -108,6 +108,8 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
 
     gameRef.stageTimer = 0;
     gameRef.stageTimerController.start();
+
+    gameRef.bottomLeftBar.reset();
     resetGame();
   }
 

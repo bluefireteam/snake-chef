@@ -41,6 +41,10 @@ class BottomLeftBar extends NineTileBoxComponent with HasGameRef<SnakeChef> {
     initIngredientPositions();
   }
 
+  void reset() {
+    initIngredientPositions();
+  }
+
   @override
   void update(double dt) {
     super.update(dt);
