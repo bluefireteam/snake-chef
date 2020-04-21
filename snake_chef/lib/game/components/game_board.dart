@@ -90,7 +90,7 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
     }
   }
 
-  void turndown() {
+  void turnDown() {
     if (direction.x != 0) {
       direction.y = 1;
       direction.x = 0;

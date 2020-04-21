@@ -4,6 +4,7 @@ import 'package:flame/keyboard.dart';
 import 'package:flame/position.dart';
 import 'package:flame/time.dart';
 import 'package:flame/components/timer_component.dart';
+import 'package:flame/gestures.dart';
 import 'package:snake_chef/game/widgets/game_win.dart';
 
 import 'dart:ui';
@@ -18,7 +19,7 @@ import './stage.dart';
 import './cell.dart';
 import '../audio_manager.dart';
 
-class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay {
+class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay, HorizontalDragDetector, VerticalDragDetector {
   GameBoard gameBoard;
   int boardWidth;
   int boardHeight;
@@ -141,8 +142,26 @@ class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay {
       } else if (key == "ArrowUp") {
         gameBoard.turnUp();
       } else if (key == "ArrowDown") {
-        gameBoard.turndown();
+        gameBoard.turnDown();
       }
+    }
+  }
+
+  @override
+  void onHorizontalDragEnd(details) {
+    if (details.velocity.pixelsPerSecond.dx > 0) {
+      gameBoard.turnRight();
+    } else {
+      gameBoard.turnLeft();
+    }
+  }
+
+  @override
+  void onVerticalDragEnd(details) {
+    if (details.velocity.pixelsPerSecond.dy > 0) {
+      gameBoard.turnDown();
+    } else {
+      gameBoard.turnUp();
     }
   }
 
