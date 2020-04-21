@@ -51,19 +51,6 @@ class BottomLeftBar extends NineTileBoxComponent with HasGameRef<SnakeChef> {
   }
 
   void initIngredientPositions() {
-      //final recipeLength = gameRef.currentRecipe.ingredients.length;
-      //for (var i = 0; i < recipeLength; i++) {
-      //  final ingredient = gameRef.currentRecipe.ingredients[i];
-
-      //  final w = width / recipeLength - 50;
-      //  final rect = Rect.fromLTWH(
-      //      width / 2 - i * w,
-      //      y + 100,
-      //      w,
-      //      w
-      //  );
-      //}
-
     _ingredientsPositions = [];
 
     final ingredients = gameRef.currentRecipe.ingredients;
@@ -91,8 +78,6 @@ class BottomLeftBar extends NineTileBoxComponent with HasGameRef<SnakeChef> {
         c++;
       }
     }
-
-
   }
 
   @override
