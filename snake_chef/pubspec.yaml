@@ -11,6 +11,7 @@ dependencies:
     sdk: flutter
   http: ^0.12.0+4
   flame: 0.19.1
+  flame_splash_screen: 0.0.1
 
   cupertino_icons: ^0.1.3
 
@@ -21,6 +22,8 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - assets/images/fireslime-banner.png
+
     - assets/images/floor.png
     - assets/images/ingredients.png
     - assets/images/plates.png
