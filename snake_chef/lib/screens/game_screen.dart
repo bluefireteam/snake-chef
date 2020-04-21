@@ -12,20 +12,40 @@ class GameScreen extends StatelessWidget {
 
     final stageNumber = ModalRoute.of(ctx).settings.arguments;
 
-    return Container(
-        color: Colors.black,
-        child: Scaffold(
-          backgroundColor: Colors.black,
-          body: FutureBuilder(
-              future: StageLoader.loadStage(stageNumber),
-              builder: (BuildContext ctx, AsyncSnapshot<Stage> snapshot) {
-                if (snapshot.hasData) {
-                  final Stage stage = snapshot.data;
+    return LayoutBuilder(
+        builder: (ctx, constraints) {
+          return Container(
+              color: Colors.black,
+              child: Scaffold(
+                  backgroundColor: Colors.black,
+                  body: FutureBuilder(
+                      future: StageLoader.loadStage(stageNumber),
+                      builder: (BuildContext ctx, AsyncSnapshot<Stage> snapshot) {
+                        if (snapshot.hasData) {
+                          final Stage stage = snapshot.data;
+                          final size = Size(constraints.maxWidth, constraints.maxHeight);
+                          final snakeChefGame = SnakeChef(
+                              screenSize: size,
+                              boardWidth: 10,
+                              boardHeight: 10,
+                              stage: stage
+                          );
 
-                  return Center(child: Container(width: 805, height: 620, child: SnakeChef(boardWidth: 10, boardHeight: 10, stage: stage).widget));
-                }
-                return Container();
-              }),
-        ));
+                          return Center(
+                              child: Container(
+                                  width: snakeChefGame.gameWidgetSize.width,
+                                  height: snakeChefGame.gameWidgetSize.height,
+                                  child: snakeChefGame.widget
+                              )
+                          );
+                        } else if (snapshot.hasError) {
+                          print(snapshot.error);
+                        }
+
+                        return Container();
+                      }),
+              ));
+        }
+    );
   }
 }

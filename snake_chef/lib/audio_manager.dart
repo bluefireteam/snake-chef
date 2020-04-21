@@ -5,8 +5,10 @@ import 'package:http/http.dart' as http;
 
 class AudioManager {
   static AudioPlayer _currentBackgroundMusic;
+  static bool isAudioEnabled = false;
 
   static Future<void> load() async {
+    if (!isAudioEnabled) return;
     if (kIsWeb) {
       await Future.wait([
         http.get('/assets/audio/gameover.ogg'),
@@ -30,18 +32,21 @@ class AudioManager {
   }
 
   static loopBackgroundMusic(String music) async {
+    if (!isAudioEnabled) return;
     _currentBackgroundMusic?.stop();
 
     _currentBackgroundMusic = await Flame.audio.loopLongAudio(music);
   }
 
   static playBackgroundMusic(String music) async {
+    if (!isAudioEnabled) return;
     _currentBackgroundMusic?.stop();
 
     _currentBackgroundMusic = await Flame.audio.playLongAudio(music);
   }
 
   static playSfx(String sfx) {
+    if (!isAudioEnabled) return;
     Flame.audio.play(sfx);
   }
 }

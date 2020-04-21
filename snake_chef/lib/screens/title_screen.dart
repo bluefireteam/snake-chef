@@ -13,29 +13,26 @@ class TitleScreen extends StatelessWidget {
 
     return PatternContainer(
       child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Image.asset('assets/images/title.png', width: 700),
-            Column(
+          child: Column(
               children: [
+                Expanded(
+                    flex: 4,
+                    child: Image.asset('assets/images/title.png'),
+                ),
                 Button.primaryButton(
                     label: 'Play',
                     onPressed: () {
                       Navigator.of(ctx).pushNamed('/stage_select');
                     }),
-                SizedBox(
-                  height: 15,
-                ),
+                SizedBox(height: 5),
                 Button.secondaryButton(
                     label: 'Credits',
                     onPressed: () {
                       Navigator.of(ctx).pushNamed('/credits');
-                    })
+                    }),
+                SizedBox(height: 10),
               ],
-            ),
-          ],
-        ),
+          ),
       ),
     );
   }

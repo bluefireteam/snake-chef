@@ -1,10 +1,13 @@
+import 'package:flutter/services.dart';
 import 'package:flame/game.dart';
 import 'package:flame/keyboard.dart';
 import 'package:flame/position.dart';
-import 'package:flutter/services.dart';
 import 'package:flame/time.dart';
 import 'package:flame/components/timer_component.dart';
 import 'package:snake_chef/game/widgets/game_win.dart';
+
+import 'dart:ui';
+import 'dart:math';
 
 import './components/game_board.dart';
 import './components/top_bar.dart';
@@ -33,7 +36,13 @@ class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay {
 
   List<Ingredient> collectedIngredients = [];
 
-  SnakeChef({this.boardWidth, this.boardHeight, this.stage}) {
+  double _scaleFactor = 1.0;
+
+  Size gameWidgetSize;
+
+  SnakeChef({Size screenSize, this.boardWidth, this.boardHeight, this.stage}) {
+    size = screenSize;
+
     final renderOffset = Position(300, 100);
     add(gameBoard = GameBoard(
       boardHeight: boardHeight,
@@ -41,12 +50,14 @@ class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay {
       renderOffset: renderOffset,
     ));
 
+    final boardScreenWidth = boardWidth * Cell.cellSize;
     add(TopBar()
       ..x = renderOffset.x
       ..height = renderOffset.y
-      ..width = boardWidth * Cell.cellSize);
+      ..width = boardScreenWidth);
 
-    final middleY = ((boardHeight * Cell.cellSize) + renderOffset.y) / 2;
+    final boardScreenHeight = (boardHeight * Cell.cellSize);
+    final middleY = (boardScreenHeight + renderOffset.y) / 2;
     add(topLeftBar = TopLeftBar()
       ..x = 0
       ..height = middleY
@@ -68,6 +79,24 @@ class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay {
       ..start();
 
     add(TimerComponent(stageTimerController));
+
+    final gameHeight = renderOffset.y + boardScreenHeight;
+    final gameWidth = renderOffset.x + boardScreenWidth;
+
+    _scaleFactor = min(size.height / gameHeight, size.width / gameWidth);
+
+    gameWidgetSize = Size(
+        gameWidth * _scaleFactor,
+        gameHeight * _scaleFactor,
+    );
+  }
+
+  @override
+  void render(Canvas canvas) {
+    canvas.save();
+    canvas.scale(_scaleFactor, _scaleFactor);
+    super.render(canvas);
+    canvas.restore();
   }
 
   void collectIngredient(Ingredient ingredient) {
