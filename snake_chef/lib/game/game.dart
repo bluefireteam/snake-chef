@@ -4,6 +4,12 @@ import 'package:flame/keyboard.dart';
 import 'package:flame/position.dart';
 import 'package:flame/time.dart';
 import 'package:flame/components/timer_component.dart';
+import 'package:flame/components/particle_component.dart';
+import 'package:flame/particles/sprite_particle.dart';
+import 'package:flame/particles/rotating_particle.dart';
+import 'package:flame/particles/accelerated_particle.dart';
+import 'package:flame/particles/translated_particle.dart';
+import 'package:flame/particle.dart';
 import 'package:flame/gestures.dart';
 import 'package:snake_chef/game/widgets/game_win.dart';
 
@@ -18,6 +24,7 @@ import './widgets/game_over.dart';
 import './stage.dart';
 import './cell.dart';
 import '../audio_manager.dart';
+import './ingredient_renderer.dart';
 
 class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay, HorizontalDragDetector, VerticalDragDetector {
   GameBoard gameBoard;
@@ -119,7 +126,8 @@ class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay, Horizon
             recipeIndex++;
           } else {
             AudioManager.playBackgroundMusic('win_fanfarre.ogg');
-            pauseEngine();
+            addCelebrationComponent();
+            gameBoard.pause = true;
             showGameWin();
           }
         } else {
@@ -129,6 +137,34 @@ class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay, Horizon
     } else {
       gameBoard.gameOver();
     }
+  }
+
+  void addCelebrationComponent() {
+    final allIngredients = stage.stageIngredients();
+    final random = Random();
+    add(
+        ParticleComponent(
+            particle: Particle.generate(
+                count: 10,
+                lifespan: 2,
+                generator: (i) => TranslatedParticle(
+                    offset: Offset(gameWidgetSize.width / 2, gameWidgetSize.height / 2),
+                    child: AcceleratedParticle(
+                        speed: Offset(random.nextDouble() * 1000, -random.nextDouble() * 1000) * .5,
+                        acceleration: Offset(random.nextBool() ? -100 : 100, 400),
+                        child: RotatingParticle(
+                            from: random.nextDouble() * pi,
+                            child: SpriteParticle(
+                                size: Position(Cell.cellSize * 2, Cell.cellSize * 2),
+                                sprite: mapIngredientSprite(allIngredients[random.nextInt(allIngredients.length)])
+                            )
+                        ),
+                    ),
+                ),
+
+            )
+        )   
+    );
   }
 
   void onKeyEvent(event) {
@@ -177,6 +213,7 @@ class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay, Horizon
       'GameWinMenu',
       GameWin(),
     );
+    addCelebrationComponent();
   }
 
   void hideGameOver() {

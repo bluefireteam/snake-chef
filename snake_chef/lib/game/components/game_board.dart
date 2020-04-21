@@ -22,6 +22,8 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
 
   Position renderOffset;
 
+  bool pause = false;
+
   GameBoard({this.boardWidth, this.boardHeight, this.renderOffset});
 
   @override
@@ -168,7 +170,8 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
 
   @override
   void update(double delta) {
-    timer.update(delta);
+    if (!pause)
+      timer.update(delta);
   }
 
   @override

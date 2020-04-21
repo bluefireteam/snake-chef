@@ -1,21 +1,28 @@
+import 'package:flame/sprite.dart';
 import 'package:snake_chef/game/stage.dart';
 import 'package:snake_chef/game/assets.dart';
 import 'dart:ui';
 
-void renderIngredient(Canvas canvas, Ingredient ingredient, Rect rect) {
+Sprite mapIngredientSprite(Ingredient ingredient) {
   if (ingredient == Ingredient.TOMATO) {
-    Ingredients.getTomato().renderRect(canvas, rect);
+    return Ingredients.getTomato();
   } else if (ingredient == Ingredient.LETTUCE) {
-    Ingredients.getLettuce().renderRect(canvas, rect);
+    return Ingredients.getLettuce();
   } else if (ingredient == Ingredient.PASTA) {
-    Ingredients.getPasta().renderRect(canvas, rect);
+    return Ingredients.getPasta();
   } else if (ingredient == Ingredient.MEAT_BALLS) {
-    Ingredients.getMeatBalls().renderRect(canvas, rect);
+    return Ingredients.getMeatBalls();
   } else if (ingredient == Ingredient.BREAD) {
-    Ingredients.getBread().renderRect(canvas, rect);
+    return Ingredients.getBread();
   } else if (ingredient == Ingredient.CHEESE) {
-    Ingredients.getCheese().renderRect(canvas, rect);
+    return Ingredients.getCheese();
   } else if (ingredient == Ingredient.HAMBURGUER) {
-    Ingredients.getHamburguer().renderRect(canvas, rect);
+    return Ingredients.getHamburguer();
   }
+
+  return null;
+}
+
+void renderIngredient(Canvas canvas, Ingredient ingredient, Rect rect) {
+  mapIngredientSprite(ingredient)?.renderRect(canvas, rect);
 }
