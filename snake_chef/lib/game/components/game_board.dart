@@ -50,9 +50,11 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
   Position getRandomEmptySpace() {
     List<Position> emptySpaces = [];
 
+    Position nextSnakeSpace = snake.nextPosition();
+
     for (var y = 0; y < board.length; y++) {
       for (var x = 0; x < board[y].length; x++) {
-        if (board[y][x].type == null) {
+        if (board[y][x].type == null && (nextSnakeSpace.x != x && nextSnakeSpace.y != y)) {
           emptySpaces.add(Position(x.toDouble(), y.toDouble()));
         }
       }

@@ -4,6 +4,12 @@ class Snake {
   List<Position> body = [];
   Position direction = Position(-1, 0);
 
+  Position nextPosition() {
+    final nextSnakeX = body.first.x + direction.x;
+    final nextSnakeY = body.first.y + direction.y;
+    return Position(nextSnakeX, nextSnakeY);
+  }
+
   void turnRight() {
     if (direction.y != 0) {
       direction.x = 1;
