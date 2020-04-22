@@ -68,10 +68,10 @@ class SnakeCell extends CellType {
     if (type == SnakeCellType.HEAD) {
       Sprite sprite;
 
-      final head = gameBoard.snake[0];
-      final next = gameBoard.snake[1];
+      final head = gameBoard.snake.body[0];
+      final next = gameBoard.snake.body[1];
 
-      if (gameBoard.direction.x == 1) {
+      if (gameBoard.snake.direction.x == 1) {
         if (head.y == next.y) {
           sprite = Snake.getHeadFacingRight();
         } else if (head.y > next.y) {
@@ -79,7 +79,7 @@ class SnakeCell extends CellType {
         } else if (head.y < next.y) {
           sprite = Snake.getHeadCornerTopRight();
         }
-      } else if (gameBoard.direction.x == -1) {
+      } else if (gameBoard.snake.direction.x == -1) {
         if (head.y == next.y) {
           sprite = Snake.getHeadFacingLeft();
         } else if (head.y > next.y) {
@@ -87,21 +87,21 @@ class SnakeCell extends CellType {
         } else if (head.y < next.y) {
           sprite = Snake.getHeadCornerTopLeft();
         }
-      } else if (gameBoard.direction.y == 1) {
+      } else if (gameBoard.snake.direction.y == 1) {
         sprite = Snake.getHeadFacingDown();
-      } else if (gameBoard.direction.y == -1) {
+      } else if (gameBoard.snake.direction.y == -1) {
         sprite = Snake.getHeadFacingUp();
       }
 
       sprite.renderRect(canvas, rect);
     }
     if (type == SnakeCellType.PART) {
-      final partIndex = gameBoard.snake.indexWhere((element) => element.x == cell.x && element.y == cell.y);
-      final previous = gameBoard.snake[partIndex - 1];
+      final partIndex = gameBoard.snake.body.indexWhere((element) => element.x == cell.x && element.y == cell.y);
+      final previous = gameBoard.snake.body[partIndex - 1];
 
       Sprite sprite;
 
-      if (partIndex + 1 == gameBoard.snake.length) {
+      if (partIndex + 1 == gameBoard.snake.body.length) {
         if (cell.x < previous.x) {
           sprite = Snake.getTailFacingLeft();
         } else if (cell.x > previous.x) {
@@ -112,7 +112,7 @@ class SnakeCell extends CellType {
           sprite = Snake.getTailFacingDown();
         }
       } else {
-        final next = gameBoard.snake[partIndex + 1];
+        final next = gameBoard.snake.body[partIndex + 1];
 
         if (cell.x == previous.x && cell.x == next.x) {
           sprite = Snake.getTopViewBodyPart();

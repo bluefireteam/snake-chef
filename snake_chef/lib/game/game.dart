@@ -1,4 +1,3 @@
-import 'package:flutter/services.dart';
 import 'package:flame/game.dart';
 import 'package:flame/position.dart';
 import 'package:flame/time.dart';
@@ -190,31 +189,31 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
 
   void onDpadEvent(DpadKey key) {
     if (key == DpadKey.RIGHT) {
-      gameBoard.turnRight();
+      gameBoard.snake.turnRight();
     } else if (key == DpadKey.LEFT) {
-      gameBoard.turnLeft();
+      gameBoard.snake.turnLeft();
     } else if (key == DpadKey.UP) {
-      gameBoard.turnUp();
+      gameBoard.snake.turnUp();
     } else if (key == DpadKey.DOWN) {
-      gameBoard.turnDown();
+      gameBoard.snake.turnDown();
     }
   }
 
   @override
   void onHorizontalDragEnd(details) {
     if (details.velocity.pixelsPerSecond.dx > 0) {
-      gameBoard.turnRight();
+      gameBoard.snake.turnRight();
     } else {
-      gameBoard.turnLeft();
+      gameBoard.snake.turnLeft();
     }
   }
 
   @override
   void onVerticalDragEnd(details) {
     if (details.velocity.pixelsPerSecond.dy > 0) {
-      gameBoard.turnDown();
+      gameBoard.snake.turnDown();
     } else {
-      gameBoard.turnUp();
+      gameBoard.snake.turnUp();
     }
   }
 
