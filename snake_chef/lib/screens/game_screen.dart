@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import '../game/game.dart';
 import '../game/stage.dart';
 import '../stage_loader.dart';
-
 import '../audio_manager.dart';
+import '../widgets/direction_pad.dart';
+import '../settings_manager.dart';
 
 class GameScreen extends StatelessWidget {
   @override
@@ -31,13 +32,33 @@ class GameScreen extends StatelessWidget {
                               stage: stage
                           );
 
-                          return Center(
-                              child: Container(
-                                  width: snakeChefGame.gameWidgetSize.width,
-                                  height: snakeChefGame.gameWidgetSize.height,
-                                  child: snakeChefGame.widget
-                              )
-                          );
+                          final List<Widget> children = [
+                            Center(
+                                child: Container(
+                                    width: snakeChefGame.gameWidgetSize.width,
+                                    height: snakeChefGame.gameWidgetSize.height,
+                                    child: snakeChefGame.widget
+                                )
+                            ),
+                          ];
+
+                          if (SettingsManager.gamePadOptions.enabled) {
+                            children.add(
+                                Positioned(
+                                    left: 0,
+                                    bottom: 0,
+                                    child: DirectionPad(
+                                        containerSize: SettingsManager.gamePadOptions.size,
+                                        opacity: SettingsManager.gamePadOptions.opacity,
+                                        onPress: (key) {
+                                          snakeChefGame?.onDpadEvent(key);
+                                        }
+                                    ),
+                                ),
+                            );
+                          }
+
+                          return Stack(children: children);
                         } else if (snapshot.hasError) {
                           print(snapshot.error);
                         }

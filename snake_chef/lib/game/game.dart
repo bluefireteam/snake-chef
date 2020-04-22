@@ -1,6 +1,5 @@
 import 'package:flutter/services.dart';
 import 'package:flame/game.dart';
-import 'package:flame/keyboard.dart';
 import 'package:flame/position.dart';
 import 'package:flame/time.dart';
 import 'package:flame/components/timer_component.dart';
@@ -25,8 +24,9 @@ import './stage.dart';
 import './cell.dart';
 import '../audio_manager.dart';
 import './ingredient_renderer.dart';
+import '../widgets/direction_pad.dart';
 
-class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay, HorizontalDragDetector, VerticalDragDetector {
+class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector, VerticalDragDetector {
   GameBoard gameBoard;
   int boardWidth;
   int boardHeight;
@@ -188,19 +188,15 @@ class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay, Horizon
     )));
   }
 
-  void onKeyEvent(event) {
-    if (event is RawKeyUpEvent) {
-      final key = event.data.keyLabel;
-
-      if (key == "ArrowRight") {
-        gameBoard.turnRight();
-      } else if (key == "ArrowLeft") {
-        gameBoard.turnLeft();
-      } else if (key == "ArrowUp") {
-        gameBoard.turnUp();
-      } else if (key == "ArrowDown") {
-        gameBoard.turnDown();
-      }
+  void onDpadEvent(DpadKey key) {
+    if (key == DpadKey.RIGHT) {
+      gameBoard.turnRight();
+    } else if (key == DpadKey.LEFT) {
+      gameBoard.turnLeft();
+    } else if (key == DpadKey.UP) {
+      gameBoard.turnUp();
+    } else if (key == DpadKey.DOWN) {
+      gameBoard.turnDown();
     }
   }
 

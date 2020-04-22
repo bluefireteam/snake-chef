@@ -58,6 +58,23 @@ class Button extends StatefulWidget {
     pressedSprite: ButtonSprites.secondaryButtonPressed(),
   );
 
+  Button.dpadButton({
+    VoidCallback onPressed,
+    String label,
+
+    double width,
+    double height,
+  }): this(
+    onPressed: onPressed,
+    label: label,
+    width: width,
+    height: height,
+
+    labelColor: Color(0xFF333c57),
+    sprite: ButtonSprites.dpadButton(),
+    pressedSprite: ButtonSprites.dpadButtonPressed(),
+  );
+
   @override
   State createState() => _ButtonState();
 }
@@ -89,11 +106,11 @@ class _ButtonState extends State<Button> {
             child: CustomPaint(
                 painter: _ButtonPainer(_pressed ? widget.pressedSprite : widget.sprite),
                 child: Center(
-                    child: Label(
+                    child: widget.label != null ? Label(
                         label: widget.label,
                         fontColor: widget.labelColor,
                         fontSize: height * 0.6,
-                    ),
+                    ) : null,
                 ),
             ),
         ),
