@@ -30,23 +30,23 @@ class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay, Horizon
   GameBoard gameBoard;
   int boardWidth;
   int boardHeight;
-  Stage stage;
-  int recipeIndex = 1;
-  int recipeLabelCounter = 1;
 
-  Timer stageTimerController;
-  int stageTimer = 0;
+  double _scaleFactor = 1.0;
+  Size gameWidgetSize;
 
   TopLeftBar topLeftBar;
   BottomLeftBar bottomLeftBar;
 
+  Stage stage;
+  Timer stageTimerController;
+  int stageTimer = 0;
+
   Recipe get currentRecipe => stage.recipes[recipeIndex];
+  int recipeIndex = 0;
+  int recipeLabelCounter = 1;
 
   List<Ingredient> collectedIngredients = [];
-
-  double _scaleFactor = 1.0;
-
-  Size gameWidgetSize;
+  Timer timer;
 
   SnakeChef({Size screenSize, this.boardWidth, this.boardHeight, this.stage}) {
     size = screenSize;
@@ -77,11 +77,14 @@ class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay, Horizon
       ..height = middleY
       ..width = renderOffset.x);
 
+    timer = Timer(0.5, repeat: true, callback: gameBoard.tick)..start();
+    add(TimerComponent(timer));
+
     stageTimer = stage.time;
     stageTimerController = Timer(1, repeat: true, callback: () {
       stageTimer--;
       if (stageTimer == 0) {
-        gameBoard.gameOver(label: "Time's Up!");
+        gameOver(label: "Time's Up!");
       }
     })
       ..start();
@@ -94,8 +97,8 @@ class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay, Horizon
     _scaleFactor = min(size.height / gameHeight, size.width / gameWidth);
 
     gameWidgetSize = Size(
-        gameWidth * _scaleFactor,
-        gameHeight * _scaleFactor,
+      gameWidth * _scaleFactor,
+      gameHeight * _scaleFactor,
     );
   }
 
@@ -105,6 +108,30 @@ class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay, Horizon
     canvas.scale(_scaleFactor, _scaleFactor);
     super.render(canvas);
     canvas.restore();
+  }
+
+  void restartGame() {
+    AudioManager.loopBackgroundMusic('gameplay.ogg');
+    hideGameOver();
+    recipeIndex = 0;
+    recipeLabelCounter = 0;
+    collectedIngredients = [];
+
+    stageTimer = 0;
+    stageTimerController.start();
+
+    bottomLeftBar.reset();
+    gameBoard.resetBoard();
+    stageTimer = stage.time;
+    timer.start();
+  }
+
+  void gameOver({String label}) {
+    AudioManager.playBackgroundMusic('gameover.ogg');
+    timer.stop();
+    showGameOver(label: label);
+
+    stageTimerController.stop();
   }
 
   void collectIngredient(Ingredient ingredient) {
@@ -127,44 +154,38 @@ class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay, Horizon
           } else {
             AudioManager.playBackgroundMusic('win_fanfarre.ogg');
             addCelebrationComponent();
-            gameBoard.pause = true;
+            timer.stop();
             showGameWin();
           }
         } else {
-          gameBoard.gameOver();
+          gameOver();
         }
       }
     } else {
-      gameBoard.gameOver();
+      gameOver();
     }
   }
 
   void addCelebrationComponent() {
     final allIngredients = stage.stageIngredients();
     final random = Random();
-    add(
-        ParticleComponent(
-            particle: Particle.generate(
-                count: 10,
-                lifespan: 2,
-                generator: (i) => TranslatedParticle(
-                    offset: Offset(gameWidgetSize.width / 2, gameWidgetSize.height / 2),
-                    child: AcceleratedParticle(
-                        speed: Offset(random.nextDouble() * 1000, -random.nextDouble() * 1000) * .5,
-                        acceleration: Offset(random.nextBool() ? -100 : 100, 400),
-                        child: RotatingParticle(
-                            from: random.nextDouble() * pi,
-                            child: SpriteParticle(
-                                size: Position(Cell.cellSize * 2, Cell.cellSize * 2),
-                                sprite: mapIngredientSprite(allIngredients[random.nextInt(allIngredients.length)])
-                            )
-                        ),
-                    ),
-                ),
-
-            )
-        )   
-    );
+    add(ParticleComponent(
+        particle: Particle.generate(
+      count: 10,
+      lifespan: 2,
+      generator: (i) => TranslatedParticle(
+        offset: Offset(gameWidgetSize.width / 2, gameWidgetSize.height / 2),
+        child: AcceleratedParticle(
+          speed: Offset(random.nextDouble() * 1000, -random.nextDouble() * 1000) * .5,
+          acceleration: Offset(random.nextBool() ? -100 : 100, 400),
+          child: RotatingParticle(
+              from: random.nextDouble() * pi,
+              child: SpriteParticle(
+                  size: Position(Cell.cellSize * 2, Cell.cellSize * 2),
+                  sprite: mapIngredientSprite(allIngredients[random.nextInt(allIngredients.length)]))),
+        ),
+      ),
+    )));
   }
 
   void onKeyEvent(event) {
@@ -204,7 +225,7 @@ class SnakeChef extends BaseGame with KeyboardEvents, HasWidgetsOverlay, Horizon
   void showGameOver({String label}) {
     addWidgetOverlay(
       'GameOverMenu',
-      GameOver(restartGame: gameBoard.restartGame, label: label ?? "Game Over"),
+      GameOver(restartGame: restartGame, label: label ?? "Game Over"),
     );
   }
 

@@ -3,18 +3,15 @@ import 'dart:math';
 import 'package:flame/components/component.dart';
 import 'package:flame/components/mixins/has_game_ref.dart';
 import 'package:flame/position.dart';
-import 'package:flame/time.dart';
 import 'package:flutter/material.dart';
 import 'package:snake_chef/game/game.dart';
 import 'package:snake_chef/game/stage.dart';
 
 import 'dart:ui';
 import '../cell.dart';
-import '../../audio_manager.dart';
 
 class GameBoard extends Component with HasGameRef<SnakeChef> {
   List<List<Cell>> board;
-  Timer timer;
   List<Position> snake = [];
   Position direction = Position(-1, 0);
   int boardWidth;
@@ -22,16 +19,14 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
 
   Position renderOffset;
 
-  bool pause = false;
-
   GameBoard({this.boardWidth, this.boardHeight, this.renderOffset});
 
   @override
   void onMount() {
-    resetGame();
+    resetBoard();
   }
 
-  void resetGame() {
+  void resetBoard() {
     board = List.generate(boardHeight, (y) => List.generate(boardWidth, (x) => Cell(x: x, y: y)));
 
     board[gameRef.stage.initialY][gameRef.stage.initialX].type = SnakeCell(SnakeCellType.HEAD);
@@ -52,9 +47,6 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
       final emptyPosition = getRandomEmptySpace();
       board[emptyPosition.y.toInt()][emptyPosition.x.toInt()].type = IngredientCell(ingredient);
     });
-
-    gameRef.stageTimer = gameRef.stage.time;
-    timer = Timer(0.5, repeat: true, callback: tick)..start();
   }
 
   Position getRandomEmptySpace() {
@@ -99,28 +91,6 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
     }
   }
 
-  void restartGame() {
-    AudioManager.loopBackgroundMusic('gameplay.ogg');
-    gameRef.hideGameOver();
-    gameRef.recipeIndex = 0;
-    gameRef.recipeLabelCounter = 0;
-    gameRef.collectedIngredients = [];
-
-    gameRef.stageTimer = 0;
-    gameRef.stageTimerController.start();
-
-    gameRef.bottomLeftBar.reset();
-    resetGame();
-  }
-
-  void gameOver({String label}) {
-    AudioManager.playBackgroundMusic('gameover.ogg');
-    timer.stop();
-    gameRef.showGameOver(label: label);
-
-    gameRef.stageTimerController.stop();
-  }
-
   void spawnIngredient(Ingredient ingredient) {
     final emptyPosition = getRandomEmptySpace();
     board[emptyPosition.y.toInt()][emptyPosition.x.toInt()].type = IngredientCell(ingredient);
@@ -133,14 +103,14 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
     final newY = head.y + direction.y;
 
     if ((newX == boardWidth || newX == -1) || (newY == boardHeight || newY == -1)) {
-      gameOver();
+      gameRef.gameOver();
       return;
     }
 
     final objectInFrontOfSnake = board[newY.toInt()][newX.toInt()].type;
 
     if (objectInFrontOfSnake is ObstacleCell || objectInFrontOfSnake is SnakeCell) {
-      gameOver();
+      gameRef.gameOver();
       return;
     }
 
@@ -171,10 +141,7 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
   }
 
   @override
-  void update(double delta) {
-    if (!pause)
-      timer.update(delta);
-  }
+  void update(double delta) {}
 
   @override
   void render(Canvas canvas) {
