@@ -8,10 +8,10 @@ class AudioManager {
 
   static Future<void> load() async {
     await Flame.audio.loadAll([
-      'gameover.ogg',
-      'gameplay.ogg',
-      'title.ogg',
-      'win_fanfarre.ogg',
+      'gameover.aac',
+      'gameplay.aac',
+      'title.aac',
+      'win_fanfarre.aac',
       'ingredient_collected.wav',
       'recipe_done.wav',
     ]);
@@ -21,18 +21,18 @@ class AudioManager {
     if (!SettingsManager.isMusicEnabled) return;
     _currentBackgroundMusic?.stop();
 
-    _currentBackgroundMusic = await Flame.audio.loopLongAudio(music);
+    _currentBackgroundMusic = await Flame.audio.loopLongAudio("$music.aac");
   }
 
   static playBackgroundMusic(String music) async {
     if (!SettingsManager.isMusicEnabled) return;
     _currentBackgroundMusic?.stop();
 
-    _currentBackgroundMusic = await Flame.audio.playLongAudio(music);
+    _currentBackgroundMusic = await Flame.audio.playLongAudio("$music.aac");
   }
 
   static playSfx(String sfx) {
     if (!SettingsManager.isSfxEnabled) return;
-    Flame.audio.play(sfx);
+    Flame.audio.play("$sfx.wav");
   }
 }

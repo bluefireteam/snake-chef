@@ -111,7 +111,7 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
   }
 
   void restartGame() {
-    AudioManager.loopBackgroundMusic('gameplay.ogg');
+    AudioManager.loopBackgroundMusic('gameplay');
     hideGameOver();
     recipeIndex = 0;
     recipeLabelCounter = 0;
@@ -127,7 +127,7 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
   }
 
   void gameOver({String label}) {
-    AudioManager.playBackgroundMusic('gameover.ogg');
+    AudioManager.playBackgroundMusic('gameover');
     timer.stop();
     showGameOver(label: label);
 
@@ -136,7 +136,7 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
 
   void collectIngredient(Ingredient ingredient) {
     if (currentRecipe.validIngredient(ingredient)) {
-      AudioManager.playSfx('ingredient_collected.wav');
+      AudioManager.playSfx('ingredient_collected');
 
       collectedIngredients.add(ingredient);
       gameBoard.spawnIngredient(ingredient);
@@ -147,12 +147,12 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
 
           recipeLabelCounter++;
           if (recipeIndex + 1 < stage.recipes.length) {
-            AudioManager.playSfx('recipe_done.wav');
+            AudioManager.playSfx('recipe_done');
             recipeIndex++;
             topLeftBar.justCompletedOrder();
             bottomLeftBar.justCompletedOrder();
           } else {
-            AudioManager.playBackgroundMusic('win_fanfarre.ogg');
+            AudioManager.playBackgroundMusic('win_fanfarre');
             addCelebrationComponent();
             timer.stop();
             showGameWin();

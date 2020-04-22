@@ -39,10 +39,11 @@ flutter:
     - assets/stages/2.json
     - assets/stages/3.json
 
-    - assets/audio/gameover.ogg
-    - assets/audio/gameplay.ogg
-    - assets/audio/title.ogg
-    - assets/audio/win_fanfarre.ogg
+    - assets/audio/gameover.aac
+    - assets/audio/gameplay.aac
+    - assets/audio/title.aac
+    - assets/audio/win_fanfarre.aac
+
     - assets/audio/ingredient_collected.wav
     - assets/audio/recipe_done.wav
 

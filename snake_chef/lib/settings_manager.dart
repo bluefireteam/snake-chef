@@ -1,6 +1,6 @@
 class SettingsManager {
-  static bool isMusicEnabled = false;
-  static bool isSfxEnabled = false;
+  static bool isMusicEnabled = true;
+  static bool isSfxEnabled = true;
   static GamepadOptions gamePadOptions = GamepadOptions();
 }
 
