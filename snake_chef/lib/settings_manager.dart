@@ -7,5 +7,6 @@ class SettingsManager {
 class GamepadOptions {
   bool enabled = true;
   double opacity = 0.5;
-  double size = 200;
+  double dpadSize = 200;
+  double actionButtonSize = 65;
 }

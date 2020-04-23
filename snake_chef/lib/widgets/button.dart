@@ -6,6 +6,8 @@ import './assets.dart';
 
 class Button extends StatefulWidget {
   final VoidCallback onPressed;
+  final VoidCallback onPress;
+  final VoidCallback onPressReleased;
   final String label;
   final Color labelColor;
   final Sprite sprite;
@@ -15,6 +17,8 @@ class Button extends StatefulWidget {
 
   Button({
     this.onPressed,
+    this.onPress,
+    this.onPressReleased,
     this.label,
     this.labelColor,
     this.sprite,
@@ -26,12 +30,16 @@ class Button extends StatefulWidget {
 
   Button.primaryButton({
     VoidCallback onPressed,
+    VoidCallback onPress,
+    VoidCallback onPressReleased,
     String label,
 
     double width,
     double height,
   }): this(
     onPressed: onPressed,
+    onPress: onPress,
+    onPressReleased: onPressReleased,
     label: label,
     width: width,
     height: height,
@@ -43,12 +51,16 @@ class Button extends StatefulWidget {
 
   Button.secondaryButton({
     VoidCallback onPressed,
+    VoidCallback onPress,
+    VoidCallback onPressReleased,
     String label,
 
     double width,
     double height,
   }): this(
     onPressed: onPressed,
+    onPress: onPress,
+    onPressReleased: onPressReleased,
     label: label,
     width: width,
     height: height,
@@ -60,12 +72,16 @@ class Button extends StatefulWidget {
 
   Button.dpadButton({
     VoidCallback onPressed,
+    VoidCallback onPress,
+    VoidCallback onPressReleased,
     String label,
 
     double width,
     double height,
   }): this(
     onPressed: onPressed,
+    onPress: onPress,
+    onPressReleased: onPressReleased,
     label: label,
     width: width,
     height: height,
@@ -82,6 +98,22 @@ class Button extends StatefulWidget {
 class _ButtonState extends State<Button> {
   bool _pressed = false;
 
+  void _press() {
+    widget.onPress?.call();
+    setState(() {
+      _pressed = true;
+    });
+  }
+
+  void _release() {
+    setState(() {
+      _pressed = false;
+    });
+
+    widget.onPressReleased?.call();
+    widget.onPressed?.call();
+  }
+
   @override
   Widget build(_) {
     final width = widget.width ?? 200;
@@ -89,16 +121,13 @@ class _ButtonState extends State<Button> {
 
     return GestureDetector(
         onTapDown: (_) {
-          setState(() {
-            _pressed = true;
-          });
+          _press();
         },
         onTapUp: (_) {
-          setState(() {
-            _pressed = false;
-          });
-
-          widget.onPressed?.call();
+          _release();
+        },
+        onTapCancel: () {
+          _release();
         },
         child: Container(
             width: width,

@@ -25,7 +25,7 @@ import '../audio_manager.dart';
 import './ingredient_renderer.dart';
 import '../widgets/direction_pad.dart';
 
-class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector, VerticalDragDetector {
+class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector, VerticalDragDetector, TapDetector {
   GameBoard gameBoard;
   int boardWidth;
   int boardHeight;
@@ -45,12 +45,15 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
   int recipeLabelCounter = 1;
 
   List<Ingredient> collectedIngredients = [];
-  Timer timer;
+
+  double tickTime;
+  Timer tickTimer;
+  Timer fastTickTimer;
 
   // To center the game on the screen
   Position gameOffset;
 
-  SnakeChef({Size screenSize, this.boardWidth, this.boardHeight, this.stage}) {
+  SnakeChef({Size screenSize, this.boardWidth, this.boardHeight, this.stage, this.tickTime = 0.5}) {
     size = screenSize;
 
     final gameboardOffset = Position(300, 100);
@@ -79,8 +82,11 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
       ..height = middleY
       ..width = gameboardOffset.x);
 
-    timer = Timer(0.5, repeat: true, callback: gameBoard.tick)..start();
-    add(TimerComponent(timer));
+    tickTimer = Timer(tickTime, repeat: true, callback: gameBoard.tick)..start();
+    fastTickTimer = Timer(tickTime / 3, repeat: true, callback: gameBoard.tick);
+
+    add(TimerComponent(tickTimer));
+    add(TimerComponent(fastTickTimer));
 
     stageTimer = stage.time;
     stageTimerController = Timer(1, repeat: true, callback: () {
@@ -131,12 +137,14 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
     bottomLeftBar.reset();
     gameBoard.resetBoard();
     stageTimer = stage.time;
-    timer.start();
+    tickTimer.start();
   }
 
   void gameOver({String label}) {
     AudioManager.playBackgroundMusic('gameover');
-    timer.stop();
+    tickTimer.stop();
+    fastTickTimer.stop();
+
     showGameOver(label: label);
 
     stageTimerController.stop();
@@ -162,7 +170,8 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
           } else {
             AudioManager.playBackgroundMusic('win_fanfarre');
             addCelebrationComponent();
-            timer.stop();
+            tickTimer.stop();
+            fastTickTimer.stop();
             showGameWin();
           }
         } else {
@@ -224,6 +233,31 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
     } else {
       gameBoard.snake.turnUp();
     }
+  }
+
+  void enableFastMode() {
+    tickTimer.stop();
+    fastTickTimer.start();
+  }
+
+  void disableFastMode() {
+    tickTimer.start();
+    fastTickTimer.stop();
+  }
+
+  @override
+  void onTapDown(_) {
+    enableFastMode();
+  }
+ 
+  @override
+  void onTapUp(_) {
+    disableFastMode();
+  }
+ 
+  @override
+  void onTapCancel() {
+    disableFastMode();
   }
 
   void showGameOver({String label}) {
