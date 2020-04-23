@@ -47,34 +47,37 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
   List<Ingredient> collectedIngredients = [];
   Timer timer;
 
+  // To center the game on the screen
+  Position gameOffset;
+
   SnakeChef({Size screenSize, this.boardWidth, this.boardHeight, this.stage}) {
     size = screenSize;
 
-    final renderOffset = Position(300, 100);
+    final gameboardOffset = Position(300, 100);
     add(gameBoard = GameBoard(
       boardHeight: boardHeight,
       boardWidth: boardWidth,
-      renderOffset: renderOffset,
+      renderOffset: gameboardOffset,
     ));
 
     final boardScreenWidth = boardWidth * Cell.cellSize;
     add(TopBar()
-      ..x = renderOffset.x
-      ..height = renderOffset.y
+      ..x = gameboardOffset.x
+      ..height = gameboardOffset.y
       ..width = boardScreenWidth);
 
     final boardScreenHeight = (boardHeight * Cell.cellSize);
-    final middleY = (boardScreenHeight + renderOffset.y) / 2;
+    final middleY = (boardScreenHeight + gameboardOffset.y) / 2;
     add(topLeftBar = TopLeftBar()
       ..x = 0
       ..height = middleY
-      ..width = renderOffset.x);
+      ..width = gameboardOffset.x);
 
     add(bottomLeftBar = BottomLeftBar()
       ..x = 0
       ..y = middleY
       ..height = middleY
-      ..width = renderOffset.x);
+      ..width = gameboardOffset.x);
 
     timer = Timer(0.5, repeat: true, callback: gameBoard.tick)..start();
     add(TimerComponent(timer));
@@ -90,8 +93,8 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
 
     add(TimerComponent(stageTimerController));
 
-    final gameHeight = renderOffset.y + boardScreenHeight;
-    final gameWidth = renderOffset.x + boardScreenWidth;
+    final gameHeight = gameboardOffset.y + boardScreenHeight;
+    final gameWidth = gameboardOffset.x + boardScreenWidth;
 
     _scaleFactor = min(size.height / gameHeight, size.width / gameWidth);
 
@@ -99,11 +102,17 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
       gameWidth * _scaleFactor,
       gameHeight * _scaleFactor,
     );
+
+    gameOffset = Position(
+        size.width / 2 - gameWidgetSize.width / 2,
+        0,
+    );
   }
 
   @override
   void render(Canvas canvas) {
     canvas.save();
+    canvas.translate(gameOffset.x, gameOffset.y);
     canvas.scale(_scaleFactor, _scaleFactor);
     super.render(canvas);
     canvas.restore();

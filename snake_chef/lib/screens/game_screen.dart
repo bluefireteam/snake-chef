@@ -33,13 +33,7 @@ class GameScreen extends StatelessWidget {
                           );
 
                           final List<Widget> children = [
-                            Center(
-                                child: Container(
-                                    width: snakeChefGame.gameWidgetSize.width,
-                                    height: snakeChefGame.gameWidgetSize.height,
-                                    child: snakeChefGame.widget
-                                )
-                            ),
+                            snakeChefGame.widget
                           ];
 
                           if (SettingsManager.gamePadOptions.enabled) {
