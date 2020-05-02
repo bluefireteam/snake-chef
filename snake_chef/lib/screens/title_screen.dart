@@ -9,7 +9,7 @@ class TitleScreen extends StatelessWidget {
   @override
   Widget build(ctx) {
 
-    AudioManager.loopBackgroundMusic('title');
+    AudioManager.titleMusic();
 
     return PatternContainer(
       child: Center(

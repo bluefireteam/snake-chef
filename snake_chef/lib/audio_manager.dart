@@ -1,38 +1,74 @@
 import 'package:flame/flame.dart';
-import 'package:audioplayers/audioplayers.dart';
+import 'package:ocarina/ocarina.dart';
 
 import './settings_manager.dart';
 
 class AudioManager {
-  static AudioPlayer _currentBackgroundMusic;
+
+  static OcarinaPlayer _lastPlayer;
+
+  static final OcarinaPlayer _title = OcarinaPlayer(
+    asset: 'assets/audio/title.aac',
+    loop: true
+  );
+
+  static final OcarinaPlayer _gameover = OcarinaPlayer(
+    asset: 'assets/audio/gameover.aac',
+    loop: false
+  );
+
+  static final OcarinaPlayer _gameplay = OcarinaPlayer(
+    asset: 'assets/audio/gameplay.aac',
+    loop: false
+  );
+
+  static final OcarinaPlayer _win = OcarinaPlayer(
+    asset: 'assets/audio/win_fanfarre.aac',
+    loop: false
+  );
+
+  static final OcarinaPlayer _collected = OcarinaPlayer(
+    asset: 'assets/audio/ingredient_collected.wav',
+    loop: false
+  );
+
+  static final OcarinaPlayer _recipeDone = OcarinaPlayer(
+    asset: 'assets/audio/recipe_done.wav',
+    loop: false
+  );
 
   static Future<void> load() async {
-    await Flame.audio.loadAll([
-      'gameover.aac',
-      'gameplay.aac',
-      'title.aac',
-      'win_fanfarre.aac',
-      'ingredient_collected.wav',
-      'recipe_done.wav',
+    await Future.wait([
+      _title.load(),
+      _gameover.load(),
+      _gameplay.load(),
+      _win.load(),
+      _collected.load(),
+      _recipeDone.load(),
     ]);
   }
 
-  static loopBackgroundMusic(String music) async {
-    if (!SettingsManager.isMusicEnabled) return;
-    _currentBackgroundMusic?.stop();
 
-    _currentBackgroundMusic = await Flame.audio.loopLongAudio("$music.aac");
+  static Future<void> titleMusic() => _music(_title);
+  static Future<void> gameplayMusic() => _music(_gameplay);
+  static Future<void> gameoverMusic() => _music(_gameover);
+  static Future<void> winMusic() => _music(_win);
+
+  static Future<void> collectSfx() => _sfx(_collected);
+  static Future<void> recipeDoneSfx() => _sfx(_recipeDone);
+
+  static Future<void> _sfx(OcarinaPlayer player) async {
+    if (!SettingsManager.isSfxEnabled)
+      return;
+    player.play();
   }
 
-  static playBackgroundMusic(String music) async {
-    if (!SettingsManager.isMusicEnabled) return;
-    _currentBackgroundMusic?.stop();
+  static Future<void> _music(OcarinaPlayer player) async {
+    if (!SettingsManager.isMusicEnabled)
+      return;
 
-    _currentBackgroundMusic = await Flame.audio.playLongAudio("$music.aac");
-  }
-
-  static playSfx(String sfx) {
-    if (!SettingsManager.isSfxEnabled) return;
-    Flame.audio.play("$sfx.wav");
+    await _lastPlayer?.stop();
+    player.play();
+    _lastPlayer = player;
   }
 }
