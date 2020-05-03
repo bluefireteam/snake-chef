@@ -1,4 +1,3 @@
-import 'package:flame/flame.dart';
 import 'package:ocarina/ocarina.dart';
 
 import './settings_manager.dart';
@@ -8,7 +7,7 @@ class AudioManager {
   static OcarinaPlayer _lastPlayer;
 
   static final OcarinaPlayer _title = OcarinaPlayer(
-    asset: 'assets/audio/title.aac',
+    asset: 'assets/audio/title.wav',
     loop: true
   );
 
@@ -18,8 +17,8 @@ class AudioManager {
   );
 
   static final OcarinaPlayer _gameplay = OcarinaPlayer(
-    asset: 'assets/audio/gameplay.aac',
-    loop: false
+    asset: 'assets/audio/gameplay.wav',
+    loop: true
   );
 
   static final OcarinaPlayer _win = OcarinaPlayer(

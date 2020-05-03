@@ -41,8 +41,8 @@ flutter:
     - assets/stages/3.json
 
     - assets/audio/gameover.aac
-    - assets/audio/gameplay.aac
-    - assets/audio/title.aac
+    - assets/audio/gameplay.wav
+    - assets/audio/title.wav
     - assets/audio/win_fanfarre.aac
 
     - assets/audio/ingredient_collected.wav
