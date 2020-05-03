@@ -5,9 +5,13 @@ import '../widgets/pattern_container.dart';
 import '../widgets/button.dart';
 import '../widgets/label.dart';
 
+import '../audio_manager.dart';
+
 class StageSelectScreen extends StatelessWidget {
   @override
   Widget build(ctx) {
+    AudioManager.titleMusic();
+
     final itensPerColumn = 6;
     final rows = (StageLoader.STAGE_COUNT / itensPerColumn).ceil();
 

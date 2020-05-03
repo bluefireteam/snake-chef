@@ -66,8 +66,10 @@ class AudioManager {
     if (!SettingsManager.isMusicEnabled)
       return;
 
-    await _lastPlayer?.stop();
-    player.play();
-    _lastPlayer = player;
+    if (_lastPlayer != player) {
+      await _lastPlayer?.stop();
+      player.play();
+      _lastPlayer = player;
+    }
   }
 }
