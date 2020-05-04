@@ -52,6 +52,8 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
   // To center the game on the screen
   Position gameOffset;
 
+  bool hasNewMove;
+
   SnakeChef({Size screenSize, this.boardWidth, this.boardHeight, this.stage, this.tickTime = 0.5}) {
     size = screenSize;
 
@@ -81,8 +83,8 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
       ..height = middleY
       ..width = gameboardOffset.x);
 
-    tickTimer = Timer(tickTime, repeat: true, callback: gameBoard.tick)..start();
-    fastTickTimer = Timer(tickTime / 3, repeat: true, callback: gameBoard.tick);
+    tickTimer = Timer(tickTime, repeat: true, callback: tick)..start();
+    fastTickTimer = Timer(tickTime / 3, repeat: true, callback: tick);
 
     add(TimerComponent(tickTimer));
     add(TimerComponent(fastTickTimer));
@@ -112,6 +114,11 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
       size.width / 2 - gameWidgetSize.width / 2,
       0,
     );
+  }
+
+  void tick() {
+    hasNewMove = false;
+    gameBoard.tick();
   }
 
   @override
@@ -204,6 +211,9 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
   }
 
   void onDpadEvent(DpadKey key) {
+    if (hasNewMove) return;
+
+    hasNewMove = true;
     if (key == DpadKey.RIGHT) {
       gameBoard.snake.turnRight();
     } else if (key == DpadKey.LEFT) {
@@ -217,6 +227,9 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
 
   @override
   void onHorizontalDragEnd(details) {
+    if (hasNewMove) return;
+    hasNewMove = true;
+
     if (details.velocity.pixelsPerSecond.dx > 0) {
       gameBoard.snake.turnRight();
     } else {
@@ -226,6 +239,9 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
 
   @override
   void onVerticalDragEnd(details) {
+    if (hasNewMove) return;
+    hasNewMove = true;
+
     if (details.velocity.pixelsPerSecond.dy > 0) {
       gameBoard.snake.turnDown();
     } else {
