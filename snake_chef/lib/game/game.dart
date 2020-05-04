@@ -42,7 +42,6 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
 
   Recipe get currentRecipe => stage.recipes[recipeIndex];
   int recipeIndex = 0;
-  int recipeLabelCounter = 1;
 
   List<Ingredient> collectedIngredients = [];
 
@@ -110,8 +109,8 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
     );
 
     gameOffset = Position(
-        size.width / 2 - gameWidgetSize.width / 2,
-        0,
+      size.width / 2 - gameWidgetSize.width / 2,
+      0,
     );
   }
 
@@ -128,7 +127,6 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
     AudioManager.gameplayMusic();
     hideGameOver();
     recipeIndex = 0;
-    recipeLabelCounter = 0;
     collectedIngredients = [];
 
     stageTimer = 0;
@@ -161,7 +159,7 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
         if (currentRecipe.checkCompletion(collectedIngredients)) {
           collectedIngredients = [];
 
-          recipeLabelCounter++;
+          recipeIndex++;
           if (recipeIndex + 1 < stage.recipes.length) {
             AudioManager.recipeDoneSfx();
             recipeIndex++;
@@ -249,12 +247,12 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
   void onTapDown(_) {
     enableFastMode();
   }
- 
+
   @override
   void onTapUp(_) {
     disableFastMode();
   }
- 
+
   @override
   void onTapCancel() {
     disableFastMode();
