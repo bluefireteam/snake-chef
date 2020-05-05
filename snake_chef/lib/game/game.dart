@@ -165,7 +165,7 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
   }
 
   void collectIngredient(Ingredient ingredient) {
-    if (currentRecipe.validIngredient(ingredient)) {
+    if (currentRecipe.validIngredient(ingredient) && currentRecipe.validRecipe(ingredient, collectedIngredients)) {
       AudioManager.collectSfx();
 
       collectedIngredients.add(ingredient);

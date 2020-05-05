@@ -65,4 +65,11 @@ class Recipe {
   bool validIngredient(Ingredient ingredient) {
     return ingredients.contains(ingredient);
   }
+
+  bool validRecipe(Ingredient ingredient, List<Ingredient> collectedIngredients) {
+    final ingredientsCount = ingredients.where((element) => element == ingredient).length;
+    final collectedIngredientsCount = collectedIngredients.where((element) => element == ingredient).length;
+
+    return (collectedIngredientsCount + 1) <= ingredientsCount;
+  }
 }
