@@ -10,6 +10,7 @@ import 'package:flame/particles/translated_particle.dart';
 import 'package:flame/particle.dart';
 import 'package:flame/gestures.dart';
 import 'package:snake_chef/game/widgets/game_win.dart';
+import 'package:snake_chef/settings_manager.dart';
 
 import 'dart:ui';
 import 'dart:math';
@@ -188,6 +189,7 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
             AudioManager.winMusic();
             addCelebrationComponent();
             showGameWin();
+            SettingsManager.stageProgress = stage.stageNumber + 1;
           }
         } else {
           gameOver();

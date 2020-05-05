@@ -1,49 +1,38 @@
 {
-    "time": 60,
-    "recipes": [
-        {
-            "recipe": "SALAD",
-            "ingredients": [
-                "TOMATO",
-                "LETTUCE"
-            ]
-        },
-        {
-            "recipe": "SALAD",
-            "ingredients": [
-                "TOMATO",
-                "LETTUCE"
-            ]
-        },
-        {
-            "recipe": "SALAD",
-            "ingredients": [
-                "TOMATO",
-                "LETTUCE"
-            ]
-        },
-        {
-            "recipe": "SALAD",
-            "ingredients": [
-                "TOMATO",
-                "LETTUCE"
-            ]
-        }
-    ],
-    "obstacles": [
-        {
-            "x": 2,
-            "y": 7
-        },
-        {
-            "x": 3,
-            "y": 2
-        },
-        {
-            "x": 6,
-            "y": 6
-        }
-    ],
-    "initialX": 5,
-    "initialY": 5
+  "stageNumber": 0,
+  "time": 60,
+  "recipes": [
+    {
+      "recipe": "SALAD",
+      "ingredients": ["TOMATO", "LETTUCE"]
+    },
+    {
+      "recipe": "SALAD",
+      "ingredients": ["TOMATO", "LETTUCE"]
+    },
+    {
+      "recipe": "SALAD",
+      "ingredients": ["TOMATO", "LETTUCE"]
+    },
+    {
+      "recipe": "SALAD",
+      "ingredients": ["TOMATO", "LETTUCE"]
+    }
+  ],
+  "obstacles": [
+    {
+      "x": 2,
+      "y": 7
+    },
+    {
+      "x": 3,
+      "y": 2
+    },
+    {
+      "x": 6,
+      "y": 6
+    }
+  ],
+  "initialX": 5,
+  "initialY": 5
 }

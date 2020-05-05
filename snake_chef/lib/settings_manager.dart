@@ -2,6 +2,7 @@ class SettingsManager {
   static bool isMusicEnabled = true;
   static bool isSfxEnabled = true;
   static GamepadOptions gamePadOptions = GamepadOptions();
+  static int stageProgress = 0;
 }
 
 class GamepadOptions {

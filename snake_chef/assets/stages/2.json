@@ -1,61 +1,38 @@
 {
-    "time": 120,
-    "recipes": [
-        {
-            "recipe": "BURGER",
-            "ingredients": [
-                "BREAD",
-                "CHEESE",
-                "HAMBURGUER",
-                "LETTUCE",
-                "TOMATO"
-            ]
-        },
-        {
-            "recipe": "BURGER",
-            "ingredients": [
-                "BREAD",
-                "CHEESE",
-                "HAMBURGUER",
-                "LETTUCE",
-                "TOMATO"
-            ]
-        },
-        {
-            "recipe": "BURGER",
-            "ingredients": [
-                "BREAD",
-                "CHEESE",
-                "HAMBURGUER",
-                "LETTUCE",
-                "TOMATO"
-            ]
-        },
-        {
-            "recipe": "BURGER",
-            "ingredients": [
-                "BREAD",
-                "CHEESE",
-                "HAMBURGUER",
-                "LETTUCE",
-                "TOMATO"
-            ]
-        }
-    ],
-    "obstacles": [
-        {
-            "x": 3,
-            "y": 9
-        },
-        {
-            "x": 4,
-            "y": 3
-        },
-        {
-            "x": 7,
-            "y": 7
-        }
-    ],
-    "initialX": 5,
-    "initialY": 5
+  "stageNumber": 2,
+  "time": 120,
+  "recipes": [
+    {
+      "recipe": "BURGER",
+      "ingredients": ["BREAD", "CHEESE", "HAMBURGUER", "LETTUCE", "TOMATO"]
+    },
+    {
+      "recipe": "BURGER",
+      "ingredients": ["BREAD", "CHEESE", "HAMBURGUER", "LETTUCE", "TOMATO"]
+    },
+    {
+      "recipe": "BURGER",
+      "ingredients": ["BREAD", "CHEESE", "HAMBURGUER", "LETTUCE", "TOMATO"]
+    },
+    {
+      "recipe": "BURGER",
+      "ingredients": ["BREAD", "CHEESE", "HAMBURGUER", "LETTUCE", "TOMATO"]
+    }
+  ],
+  "obstacles": [
+    {
+      "x": 3,
+      "y": 9
+    },
+    {
+      "x": 4,
+      "y": 3
+    },
+    {
+      "x": 7,
+      "y": 7
+    }
+  ],
+  "initialX": 5,
+  "initialY": 5
 }

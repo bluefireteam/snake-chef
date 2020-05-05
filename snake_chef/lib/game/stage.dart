@@ -3,6 +3,7 @@ import 'package:flame/position.dart';
 enum Ingredient { TOMATO, LETTUCE, PASTA, MEAT_BALLS, BREAD, CHEESE, HAMBURGUER, ONION, MUSHROOM }
 
 class Stage {
+  final int stageNumber;
   final List<Recipe> recipes;
   final List<Position> obstacles;
 
@@ -10,15 +11,15 @@ class Stage {
   int initialX;
   int initialY;
 
-  Stage({this.recipes, this.obstacles, this.initialX, this.initialY, this.time});
+  Stage({this.recipes, this.obstacles, this.initialX, this.initialY, this.time, this.stageNumber});
 
   factory Stage.fromJson(Map<String, dynamic> json) => Stage(
-        time: json["time"],
-        recipes: json["recipes"].map((recipe) => Recipe.fromJson(recipe)).toList().cast<Recipe>(),
-        obstacles: json["obstacles"].map((obstacle) => Position(obstacle["x"].toDouble(), obstacle["y"].toDouble())).toList().cast<Position>(),
-        initialX: json["initialX"],
-        initialY: json["initialY"],
-      );
+      time: json["time"],
+      recipes: json["recipes"].map((recipe) => Recipe.fromJson(recipe)).toList().cast<Recipe>(),
+      obstacles: json["obstacles"].map((obstacle) => Position(obstacle["x"].toDouble(), obstacle["y"].toDouble())).toList().cast<Position>(),
+      initialX: json["initialX"],
+      initialY: json["initialY"],
+      stageNumber: json["stageNumber"]);
 
   List<Ingredient> stageIngredients() {
     List<Ingredient> _ingredients = [];

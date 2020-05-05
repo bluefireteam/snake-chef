@@ -1,53 +1,38 @@
 {
-    "time": 80,
-    "recipes": [
-        {
-            "recipe": "PASTA",
-            "ingredients": [
-                "TOMATO",
-                "PASTA",
-                "MEAT_BALLS"
-            ]
-        },
-        {
-            "recipe": "PASTA",
-            "ingredients": [
-                "TOMATO",
-                "PASTA",
-                "MEAT_BALLS"
-            ]
-        },
-        {
-            "recipe": "PASTA",
-            "ingredients": [
-                "TOMATO",
-                "PASTA",
-                "MEAT_BALLS"
-            ]
-        },
-        {
-            "recipe": "PASTA",
-            "ingredients": [
-                "TOMATO",
-                "PASTA",
-                "MEAT_BALLS"
-            ]
-        }
-    ],
-    "obstacles": [
-        {
-            "x": 3,
-            "y": 9
-        },
-        {
-            "x": 4,
-            "y": 3
-        },
-        {
-            "x": 7,
-            "y": 7
-        }
-    ],
-    "initialX": 5,
-    "initialY": 5
+  "stageNumber": 1,
+  "time": 80,
+  "recipes": [
+    {
+      "recipe": "PASTA",
+      "ingredients": ["TOMATO", "PASTA", "MEAT_BALLS"]
+    },
+    {
+      "recipe": "PASTA",
+      "ingredients": ["TOMATO", "PASTA", "MEAT_BALLS"]
+    },
+    {
+      "recipe": "PASTA",
+      "ingredients": ["TOMATO", "PASTA", "MEAT_BALLS"]
+    },
+    {
+      "recipe": "PASTA",
+      "ingredients": ["TOMATO", "PASTA", "MEAT_BALLS"]
+    }
+  ],
+  "obstacles": [
+    {
+      "x": 3,
+      "y": 9
+    },
+    {
+      "x": 4,
+      "y": 3
+    },
+    {
+      "x": 7,
+      "y": 7
+    }
+  ],
+  "initialX": 5,
+  "initialY": 5
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../settings_manager.dart';
 
 import '../stage_loader.dart';
 import '../widgets/pattern_container.dart';
@@ -33,15 +34,21 @@ class StageSelectScreen extends StatelessWidget {
                       final i = r * itensPerColumn + c;
 
                       if (i < StageLoader.STAGE_COUNT) {
+                        final isEnabled = i <= SettingsManager.stageProgress;
                         return Container(
-                            padding: EdgeInsets.all(20),
-                            child: Button.primaryButton(
-                                label: '${i + 1}',
-                                width: 80,
-                                height: 80,
-                                onPressed: () {
-                                  Navigator.pushNamed(ctx, '/game', arguments: i);
-                                }));
+                          padding: EdgeInsets.all(20),
+                          child: Opacity(
+                              opacity: isEnabled ? 1 : 0.3,
+                              child: Button.primaryButton(
+                                  label: '${i + 1}',
+                                  width: 80,
+                                  height: 80,
+                                  onPressed: () {
+                                    if (isEnabled) {
+                                      Navigator.pushNamed(ctx, '/game', arguments: i);
+                                    }
+                                  })),
+                        );
                       } else {
                         return Container();
                       }
