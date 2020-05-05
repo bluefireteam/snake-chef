@@ -13,6 +13,7 @@ dependencies:
   flame: 0.19.1
   flame_splash_screen: 0.0.1
   ocarina: 0.0.1
+  shared_preferences: 0.5.7
 
   cupertino_icons: ^0.1.3
 
@@ -49,6 +50,6 @@ flutter:
     - assets/audio/recipe_done.wav
 
   fonts:
-   - family: VictorPixel
-     fonts:
-       - asset: assets/fonts/victor-pixel.ttf
+    - family: VictorPixel
+      fonts:
+        - asset: assets/fonts/victor-pixel.ttf

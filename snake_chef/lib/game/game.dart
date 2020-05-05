@@ -190,6 +190,7 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
             addCelebrationComponent();
             showGameWin();
             SettingsManager.stageProgress = stage.stageNumber + 1;
+            SettingsManager.save();
           }
         } else {
           gameOver();
