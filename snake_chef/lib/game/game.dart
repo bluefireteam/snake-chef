@@ -42,6 +42,7 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
 
   Recipe get currentRecipe => stage.recipes[recipeIndex];
   int recipeIndex = 0;
+  int recipeIndexLabel = 0;
 
   List<Ingredient> collectedIngredients = [];
 
@@ -52,7 +53,7 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
   // To center the game on the screen
   Position gameOffset;
 
-  bool hasNewMove;
+  bool cantMove;
 
   SnakeChef({Size screenSize, this.boardWidth, this.boardHeight, this.stage, this.tickTime = 0.5}) {
     size = screenSize;
@@ -117,7 +118,7 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
   }
 
   void tick() {
-    hasNewMove = false;
+    cantMove = false;
     gameBoard.tick();
   }
 
@@ -134,8 +135,10 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
     AudioManager.gameplayMusic();
     hideGameOver();
     recipeIndex = 0;
+    recipeIndexLabel = 0;
     collectedIngredients = [];
 
+    cantMove = false;
     stageTimer = 0;
     stageTimerController.start();
 
@@ -145,14 +148,20 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
     tickTimer.start();
   }
 
-  void gameOver({String label}) {
-    AudioManager.gameoverMusic();
+  void stopGame() {
     tickTimer.stop();
     fastTickTimer.stop();
+    stageTimerController.stop();
+    cantMove = true;
+  }
+
+  void gameOver({String label}) {
+    print(
+        "recipeIndex: $recipeIndex / tickTimer: ${tickTimer.current} / stageTimerController: ${stageTimerController.current} / collectedItems: $collectedIngredients");
+    AudioManager.gameoverMusic();
+    stopGame();
 
     showGameOver(label: label);
-
-    stageTimerController.stop();
   }
 
   void collectIngredient(Ingredient ingredient) {
@@ -166,17 +175,18 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
         if (currentRecipe.checkCompletion(collectedIngredients)) {
           collectedIngredients = [];
 
-          recipeIndex++;
           if (recipeIndex + 1 < stage.recipes.length) {
             AudioManager.recipeDoneSfx();
+            recipeIndexLabel++;
             recipeIndex++;
             topLeftBar.justCompletedOrder();
             bottomLeftBar.justCompletedOrder();
           } else {
+            recipeIndexLabel++;
+
+            stopGame();
             AudioManager.winMusic();
             addCelebrationComponent();
-            tickTimer.stop();
-            fastTickTimer.stop();
             showGameWin();
           }
         } else {
@@ -211,9 +221,9 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
   }
 
   void onDpadEvent(DpadKey key) {
-    if (hasNewMove) return;
+    if (cantMove) return;
 
-    hasNewMove = true;
+    cantMove = true;
     if (key == DpadKey.RIGHT) {
       gameBoard.snake.turnRight();
     } else if (key == DpadKey.LEFT) {
@@ -227,8 +237,8 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
 
   @override
   void onHorizontalDragEnd(details) {
-    if (hasNewMove) return;
-    hasNewMove = true;
+    if (cantMove) return;
+    cantMove = true;
 
     if (details.velocity.pixelsPerSecond.dx > 0) {
       gameBoard.snake.turnRight();
@@ -239,8 +249,8 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
 
   @override
   void onVerticalDragEnd(details) {
-    if (hasNewMove) return;
-    hasNewMove = true;
+    if (cantMove) return;
+    cantMove = true;
 
     if (details.velocity.pixelsPerSecond.dy > 0) {
       gameBoard.snake.turnDown();

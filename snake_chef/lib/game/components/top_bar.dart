@@ -33,7 +33,7 @@ class TopBar extends NineTileBoxComponent with HasGameRef<SnakeChef> {
     labelText.render(canvas, 'Collected', Position(refLeft, 20));
 
     labelText.render(canvas, 'Recipe', Position(x + width - 230, 20));
-    counterText.render(canvas, '${gameRef.recipeIndex}/${gameRef.stage.recipes.length}', Position(x + width - 230, 45));
+    counterText.render(canvas, '${gameRef.recipeIndexLabel}/${gameRef.stage.recipes.length}', Position(x + width - 230, 45));
 
     var i = 0;
     gameRef.collectedIngredients.forEach((ingredient) {
