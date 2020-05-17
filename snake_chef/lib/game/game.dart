@@ -134,6 +134,8 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
 
   void pause() {
     pauseEngine();
+    AudioManager.pauseMusic();
+
     addWidgetOverlay(
       'PauseGameMenu',
       PauseGame(resumeGame: resume),
@@ -142,6 +144,8 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
 
   void resume() {
     resumeEngine();
+    AudioManager.resumeMusic();
+
     removeWidgetOverlay('PauseGameMenu');
   }
 
