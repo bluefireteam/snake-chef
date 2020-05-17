@@ -100,14 +100,16 @@ class _StageSelectScreenState extends State<StageSelectScreen> {
                     SizedBox(height: 10),
                     Label(label: 'Select Difficult', fontSize: 35, fontColor: Color(0xFF94b0c2)),
                     SizedBox(height: 20),
-                    Button.primaryButton(
+                    Button(
+                      buttonType: ButtonType.PRIMARY,
                       label: 'Normal',
                       onPressed: () {
                         Navigator.pushNamed(ctx, '/game', arguments: GameScreenArgs(stageNumber: _stageNumber, difficult: StageDifficult.NORMAL));
                       },
                     ),
                     SizedBox(height: 5),
-                    Button.primaryButton(
+                    Button(
+                      buttonType: ButtonType.PRIMARY,
                       label: 'Medium',
                       disabled: !(_stageNumber < SettingsManager.stageProgress.normal),
                       onPressed: () {
@@ -115,7 +117,8 @@ class _StageSelectScreenState extends State<StageSelectScreen> {
                       },
                     ),
                     SizedBox(height: 5),
-                    Button.primaryButton(
+                    Button(
+                      buttonType: ButtonType.PRIMARY,
                       label: 'Hard',
                       disabled: !(_stageNumber < SettingsManager.stageProgress.medium),
                       onPressed: () {
@@ -124,7 +127,8 @@ class _StageSelectScreenState extends State<StageSelectScreen> {
                     ),
                   ],
                 ),
-                Button.secondaryButton(
+                Button(
+                  buttonType: ButtonType.SECONDARY,
                   label: 'Cancel',
                   onPressed: () {
                     setState(() {
