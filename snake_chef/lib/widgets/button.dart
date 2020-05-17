@@ -91,6 +91,28 @@ class Button extends StatefulWidget {
     pressedSprite: ButtonSprites.dpadButtonPressed(),
   );
 
+  Button.switchButton({
+    VoidCallback onPressed,
+    VoidCallback onPress,
+    VoidCallback onPressReleased,
+    String label,
+
+    double width,
+    double height,
+
+    bool isOn = true
+  }): this(
+    onPressed: onPressed,
+    onPress: onPress,
+    onPressReleased: onPressReleased,
+    label: label,
+    width: width,
+    height: height,
+    labelColor: isOn ? Color(0xFFa7f070) : Color(0xFF5d275d),
+    sprite: isOn ? ButtonSprites.onButton() : ButtonSprites.offButton(),
+    pressedSprite: isOn ? ButtonSprites.onButtonPressed() : ButtonSprites.offButtonPressed(),
+  );
+
   @override
   State createState() => _ButtonState();
 }

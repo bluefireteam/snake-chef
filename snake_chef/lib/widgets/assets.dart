@@ -7,7 +7,7 @@ class WidgetsAssets {
 
   static Future<void> load() async {
     await Flame.images.loadAll(["buttons.png"]);
-    _buttons = SpriteSheet(imageName: "buttons.png", textureHeight: 20, textureWidth: 60, columns: 2, rows: 4);
+    _buttons = SpriteSheet(imageName: "buttons.png", textureHeight: 20, textureWidth: 60, columns: 2, rows: 5);
   }
 }
 
@@ -20,4 +20,10 @@ class ButtonSprites {
 
   static Sprite dpadButton() => WidgetsAssets._buttons.getSprite(2, 0);
   static Sprite dpadButtonPressed() => WidgetsAssets._buttons.getSprite(3, 0);
+
+  static Sprite onButton() => WidgetsAssets._buttons.getSprite(2, 1);
+  static Sprite onButtonPressed() => WidgetsAssets._buttons.getSprite(3, 1);
+
+  static Sprite offButton() => WidgetsAssets._buttons.getSprite(4, 0);
+  static Sprite offButtonPressed() => WidgetsAssets._buttons.getSprite(4, 0);
 }

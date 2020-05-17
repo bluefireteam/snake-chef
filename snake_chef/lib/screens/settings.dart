@@ -49,10 +49,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         fontColor: Color(0xFF333c57),
                       ),
                       SizedBox(width: 10),
-                      Button.secondaryButton(
+                      Button.switchButton(
                         label: '${_isMusicEnabled ? 'on' : 'off'}',
                         width: 70,
-                        onPress: () {
+                        isOn: _isMusicEnabled,
+                        onPressed: () {
                           setState(() {
                             _isMusicEnabled = !_isMusicEnabled;
                             SettingsManager.isMusicEnabled = _isMusicEnabled;
@@ -72,10 +73,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         fontColor: Color(0xFF333c57),
                       ),
                       SizedBox(width: 10),
-                      Button.secondaryButton(
+                      Button.switchButton(
                         label: '${_isSfxEnabled ? 'on' : 'off'}',
                         width: 70,
-                        onPress: () {
+                        isOn: _isSfxEnabled,
+                        onPressed: () {
                           setState(() {
                             _isSfxEnabled = !_isSfxEnabled;
                             SettingsManager.isSfxEnabled = _isSfxEnabled;
@@ -95,10 +97,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         fontColor: Color(0xFF333c57),
                       ),
                       SizedBox(width: 10),
-                      Button.secondaryButton(
+                      Button.switchButton(
                         label: '${_isGamepadEnabled ? 'on' : 'off'}',
                         width: 70,
-                        onPress: () {
+                        isOn: _isGamepadEnabled,
+                        onPressed: () {
                           setState(() {
                             _isGamepadEnabled = !_isGamepadEnabled;
                             SettingsManager.gamePadOptions.enabled = _isGamepadEnabled;
