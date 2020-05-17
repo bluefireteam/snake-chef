@@ -12,7 +12,7 @@ class GameScreen extends StatelessWidget {
   Widget build(ctx) {
     AudioManager.gameplayMusic();
 
-    final stageNumber = ModalRoute.of(ctx).settings.arguments;
+    final GameScreenArgs gameScreenArgs = ModalRoute.of(ctx).settings.arguments;
 
     return LayoutBuilder(builder: (ctx, constraints) {
       return Container(
@@ -20,12 +20,13 @@ class GameScreen extends StatelessWidget {
           child: Scaffold(
             backgroundColor: Colors.black,
             body: FutureBuilder(
-                future: StageLoader.loadStage(stageNumber),
+                future: StageLoader.loadStage(gameScreenArgs.stageNumber),
                 builder: (BuildContext ctx, AsyncSnapshot<Stage> snapshot) {
                   if (snapshot.hasData) {
                     final Stage stage = snapshot.data;
                     final size = Size(constraints.maxWidth, constraints.maxHeight);
-                    final snakeChefGame = SnakeChef(screenSize: size, boardWidth: 10, boardHeight: 10, stage: stage);
+                    final snakeChefGame =
+                        SnakeChef(screenSize: size, boardWidth: 10, boardHeight: 10, stage: stage, stageDifficult: gameScreenArgs.difficult);
 
                     final List<Widget> children = [snakeChefGame.widget];
 
@@ -87,4 +88,11 @@ class GameScreen extends StatelessWidget {
           ));
     });
   }
+}
+
+class GameScreenArgs {
+  int stageNumber;
+  StageDifficult difficult;
+
+  GameScreenArgs({this.stageNumber, this.difficult});
 }

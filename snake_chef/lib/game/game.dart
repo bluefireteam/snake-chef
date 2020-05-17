@@ -39,6 +39,7 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
   BottomLeftBar bottomLeftBar;
 
   Stage stage;
+  StageDifficult stageDifficult;
   Timer stageTimerController;
   int stageTimer = 0;
 
@@ -56,9 +57,21 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
   Position gameOffset;
 
   bool cantMove;
+  bool gameEnded = false;
 
-  SnakeChef({Size screenSize, this.boardWidth, this.boardHeight, this.stage, this.tickTime = 0.5}) {
+  SnakeChef({Size screenSize, this.boardWidth, this.boardHeight, this.stage, this.stageDifficult}) {
     size = screenSize;
+    switch (stageDifficult) {
+      case StageDifficult.NORMAL:
+        tickTime = 0.5;
+        break;
+      case StageDifficult.MEDIUM:
+        tickTime = 0.4;
+        break;
+      case StageDifficult.HARD:
+        tickTime = 0.22;
+        break;
+    }
 
     final gameboardOffset = Position(300, 100);
     add(gameBoard = GameBoard(
@@ -133,8 +146,10 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
   }
 
   void tick() {
-    cantMove = false;
-    gameBoard.tick();
+    if (!gameEnded) {
+      cantMove = false;
+      gameBoard.tick();
+    }
   }
 
   @override
@@ -147,6 +162,7 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
   }
 
   void restartGame() {
+    gameEnded = false;
     AudioManager.gameplayMusic();
     hideGameOver();
     recipeIndex = 0;
@@ -171,6 +187,8 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
   }
 
   void gameOver({String label}) {
+    gameEnded = true;
+
     print(
         "recipeIndex: $recipeIndex / tickTimer: ${tickTimer.current} / stageTimerController: ${stageTimerController.current} / collectedItems: $collectedIngredients");
     AudioManager.gameoverMusic();
@@ -197,13 +215,14 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
             topLeftBar.justCompletedOrder();
             bottomLeftBar.justCompletedOrder();
           } else {
+            gameEnded = true;
             recipeIndexLabel++;
 
             stopGame();
             AudioManager.winMusic();
             addCelebrationComponent();
             showGameWin();
-            SettingsManager.stageProgress = stage.stageNumber + 1;
+            SettingsManager.stageProgress.updateStageProgress(stageDifficult, stage.stageNumber + 1);
             SettingsManager.save();
           }
         } else {

@@ -2,6 +2,8 @@ import 'package:flame/position.dart';
 
 enum Ingredient { TOMATO, LETTUCE, PASTA, MEAT_BALLS, BREAD, CHEESE, HAMBURGUER, ONION, MUSHROOM }
 
+enum StageDifficult { NORMAL, MEDIUM, HARD }
+
 class Stage {
   final int stageNumber;
   final List<Recipe> recipes;

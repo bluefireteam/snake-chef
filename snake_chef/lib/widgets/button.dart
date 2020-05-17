@@ -14,6 +14,7 @@ class Button extends StatefulWidget {
   final Sprite pressedSprite;
   final double width;
   final double height;
+  final bool disabled;
 
   Button({
     this.onPressed,
@@ -23,9 +24,9 @@ class Button extends StatefulWidget {
     this.labelColor,
     this.sprite,
     this.pressedSprite,
-
     this.width,
     this.height,
+    this.disabled = false,
   });
 
   Button.primaryButton({
@@ -33,85 +34,85 @@ class Button extends StatefulWidget {
     VoidCallback onPress,
     VoidCallback onPressReleased,
     String label,
-
     double width,
     double height,
-  }): this(
-    onPressed: onPressed,
-    onPress: onPress,
-    onPressReleased: onPressReleased,
-    label: label,
-    width: width,
-    height: height,
-
-    labelColor: Color(0xFFb13e53),
-    sprite: ButtonSprites.primaryButton(),
-    pressedSprite: ButtonSprites.primaryButtonPressed(),
-  );
+    bool disabled = false,
+  }) : this(
+          onPressed: onPressed,
+          onPress: onPress,
+          onPressReleased: onPressReleased,
+          label: label,
+          width: width,
+          height: height,
+          labelColor: Color(0xFFb13e53),
+          sprite: ButtonSprites.primaryButton(),
+          pressedSprite: ButtonSprites.primaryButtonPressed(),
+          disabled: disabled,
+        );
 
   Button.secondaryButton({
     VoidCallback onPressed,
     VoidCallback onPress,
     VoidCallback onPressReleased,
     String label,
-
     double width,
     double height,
-  }): this(
-    onPressed: onPressed,
-    onPress: onPress,
-    onPressReleased: onPressReleased,
-    label: label,
-    width: width,
-    height: height,
-
-    labelColor: Color(0xFF5d275d),
-    sprite: ButtonSprites.secondaryButton(),
-    pressedSprite: ButtonSprites.secondaryButtonPressed(),
-  );
+    bool disabled = false,
+  }) : this(
+          onPressed: onPressed,
+          onPress: onPress,
+          onPressReleased: onPressReleased,
+          label: label,
+          width: width,
+          height: height,
+          labelColor: Color(0xFF5d275d),
+          sprite: ButtonSprites.secondaryButton(),
+          pressedSprite: ButtonSprites.secondaryButtonPressed(),
+          disabled: disabled,
+        );
 
   Button.dpadButton({
     VoidCallback onPressed,
     VoidCallback onPress,
     VoidCallback onPressReleased,
     String label,
-
     double width,
     double height,
-  }): this(
-    onPressed: onPressed,
-    onPress: onPress,
-    onPressReleased: onPressReleased,
-    label: label,
-    width: width,
-    height: height,
+    bool disabled = false,
+  }) : this(
+          onPressed: onPressed,
+          onPress: onPress,
+          onPressReleased: onPressReleased,
+          label: label,
+          width: width,
+          height: height,
+          labelColor: Color(0xFF333c57),
+          sprite: ButtonSprites.dpadButton(),
+          pressedSprite: ButtonSprites.dpadButtonPressed(),
+          disabled: disabled,
+        );
 
-    labelColor: Color(0xFF333c57),
-    sprite: ButtonSprites.dpadButton(),
-    pressedSprite: ButtonSprites.dpadButtonPressed(),
-  );
-
-  Button.switchButton({
-    VoidCallback onPressed,
-    VoidCallback onPress,
-    VoidCallback onPressReleased,
-    String label,
-
-    double width,
-    double height,
-
-    bool isOn = true
-  }): this(
-    onPressed: onPressed,
-    onPress: onPress,
-    onPressReleased: onPressReleased,
-    label: label,
-    width: width,
-    height: height,
-    labelColor: isOn ? Color(0xFFa7f070) : Color(0xFF5d275d),
-    sprite: isOn ? ButtonSprites.onButton() : ButtonSprites.offButton(),
-    pressedSprite: isOn ? ButtonSprites.onButtonPressed() : ButtonSprites.offButtonPressed(),
-  );
+  Button.switchButton(
+      {VoidCallback onPressed,
+      VoidCallback onPress,
+      VoidCallback onPressReleased,
+      String label,
+      double width,
+      double height,
+      bool isOn = true,
+      bool disabled = false})
+      : this(
+          onPressed: onPressed,
+          onPress: onPress,
+          onPressReleased: onPressReleased,
+          label: label,
+          width: width,
+          height: height,
+          labelColor: isOn ? Color(0xFFa7f070) : Color(0xFF5d275d),
+          sprite: isOn ? ButtonSprites.onButton() : ButtonSprites.offButton(),
+          pressedSprite: isOn ? ButtonSprites.onButtonPressed() : ButtonSprites.offButtonPressed(),
+          disabled: disabled,
+        );
 
   @override
   State createState() => _ButtonState();
@@ -141,31 +142,44 @@ class _ButtonState extends State<Button> {
     final width = widget.width ?? 200;
     final height = widget.height ?? 50;
 
-    return GestureDetector(
-        onTapDown: (_) {
-          _press();
-        },
-        onTapUp: (_) {
-          _release();
-        },
-        onTapCancel: () {
-          _release();
-        },
-        child: Container(
+    return Opacity(
+        opacity: widget.disabled ? 0.3 : 1,
+        child: GestureDetector(
+          onTapDown: (_) {
+            if (widget.disabled) {
+              return;
+            }
+            _press();
+          },
+          onTapUp: (_) {
+            if (widget.disabled) {
+              return;
+            }
+            _release();
+          },
+          onTapCancel: () {
+            if (widget.disabled) {
+              return;
+            }
+            _release();
+          },
+          child: Container(
             width: width,
             height: height,
             child: CustomPaint(
-                painter: _ButtonPainer(_pressed ? widget.pressedSprite : widget.sprite),
-                child: Center(
-                    child: widget.label != null ? Label(
+              painter: _ButtonPainer(_pressed ? widget.pressedSprite : widget.sprite),
+              child: Center(
+                child: widget.label != null
+                    ? Label(
                         label: widget.label,
                         fontColor: widget.labelColor,
                         fontSize: height * 0.6,
-                    ) : null,
-                ),
+                      )
+                    : null,
+              ),
             ),
-        ),
-    );
+          ),
+        ));
   }
 }
 

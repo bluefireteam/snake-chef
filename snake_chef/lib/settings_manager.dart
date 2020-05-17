@@ -1,11 +1,12 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:snake_chef/game/stage.dart';
 import './audio_manager.dart';
 
 class SettingsManager {
   static bool _isMusicEnabled;
   static bool isSfxEnabled;
   static GamepadOptions gamePadOptions = GamepadOptions();
-  static int stageProgress;
+  static StageProgress stageProgress = StageProgress();
 
   static set isMusicEnabled(bool value) {
     _isMusicEnabled = value;
@@ -20,7 +21,10 @@ class SettingsManager {
 
   static void save() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setInt("SettingsManager.stageProgress", stageProgress);
+    await prefs.setInt("SettingsManager.stageProgressNormal", stageProgress.normal);
+    await prefs.setInt("SettingsManager.stageProgressMedium", stageProgress.medium);
+    await prefs.setInt("SettingsManager.stageProgressHard", stageProgress.hard);
+
     await prefs.setBool("SettingsManager.isMusicEnabled", isMusicEnabled);
     await prefs.setBool("SettingsManager.isSfxEnabled", isSfxEnabled);
 
@@ -33,7 +37,10 @@ class SettingsManager {
   static Future<void> load() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    stageProgress = prefs.getInt("SettingsManager.stageProgress") ?? 0;
+    stageProgress.normal = prefs.getInt("SettingsManager.stageProgressNormal") ?? 0;
+    stageProgress.medium = prefs.getInt("SettingsManager.stageProgressMedium") ?? 0;
+    stageProgress.hard = prefs.getInt("SettingsManager.stageProgressHard") ?? 0;
+
     isMusicEnabled = prefs.getBool("SettingsManager.isMusicEnabled") ?? true;
     isSfxEnabled = prefs.getBool("SettingsManager.isSfxEnabled") ?? true;
 
@@ -49,4 +56,24 @@ class GamepadOptions {
   double opacity;
   double dpadSize;
   double actionButtonSize;
+}
+
+class StageProgress {
+  int normal;
+  int medium;
+  int hard;
+
+  void updateStageProgress(StageDifficult difficult, int stage) {
+    switch (difficult) {
+      case StageDifficult.NORMAL:
+        normal = stage;
+        break;
+      case StageDifficult.MEDIUM:
+        medium = stage;
+        break;
+      case StageDifficult.HARD:
+        hard = stage;
+        break;
+    }
+  }
 }
