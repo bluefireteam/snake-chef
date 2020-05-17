@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flame/flame.dart';
 import 'package:flame_splash_screen/flame_splash_screen.dart';
+import 'package:snake_chef/screens/settings.dart';
 import 'package:snake_chef/settings_manager.dart';
 
 import './screens/credits_screen.dart';
@@ -39,6 +40,7 @@ void main() async {
       '/title': (ctx) => TitleScreen(),
       '/game': (ctx) => GameScreen(),
       '/stage_select': (ctx) => StageSelectScreen(),
+      '/settings': (ctx) => SettingsScreen(),
       '/credits': (ctx) => CreditsScreen(),
     },
   ));
