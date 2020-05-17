@@ -91,28 +91,36 @@ class _StageSelectScreenState extends State<StageSelectScreen> {
             width: 400,
             height: 380,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Label(label: 'Select Difficult', fontSize: 35, fontColor: Color(0xFF94b0c2)),
-                Button.primaryButton(
-                  label: 'Normal',
-                  onPressed: () {
-                    Navigator.pushNamed(ctx, '/game', arguments: GameScreenArgs(stageNumber: _stageNumber, difficult: StageDifficult.NORMAL));
-                  },
-                ),
-                Button.primaryButton(
-                  label: 'Medium',
-                  disabled: !(_stageNumber < SettingsManager.stageProgress.normal),
-                  onPressed: () {
-                    Navigator.pushNamed(ctx, '/game', arguments: GameScreenArgs(stageNumber: _stageNumber, difficult: StageDifficult.MEDIUM));
-                  },
-                ),
-                Button.primaryButton(
-                  label: 'Hard',
-                  disabled: !(_stageNumber < SettingsManager.stageProgress.medium),
-                  onPressed: () {
-                    Navigator.pushNamed(ctx, '/game', arguments: GameScreenArgs(stageNumber: _stageNumber, difficult: StageDifficult.HARD));
-                  },
+                Column(
+                  children: [
+                    SizedBox(height: 10),
+                    Label(label: 'Select Difficult', fontSize: 35, fontColor: Color(0xFF94b0c2)),
+                    SizedBox(height: 20),
+                    Button.primaryButton(
+                      label: 'Normal',
+                      onPressed: () {
+                        Navigator.pushNamed(ctx, '/game', arguments: GameScreenArgs(stageNumber: _stageNumber, difficult: StageDifficult.NORMAL));
+                      },
+                    ),
+                    SizedBox(height: 5),
+                    Button.primaryButton(
+                      label: 'Medium',
+                      disabled: !(_stageNumber < SettingsManager.stageProgress.normal),
+                      onPressed: () {
+                        Navigator.pushNamed(ctx, '/game', arguments: GameScreenArgs(stageNumber: _stageNumber, difficult: StageDifficult.MEDIUM));
+                      },
+                    ),
+                    SizedBox(height: 5),
+                    Button.primaryButton(
+                      label: 'Hard',
+                      disabled: !(_stageNumber < SettingsManager.stageProgress.medium),
+                      onPressed: () {
+                        Navigator.pushNamed(ctx, '/game', arguments: GameScreenArgs(stageNumber: _stageNumber, difficult: StageDifficult.HARD));
+                      },
+                    ),
+                  ],
                 ),
                 Button.secondaryButton(
                   label: 'Cancel',
@@ -122,6 +130,7 @@ class _StageSelectScreenState extends State<StageSelectScreen> {
                     });
                   },
                 ),
+                SizedBox(height: 5),
               ],
             )),
       ));
