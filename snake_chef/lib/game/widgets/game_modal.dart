@@ -26,11 +26,13 @@ class GameModal extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               title,
-              Button.primaryButton(
+              Button(
+                buttonType: ButtonType.PRIMARY,
                 label: primaryButtonLabel,
                 onPressed: primaryButtonPress,
               ),
-              Button.secondaryButton(
+              Button(
+                buttonType: ButtonType.SECONDARY,
                 label: secondaryButtonLabel,
                 onPressed: secondaryButtonPress,
               ),

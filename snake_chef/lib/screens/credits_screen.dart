@@ -42,7 +42,8 @@ class CreditsScreen extends StatelessWidget {
                     Link(link: "https://fabrisounds.com.br", fontSize: 16, fontColor: Color(0xFF41a6f6)),
                   ]))),
         ])),
-        Button.secondaryButton(
+        Button(
+            buttonType: ButtonType.SECONDARY,
             label: 'Back',
             onPress: () {
               Navigator.of(ctx).pushNamed('/title');

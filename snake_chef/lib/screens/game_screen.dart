@@ -34,7 +34,8 @@ class GameScreen extends StatelessWidget {
                       Positioned(
                         right: 10,
                         top: 10,
-                        child: Button.dpadButton(
+                        child: Button(
+                          buttonType: ButtonType.SILVER,
                           label: '||',
                           width: 50,
                           onPressed: () {
@@ -64,7 +65,8 @@ class GameScreen extends StatelessWidget {
                           bottom: 20,
                           child: Opacity(
                               opacity: SettingsManager.gamePadOptions.opacity,
-                              child: Button.dpadButton(
+                              child: Button(
+                                buttonType: ButtonType.SILVER,
                                 width: SettingsManager.gamePadOptions.actionButtonSize,
                                 height: SettingsManager.gamePadOptions.actionButtonSize,
                                 onPress: () {

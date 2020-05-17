@@ -4,14 +4,22 @@ import 'package:flame/sprite.dart';
 import './label.dart';
 import './assets.dart';
 
+enum ButtonType {
+  PRIMARY,
+  SECONDARY,
+  SILVER,
+  BRONZE,
+  SWITCH_ON,
+  SWITCH_OFF,
+}
+
 class Button extends StatefulWidget {
   final VoidCallback onPressed;
   final VoidCallback onPress;
   final VoidCallback onPressReleased;
   final String label;
-  final Color labelColor;
-  final Sprite sprite;
-  final Sprite pressedSprite;
+  final ButtonType buttonType;
+
   final double width;
   final double height;
   final bool disabled;
@@ -21,98 +29,11 @@ class Button extends StatefulWidget {
     this.onPress,
     this.onPressReleased,
     this.label,
-    this.labelColor,
-    this.sprite,
-    this.pressedSprite,
+    this.buttonType,
     this.width,
     this.height,
     this.disabled = false,
   });
-
-  Button.primaryButton({
-    VoidCallback onPressed,
-    VoidCallback onPress,
-    VoidCallback onPressReleased,
-    String label,
-    double width,
-    double height,
-    bool disabled = false,
-  }) : this(
-          onPressed: onPressed,
-          onPress: onPress,
-          onPressReleased: onPressReleased,
-          label: label,
-          width: width,
-          height: height,
-          labelColor: Color(0xFFb13e53),
-          sprite: ButtonSprites.primaryButton(),
-          pressedSprite: ButtonSprites.primaryButtonPressed(),
-          disabled: disabled,
-        );
-
-  Button.secondaryButton({
-    VoidCallback onPressed,
-    VoidCallback onPress,
-    VoidCallback onPressReleased,
-    String label,
-    double width,
-    double height,
-    bool disabled = false,
-  }) : this(
-          onPressed: onPressed,
-          onPress: onPress,
-          onPressReleased: onPressReleased,
-          label: label,
-          width: width,
-          height: height,
-          labelColor: Color(0xFF5d275d),
-          sprite: ButtonSprites.secondaryButton(),
-          pressedSprite: ButtonSprites.secondaryButtonPressed(),
-          disabled: disabled,
-        );
-
-  Button.dpadButton({
-    VoidCallback onPressed,
-    VoidCallback onPress,
-    VoidCallback onPressReleased,
-    String label,
-    double width,
-    double height,
-    bool disabled = false,
-  }) : this(
-          onPressed: onPressed,
-          onPress: onPress,
-          onPressReleased: onPressReleased,
-          label: label,
-          width: width,
-          height: height,
-          labelColor: Color(0xFF333c57),
-          sprite: ButtonSprites.dpadButton(),
-          pressedSprite: ButtonSprites.dpadButtonPressed(),
-          disabled: disabled,
-        );
-
-  Button.switchButton(
-      {VoidCallback onPressed,
-      VoidCallback onPress,
-      VoidCallback onPressReleased,
-      String label,
-      double width,
-      double height,
-      bool isOn = true,
-      bool disabled = false})
-      : this(
-          onPressed: onPressed,
-          onPress: onPress,
-          onPressReleased: onPressReleased,
-          label: label,
-          width: width,
-          height: height,
-          labelColor: isOn ? Color(0xFFa7f070) : Color(0xFF5d275d),
-          sprite: isOn ? ButtonSprites.onButton() : ButtonSprites.offButton(),
-          pressedSprite: isOn ? ButtonSprites.onButtonPressed() : ButtonSprites.offButtonPressed(),
-          disabled: disabled,
-        );
 
   @override
   State createState() => _ButtonState();
@@ -142,6 +63,49 @@ class _ButtonState extends State<Button> {
     final width = widget.width ?? 200;
     final height = widget.height ?? 50;
 
+    Sprite _sprite;
+    Sprite _pressedSprite;
+    Color _labelColor;
+
+    switch (widget.buttonType) {
+      case ButtonType.PRIMARY: {
+          _labelColor = Color(0xFFb13e53);
+          _sprite = ButtonSprites.primaryButton();
+          _pressedSprite = ButtonSprites.primaryButtonPressed();
+          break;
+      }
+      case ButtonType.SECONDARY: {
+          _labelColor = Color(0xFF351335);
+          _sprite = ButtonSprites.secondaryButton();
+          _pressedSprite = ButtonSprites.secondaryButtonPressed();
+          break;
+      }
+      case ButtonType.SILVER: {
+          _labelColor = Color(0xFF333c57);
+          _sprite = ButtonSprites.dpadButton();
+          _pressedSprite = ButtonSprites.dpadButtonPressed();
+          break;
+      }
+      case ButtonType.SWITCH_ON: {
+          _labelColor = Color(0xFFa7f070);
+          _sprite = ButtonSprites.onButton();
+          _pressedSprite = ButtonSprites.onButtonPressed();
+          break;
+      }
+      case ButtonType.SWITCH_OFF: {
+          _labelColor = Color(0xFF5d275d);
+          _sprite = ButtonSprites.offButton();
+          _pressedSprite = ButtonSprites.offButtonPressed();
+          break;
+      }
+      case ButtonType.BRONZE: {
+          _labelColor = Color(0xFF5d275d);
+          _sprite = ButtonSprites.bronzeButton();
+          _pressedSprite = ButtonSprites.bronzeButtonPressed();
+          break;
+      }
+    }
+
     return Opacity(
         opacity: widget.disabled ? 0.3 : 1,
         child: GestureDetector(
@@ -167,12 +131,12 @@ class _ButtonState extends State<Button> {
             width: width,
             height: height,
             child: CustomPaint(
-              painter: _ButtonPainer(_pressed ? widget.pressedSprite : widget.sprite),
+              painter: _ButtonPainer(_pressed ? _pressedSprite : _sprite),
               child: Center(
                 child: widget.label != null
                     ? Label(
                         label: widget.label,
-                        fontColor: widget.labelColor,
+                        fontColor: _labelColor,
                         fontSize: height * 0.6,
                       )
                     : null,

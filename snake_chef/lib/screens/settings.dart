@@ -49,10 +49,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         fontColor: Color(0xFF333c57),
                       ),
                       SizedBox(width: 10),
-                      Button.switchButton(
+                      Button(
+                        buttonType: _isMusicEnabled ? ButtonType.SWITCH_ON : ButtonType.SWITCH_OFF,
                         label: '${_isMusicEnabled ? 'on' : 'off'}',
                         width: 70,
-                        isOn: _isMusicEnabled,
                         onPressed: () {
                           setState(() {
                             _isMusicEnabled = !_isMusicEnabled;
@@ -73,10 +73,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         fontColor: Color(0xFF333c57),
                       ),
                       SizedBox(width: 10),
-                      Button.switchButton(
+                      Button(
+                        buttonType: _isSfxEnabled ? ButtonType.SWITCH_ON : ButtonType.SWITCH_OFF,
                         label: '${_isSfxEnabled ? 'on' : 'off'}',
                         width: 70,
-                        isOn: _isSfxEnabled,
                         onPressed: () {
                           setState(() {
                             _isSfxEnabled = !_isSfxEnabled;
@@ -97,10 +97,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         fontColor: Color(0xFF333c57),
                       ),
                       SizedBox(width: 10),
-                      Button.switchButton(
+                      Button(
+                        buttonType: _isGamepadEnabled ? ButtonType.SWITCH_ON : ButtonType.SWITCH_OFF,
                         label: '${_isGamepadEnabled ? 'on' : 'off'}',
                         width: 70,
-                        isOn: _isGamepadEnabled,
                         onPressed: () {
                           setState(() {
                             _isGamepadEnabled = !_isGamepadEnabled;
@@ -114,7 +114,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ],
               ),
             ),
-            Button.primaryButton(
+            Button(
+                buttonType: ButtonType.PRIMARY,
                 label: 'Back',
                 onPressed: () {
                   Navigator.of(ctx).pushNamed('/title');

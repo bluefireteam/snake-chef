@@ -50,7 +50,8 @@ class _StageSelectScreenState extends State<StageSelectScreen> {
                         final isEnabled = i <= SettingsManager.stageProgress.normal;
                         return Container(
                           padding: EdgeInsets.all(20),
-                          child: Button.primaryButton(
+                          child: Button(
+                              buttonType: ButtonType.PRIMARY,
                               disabled: !isEnabled,
                               label: '${i + 1}',
                               width: 80,
@@ -69,7 +70,8 @@ class _StageSelectScreenState extends State<StageSelectScreen> {
                     }));
               }),
             ),
-            Button.secondaryButton(
+            Button(
+                buttonType: ButtonType.SECONDARY,
                 label: 'Back',
                 onPressed: () {
                   Navigator.of(ctx).pushReplacementNamed('/title');

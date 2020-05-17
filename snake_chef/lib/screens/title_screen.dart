@@ -24,13 +24,15 @@ class TitleScreen extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    Button.primaryButton(
+                    Button(
+                        buttonType: ButtonType.PRIMARY,
                         label: 'Play',
                         onPressed: () {
                           Navigator.of(ctx).pushNamed('/stage_select');
                         }),
                     SizedBox(height: 5),
-                    Button.secondaryButton(
+                    Button(
+                        buttonType: ButtonType.SECONDARY,
                         label: 'Credits',
                         onPressed: () {
                           Navigator.of(ctx).pushNamed('/credits');
@@ -40,13 +42,15 @@ class TitleScreen extends StatelessWidget {
                 SizedBox(width: 10),
                 Column(
                   children: [
-                    Button.secondaryButton(
+                    Button(
+                        buttonType: ButtonType.SECONDARY,
                         label: 'Settings',
                         onPressed: () {
                           Navigator.of(ctx).pushNamed('/settings');
                         }),
                     SizedBox(height: 5),
-                    Button.secondaryButton(
+                    Button(
+                        buttonType: ButtonType.SECONDARY,
                         label: 'Exit',
                         onPressed: () {
                           exit(0);

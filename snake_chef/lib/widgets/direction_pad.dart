@@ -38,7 +38,8 @@ class DirectionPad extends StatelessWidget {
             child: Stack(children: [
               Positioned(
                 left: buttonSize,
-                child: Button.dpadButton(
+                child: Button(
+                  buttonType: ButtonType.SILVER,
                   width: buttonSize,
                   height: buttonSize,
                   onPressed: () => onPress(DpadKey.UP),
@@ -46,7 +47,8 @@ class DirectionPad extends StatelessWidget {
               ),
               Positioned(
                 top: buttonSize,
-                child: Button.dpadButton(
+                child: Button(
+                  buttonType: ButtonType.SILVER,
                   width: buttonSize,
                   height: buttonSize,
                   onPressed: () => onPress(DpadKey.LEFT),
@@ -55,7 +57,8 @@ class DirectionPad extends StatelessWidget {
               Positioned(
                 top: buttonSize,
                 left: buttonSize * 2,
-                child: Button.dpadButton(
+                child: Button(
+                  buttonType: ButtonType.SILVER,
                   width: buttonSize,
                   height: buttonSize,
                   onPressed: () => onPress(DpadKey.RIGHT),
@@ -64,7 +67,8 @@ class DirectionPad extends StatelessWidget {
               Positioned(
                 top: buttonSize * 2,
                 left: buttonSize,
-                child: Button.dpadButton(
+                child: Button(
+                  buttonType: ButtonType.SILVER,
                   width: buttonSize,
                   height: buttonSize,
                   onPressed: () => onPress(DpadKey.DOWN),
