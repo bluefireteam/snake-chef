@@ -10,6 +10,7 @@ import 'package:flame/particles/translated_particle.dart';
 import 'package:flame/particle.dart';
 import 'package:flame/gestures.dart';
 import 'package:snake_chef/game/widgets/game_win.dart';
+import 'package:snake_chef/game/widgets/pause_game.dart';
 import 'package:snake_chef/settings_manager.dart';
 
 import 'dart:ui';
@@ -116,6 +117,19 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
       size.width / 2 - gameWidgetSize.width / 2,
       0,
     );
+  }
+
+  void pause() {
+    pauseEngine();
+    addWidgetOverlay(
+      'PauseGameMenu',
+      PauseGame(resumeGame: resume),
+    );
+  }
+
+  void resume() {
+    resumeEngine();
+    removeWidgetOverlay('PauseGameMenu');
   }
 
   void tick() {
