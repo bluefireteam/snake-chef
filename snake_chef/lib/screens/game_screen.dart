@@ -14,74 +14,77 @@ class GameScreen extends StatelessWidget {
 
     final stageNumber = ModalRoute.of(ctx).settings.arguments;
 
-    return LayoutBuilder(
-        builder: (ctx, constraints) {
-          return Container(
-              color: Colors.black,
-              child: Scaffold(
-                  backgroundColor: Colors.black,
-                  body: FutureBuilder(
-                      future: StageLoader.loadStage(stageNumber),
-                      builder: (BuildContext ctx, AsyncSnapshot<Stage> snapshot) {
-                        if (snapshot.hasData) {
-                          final Stage stage = snapshot.data;
-                          final size = Size(constraints.maxWidth, constraints.maxHeight);
-                          final snakeChefGame = SnakeChef(
-                              screenSize: size,
-                              boardWidth: 10,
-                              boardHeight: 10,
-                              stage: stage
-                          );
+    return LayoutBuilder(builder: (ctx, constraints) {
+      return Container(
+          color: Colors.black,
+          child: Scaffold(
+            backgroundColor: Colors.black,
+            body: FutureBuilder(
+                future: StageLoader.loadStage(stageNumber),
+                builder: (BuildContext ctx, AsyncSnapshot<Stage> snapshot) {
+                  if (snapshot.hasData) {
+                    final Stage stage = snapshot.data;
+                    final size = Size(constraints.maxWidth, constraints.maxHeight);
+                    final snakeChefGame = SnakeChef(screenSize: size, boardWidth: 10, boardHeight: 10, stage: stage);
 
-                          final List<Widget> children = [
-                            snakeChefGame.widget
-                          ];
+                    final List<Widget> children = [snakeChefGame.widget];
 
-                          if (SettingsManager.gamePadOptions.enabled) {
-                            children.add(
-                                Positioned(
-                                    left: 0,
-                                    bottom: 0,
-                                    child: DirectionPad(
-                                        containerSize: SettingsManager.gamePadOptions.dpadSize,
-                                        opacity: SettingsManager.gamePadOptions.opacity,
-                                        onPress: (key) {
-                                          snakeChefGame?.onDpadEvent(key);
-                                        }
-                                    ),
-                                ),
-                            );
+                    children.add(
+                      Positioned(
+                        right: 10,
+                        top: 10,
+                        child: Button.dpadButton(
+                          label: '||',
+                          width: 50,
+                          onPressed: () {
+                            snakeChefGame?.pause();
+                          },
+                        ),
+                      ),
+                    );
 
-                            children.add(
-                                Positioned(
-                                    right: 0,
-                                    bottom: 20,
-                                    child: Opacity(
-                                        opacity: SettingsManager.gamePadOptions.opacity,
-                                        child: Button.dpadButton(
-                                            width: SettingsManager.gamePadOptions.actionButtonSize,
-                                            height: SettingsManager.gamePadOptions.actionButtonSize,
-                                            onPress: () {
-                                              snakeChefGame.enableFastMode();
-                                            },
-                                            onPressReleased: () {
-                                              snakeChefGame.disableFastMode();
-                                            },
-                                        )
-                                    ),
-                                ),
-                            );
-                          }
+                    if (SettingsManager.gamePadOptions.enabled) {
+                      children.add(
+                        Positioned(
+                          left: 0,
+                          bottom: 0,
+                          child: DirectionPad(
+                              containerSize: SettingsManager.gamePadOptions.dpadSize,
+                              opacity: SettingsManager.gamePadOptions.opacity,
+                              onPress: (key) {
+                                snakeChefGame?.onDpadEvent(key);
+                              }),
+                        ),
+                      );
 
-                          return Stack(children: children);
-                        } else if (snapshot.hasError) {
-                          print(snapshot.error);
-                        }
+                      children.add(
+                        Positioned(
+                          right: 0,
+                          bottom: 20,
+                          child: Opacity(
+                              opacity: SettingsManager.gamePadOptions.opacity,
+                              child: Button.dpadButton(
+                                width: SettingsManager.gamePadOptions.actionButtonSize,
+                                height: SettingsManager.gamePadOptions.actionButtonSize,
+                                onPress: () {
+                                  snakeChefGame.enableFastMode();
+                                },
+                                onPressReleased: () {
+                                  snakeChefGame.disableFastMode();
+                                },
+                              )),
+                        ),
+                      );
+                    }
 
-                        return Container();
-                      }),
-              ));
-        }
-    );
+                    return Stack(children: children);
+                  } else if (snapshot.hasError) {
+                    print(snapshot.error);
+                  }
+
+                  return Container();
+                }),
+          ));
+    });
   }
 }
