@@ -36,32 +36,80 @@ class _SettingsScreenState extends State<SettingsScreen> {
               fontColor: Color(0xFF566c86),
               fontSize: 60,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Button.secondaryButton(
-                  label: 'Music enabled: ${_isMusicEnabled ? 'on' : 'off'}',
-                  width: 320,
-                  onPress: () {
-                    setState(() {
-                      _isMusicEnabled = !_isMusicEnabled;
-                      SettingsManager.isMusicEnabled = _isMusicEnabled;
-                      SettingsManager.save();
-                    });
-                  },
-                ),
-                Button.secondaryButton(
-                  label: 'Sound effects enabled: ${_isSfxEnabled ? 'on' : 'off'}',
-                  width: 320,
-                  onPress: () {
-                    setState(() {
-                      _isSfxEnabled = !_isSfxEnabled;
-                      SettingsManager.isSfxEnabled = _isSfxEnabled;
-                      SettingsManager.save();
-                    });
-                  },
-                )
-              ],
+            SizedBox(
+              width: 300,
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Label(
+                        label: 'Music:',
+                        fontSize: 42,
+                        fontColor: Color(0xFF333c57),
+                      ),
+                      SizedBox(width: 10),
+                      Button.secondaryButton(
+                        label: '${_isMusicEnabled ? 'on' : 'off'}',
+                        width: 70,
+                        onPress: () {
+                          setState(() {
+                            _isMusicEnabled = !_isMusicEnabled;
+                            SettingsManager.isMusicEnabled = _isMusicEnabled;
+                            SettingsManager.save();
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 5),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Label(
+                        label: 'Sounds:',
+                        fontSize: 42,
+                        fontColor: Color(0xFF333c57),
+                      ),
+                      SizedBox(width: 10),
+                      Button.secondaryButton(
+                        label: '${_isSfxEnabled ? 'on' : 'off'}',
+                        width: 70,
+                        onPress: () {
+                          setState(() {
+                            _isSfxEnabled = !_isSfxEnabled;
+                            SettingsManager.isSfxEnabled = _isSfxEnabled;
+                            SettingsManager.save();
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 5),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Label(
+                        label: 'Gamepad:',
+                        fontSize: 42,
+                        fontColor: Color(0xFF333c57),
+                      ),
+                      SizedBox(width: 10),
+                      Button.secondaryButton(
+                        label: '${_isGamepadEnabled ? 'on' : 'off'}',
+                        width: 70,
+                        onPress: () {
+                          setState(() {
+                            _isGamepadEnabled = !_isGamepadEnabled;
+                            SettingsManager.gamePadOptions.enabled = _isGamepadEnabled;
+                            SettingsManager.save();
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
             Button.primaryButton(
                 label: 'Back',
