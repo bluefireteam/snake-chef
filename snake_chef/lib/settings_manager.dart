@@ -1,10 +1,22 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import './audio_manager.dart';
 
 class SettingsManager {
-  static bool isMusicEnabled;
+  static bool _isMusicEnabled;
   static bool isSfxEnabled;
   static GamepadOptions gamePadOptions = GamepadOptions();
   static int stageProgress;
+
+  static set isMusicEnabled(bool value) {
+    _isMusicEnabled = value;
+    if (_isMusicEnabled) {
+      AudioManager.titleMusic();
+    } else {
+      AudioManager.stopMusic();
+    }
+  }
+
+  static get isMusicEnabled => _isMusicEnabled;
 
   static void save() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

@@ -67,9 +67,14 @@ class AudioManager {
       return;
 
     if (_lastPlayer != player) {
-      await _lastPlayer?.stop();
+      await stopMusic();
       player.play();
       _lastPlayer = player;
     }
+  }
+
+  static Future<void> stopMusic() async {
+    await _lastPlayer?.stop();
+    _lastPlayer = null;
   }
 }
