@@ -133,13 +133,15 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
   }
 
   void pause() {
-    pauseEngine();
-    AudioManager.pauseMusic();
+    if (!gameEnded) {
+      pauseEngine();
+      AudioManager.pauseMusic();
 
-    addWidgetOverlay(
-      'PauseGameMenu',
-      PauseGame(resumeGame: resume),
-    );
+      addWidgetOverlay(
+        'PauseGameMenu',
+        PauseGame(resumeGame: resume),
+      );
+    }
   }
 
   void resume() {
