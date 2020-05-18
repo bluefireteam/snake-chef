@@ -20,6 +20,20 @@ class StageSelectScreen extends StatefulWidget {
 class _StageSelectScreenState extends State<StageSelectScreen> {
   int _stageNumber;
 
+  ButtonType getStageButtonType(int stage) {
+    final difficult = SettingsManager.stageProgress.progress[stage];
+
+    if (difficult == StageDifficult.HARD) {
+      return ButtonType.PRIMARY;
+    } else if (difficult == StageDifficult.MEDIUM) {
+      return ButtonType.SILVER;
+    } else if (difficult == StageDifficult.NORMAL) {
+      return ButtonType.BRONZE;
+    } else {
+      return ButtonType.SWITCH_OFF;
+    }
+  }
+
   @override
   Widget build(ctx) {
     AudioManager.titleMusic();
@@ -47,11 +61,11 @@ class _StageSelectScreenState extends State<StageSelectScreen> {
                       final i = r * itensPerColumn + c;
 
                       if (i < StageLoader.STAGE_COUNT) {
-                        final isEnabled = i <= SettingsManager.stageProgress.normal;
+                        final isEnabled = i == 0 || SettingsManager.stageProgress.progress[i - 1] != null;
                         return Container(
                           padding: EdgeInsets.all(20),
                           child: Button(
-                              buttonType: ButtonType.PRIMARY,
+                              buttonType: getStageButtonType(i),
                               disabled: !isEnabled,
                               label: '${i + 1}',
                               width: 80,
@@ -81,8 +95,6 @@ class _StageSelectScreenState extends State<StageSelectScreen> {
       ),
     );
 
-//Navigator.pushNamed(ctx, '/game', arguments: i);
-
     if (_stageNumber != null) {
       children.add(Center(
         child: Container(
@@ -101,7 +113,7 @@ class _StageSelectScreenState extends State<StageSelectScreen> {
                     Label(label: 'Select Difficult', fontSize: 35, fontColor: Color(0xFF94b0c2)),
                     SizedBox(height: 20),
                     Button(
-                      buttonType: ButtonType.PRIMARY,
+                      buttonType: ButtonType.BRONZE,
                       label: 'Normal',
                       onPressed: () {
                         Navigator.pushNamed(ctx, '/game', arguments: GameScreenArgs(stageNumber: _stageNumber, difficult: StageDifficult.NORMAL));
@@ -109,9 +121,9 @@ class _StageSelectScreenState extends State<StageSelectScreen> {
                     ),
                     SizedBox(height: 5),
                     Button(
-                      buttonType: ButtonType.PRIMARY,
+                      buttonType: ButtonType.SILVER,
                       label: 'Medium',
-                      disabled: !(_stageNumber < SettingsManager.stageProgress.normal),
+                      disabled: SettingsManager.stageProgress.progress[_stageNumber] == null,
                       onPressed: () {
                         Navigator.pushNamed(ctx, '/game', arguments: GameScreenArgs(stageNumber: _stageNumber, difficult: StageDifficult.MEDIUM));
                       },
@@ -120,7 +132,8 @@ class _StageSelectScreenState extends State<StageSelectScreen> {
                     Button(
                       buttonType: ButtonType.PRIMARY,
                       label: 'Hard',
-                      disabled: !(_stageNumber < SettingsManager.stageProgress.medium),
+                      disabled: !(SettingsManager.stageProgress.progress[_stageNumber] == StageDifficult.MEDIUM ||
+                          SettingsManager.stageProgress.progress[_stageNumber] == StageDifficult.HARD),
                       onPressed: () {
                         Navigator.pushNamed(ctx, '/game', arguments: GameScreenArgs(stageNumber: _stageNumber, difficult: StageDifficult.HARD));
                       },

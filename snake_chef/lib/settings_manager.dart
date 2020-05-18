@@ -1,5 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:snake_chef/game/stage.dart';
+import 'package:snake_chef/stage_loader.dart';
 import './audio_manager.dart';
 
 class SettingsManager {
@@ -21,9 +22,7 @@ class SettingsManager {
 
   static void save() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setInt("SettingsManager.stageProgressNormal", stageProgress.normal);
-    await prefs.setInt("SettingsManager.stageProgressMedium", stageProgress.medium);
-    await prefs.setInt("SettingsManager.stageProgressHard", stageProgress.hard);
+    await prefs.setString("SettingsManager.stageProgress", stageProgress.progress.join(';'));
 
     await prefs.setBool("SettingsManager.isMusicEnabled", isMusicEnabled);
     await prefs.setBool("SettingsManager.isSfxEnabled", isSfxEnabled);
@@ -37,9 +36,23 @@ class SettingsManager {
   static Future<void> load() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    stageProgress.normal = prefs.getInt("SettingsManager.stageProgressNormal") ?? 0;
-    stageProgress.medium = prefs.getInt("SettingsManager.stageProgressMedium") ?? 0;
-    stageProgress.hard = prefs.getInt("SettingsManager.stageProgressHard") ?? 0;
+    final stageProgressSaved = prefs.getString("SettingsManager.stageProgress")?.split(';') ?? [];
+
+    for (var i = 0; i < stageProgressSaved.length; i++) {
+      var stageDifficult;
+
+      if (stageProgressSaved[i] == 'StageDifficult.NORMAL') {
+        stageDifficult = StageDifficult.NORMAL;
+      }
+      if (stageProgressSaved[i] == 'StageDifficult.MEDIUM') {
+        stageDifficult = StageDifficult.MEDIUM;
+      }
+      if (stageProgressSaved[i] == 'StageDifficult.HARD') {
+        stageDifficult = StageDifficult.HARD;
+      }
+
+      stageProgress.progress[i] = stageDifficult;
+    }
 
     isMusicEnabled = prefs.getBool("SettingsManager.isMusicEnabled") ?? true;
     isSfxEnabled = prefs.getBool("SettingsManager.isSfxEnabled") ?? true;
@@ -59,21 +72,9 @@ class GamepadOptions {
 }
 
 class StageProgress {
-  int normal;
-  int medium;
-  int hard;
+  List<StageDifficult> progress = List.generate(StageLoader.STAGE_COUNT, (index) => null);
 
   void updateStageProgress(StageDifficult difficult, int stage) {
-    switch (difficult) {
-      case StageDifficult.NORMAL:
-        normal = stage;
-        break;
-      case StageDifficult.MEDIUM:
-        medium = stage;
-        break;
-      case StageDifficult.HARD:
-        hard = stage;
-        break;
-    }
+    progress[stage] = difficult;
   }
 }

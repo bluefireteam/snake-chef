@@ -228,7 +228,7 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
             AudioManager.winMusic();
             addCelebrationComponent();
             showGameWin();
-            SettingsManager.stageProgress.updateStageProgress(stageDifficult, stage.stageNumber + 1);
+            SettingsManager.stageProgress.updateStageProgress(stageDifficult, stage.stageNumber);
             SettingsManager.save();
           }
         } else {

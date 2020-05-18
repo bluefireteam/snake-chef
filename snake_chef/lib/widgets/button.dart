@@ -68,42 +68,48 @@ class _ButtonState extends State<Button> {
     Color _labelColor;
 
     switch (widget.buttonType) {
-      case ButtonType.PRIMARY: {
+      case ButtonType.PRIMARY:
+        {
           _labelColor = Color(0xFFb13e53);
           _sprite = ButtonSprites.primaryButton();
           _pressedSprite = ButtonSprites.primaryButtonPressed();
           break;
-      }
-      case ButtonType.SECONDARY: {
-          _labelColor = Color(0xFF351335);
+        }
+      case ButtonType.SECONDARY:
+        {
+          _labelColor = Color(0xFF5d275d);
           _sprite = ButtonSprites.secondaryButton();
           _pressedSprite = ButtonSprites.secondaryButtonPressed();
           break;
-      }
-      case ButtonType.SILVER: {
+        }
+      case ButtonType.SILVER:
+        {
           _labelColor = Color(0xFF333c57);
           _sprite = ButtonSprites.dpadButton();
           _pressedSprite = ButtonSprites.dpadButtonPressed();
           break;
-      }
-      case ButtonType.SWITCH_ON: {
+        }
+      case ButtonType.SWITCH_ON:
+        {
           _labelColor = Color(0xFFa7f070);
           _sprite = ButtonSprites.onButton();
           _pressedSprite = ButtonSprites.onButtonPressed();
           break;
-      }
-      case ButtonType.SWITCH_OFF: {
+        }
+      case ButtonType.SWITCH_OFF:
+        {
           _labelColor = Color(0xFF5d275d);
           _sprite = ButtonSprites.offButton();
           _pressedSprite = ButtonSprites.offButtonPressed();
           break;
-      }
-      case ButtonType.BRONZE: {
-          _labelColor = Color(0xFF5d275d);
+        }
+      case ButtonType.BRONZE:
+        {
+          _labelColor = Color(0xFFb13e53);
           _sprite = ButtonSprites.bronzeButton();
           _pressedSprite = ButtonSprites.bronzeButtonPressed();
           break;
-      }
+        }
     }
 
     return Opacity(
