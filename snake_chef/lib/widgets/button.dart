@@ -11,6 +11,7 @@ enum ButtonType {
   BRONZE,
   SWITCH_ON,
   SWITCH_OFF,
+  PLAIN,
 }
 
 class Button extends StatefulWidget {
@@ -108,6 +109,13 @@ class _ButtonState extends State<Button> {
           _labelColor = Color(0xFFb13e53);
           _sprite = ButtonSprites.bronzeButton();
           _pressedSprite = ButtonSprites.bronzeButtonPressed();
+          break;
+        }
+      case ButtonType.PLAIN:
+        {
+          _labelColor = Color(0xFF566c86);
+          _sprite = ButtonSprites.plainButton();
+          _pressedSprite = ButtonSprites.plainButtonPressed();
           break;
         }
     }

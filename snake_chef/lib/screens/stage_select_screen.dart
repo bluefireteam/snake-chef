@@ -30,7 +30,7 @@ class _StageSelectScreenState extends State<StageSelectScreen> {
     } else if (difficult == StageDifficult.NORMAL) {
       return ButtonType.BRONZE;
     } else {
-      return ButtonType.SWITCH_OFF;
+      return ButtonType.PLAIN;
     }
   }
 
