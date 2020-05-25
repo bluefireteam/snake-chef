@@ -2,18 +2,9 @@
   "stageNumber": 3,
   "time": 120,
   "recipes": [
-    {
-      "recipe": "MUSHROOM_SOUP",
-      "ingredients": ["MUSHROOM", "MUSHROOM", "MUSHROOM"]
-    },
-    {
-      "recipe": "ONION_SOUP",
-      "ingredients": ["ONION", "ONION", "ONION"]
-    },
-    {
-      "recipe": "TOMATO_SOUP",
-      "ingredients": ["TOMATO", "TOMATO", "TOMATO"]
-    }
+    "MUSHROOM_SOUP",
+    "ONION_SOUP",
+    "TOMATO_SOUP"
   ],
   "obstacles": [
     {

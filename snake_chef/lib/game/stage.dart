@@ -1,5 +1,7 @@
 import 'package:flame/position.dart';
 
+import '../recipe_loader.dart';
+
 enum Ingredient { TOMATO, LETTUCE, PASTA, MEAT_BALLS, BREAD, CHEESE, HAMBURGUER, ONION, MUSHROOM }
 
 enum StageDifficult { NORMAL, MEDIUM, HARD }
@@ -17,7 +19,7 @@ class Stage {
 
   factory Stage.fromJson(Map<String, dynamic> json) => Stage(
       time: json["time"],
-      recipes: json["recipes"].map((recipe) => Recipe.fromJson(recipe)).toList().cast<Recipe>(),
+      recipes: json["recipes"].map((recipe) => Recipe.fromJson(RecipeLoader.recipes[recipe])).toList().cast<Recipe>(),
       obstacles: json["obstacles"].map((obstacle) => Position(obstacle["x"].toDouble(), obstacle["y"].toDouble())).toList().cast<Position>(),
       initialX: json["initialX"],
       initialY: json["initialY"],

@@ -2,22 +2,10 @@
   "stageNumber": 0,
   "time": 60,
   "recipes": [
-    {
-      "recipe": "SALAD",
-      "ingredients": ["TOMATO", "LETTUCE"]
-    },
-    {
-      "recipe": "SALAD",
-      "ingredients": ["TOMATO", "LETTUCE"]
-    },
-    {
-      "recipe": "SALAD",
-      "ingredients": ["TOMATO", "LETTUCE"]
-    },
-    {
-      "recipe": "SALAD",
-      "ingredients": ["TOMATO", "LETTUCE"]
-    }
+    "SALAD",
+    "SALAD",
+    "SALAD",
+    "SALAD"
   ],
   "obstacles": [
     {

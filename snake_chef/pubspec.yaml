@@ -51,6 +51,13 @@ flutter:
     - assets/stages/2.json
     - assets/stages/3.json
 
+    - assets/recipes/PASTA.json
+    - assets/recipes/SALAD.json
+    - assets/recipes/BURGER.json
+    - assets/recipes/ONION_SOUP.json
+    - assets/recipes/TOMATO_SOUP.json
+    - assets/recipes/MUSHROOM_SOUP.json
+
     - assets/audio/gameover.aac
     - assets/audio/gameplay.wav
     - assets/audio/title.wav

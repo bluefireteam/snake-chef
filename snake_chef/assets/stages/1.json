@@ -2,22 +2,10 @@
   "stageNumber": 1,
   "time": 80,
   "recipes": [
-    {
-      "recipe": "PASTA",
-      "ingredients": ["TOMATO", "PASTA", "MEAT_BALLS"]
-    },
-    {
-      "recipe": "PASTA",
-      "ingredients": ["TOMATO", "PASTA", "MEAT_BALLS"]
-    },
-    {
-      "recipe": "PASTA",
-      "ingredients": ["TOMATO", "PASTA", "MEAT_BALLS"]
-    },
-    {
-      "recipe": "PASTA",
-      "ingredients": ["TOMATO", "PASTA", "MEAT_BALLS"]
-    }
+    "PASTA",
+    "PASTA",
+    "PASTA",
+    "PASTA"
   ],
   "obstacles": [
     {

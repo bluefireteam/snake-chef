@@ -2,22 +2,9 @@
   "stageNumber": 2,
   "time": 120,
   "recipes": [
-    {
-      "recipe": "BURGER",
-      "ingredients": ["BREAD", "CHEESE", "HAMBURGUER", "LETTUCE", "TOMATO"]
-    },
-    {
-      "recipe": "BURGER",
-      "ingredients": ["BREAD", "CHEESE", "HAMBURGUER", "LETTUCE", "TOMATO"]
-    },
-    {
-      "recipe": "BURGER",
-      "ingredients": ["BREAD", "CHEESE", "HAMBURGUER", "LETTUCE", "TOMATO"]
-    },
-    {
-      "recipe": "BURGER",
-      "ingredients": ["BREAD", "CHEESE", "HAMBURGUER", "LETTUCE", "TOMATO"]
-    }
+    "BURGER",
+    "BURGER",
+    "BURGER"
   ],
   "obstacles": [
     {

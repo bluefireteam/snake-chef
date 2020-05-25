@@ -12,6 +12,7 @@ import './screens/stage_select_screen.dart';
 import './audio_manager.dart';
 import './widgets/assets.dart';
 import './game/assets.dart';
+import './recipe_loader.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,6 +21,7 @@ void main() async {
   await Flame.util.setLandscape();
 
   Future.wait([
+    RecipeLoader.load(),
     Assets.load(),
     WidgetsAssets.load(),
     AudioManager.load(),
