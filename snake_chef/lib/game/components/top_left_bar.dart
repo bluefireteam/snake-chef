@@ -12,17 +12,23 @@ import '../assets.dart';
 
 class TopLeftBar extends NineTileBoxComponent with HasGameRef<SnakeChef> {
   final labelText = TextConfig(
-      fontFamily: 'VictorPixel',
-      fontSize: 28,
-      color: Color(0xFF333c57),
+    fontFamily: 'VictorPixel',
+    fontSize: 28,
+    color: Color(0xFF333c57),
+  );
+  final labelRecipeName = TextConfig(
+    fontFamily: 'VictorPixel',
+    fontSize: 22,
+    color: Color(0xFF566c86),
   );
 
   final textPosition = Position(35, 50);
+  final recipeName = Position(35, 75);
   final spriteRect = Rect.fromLTWH(10, 60, 270, 180);
 
   double _timer = 0.0;
 
-  TopLeftBar(): super(NineTileBox(Sprite('nine_box_tileset.png'), tileSize: 16, destTileSize: 50));
+  TopLeftBar() : super(NineTileBox(Sprite('nine_box_tileset.png'), tileSize: 16, destTileSize: 50));
 
   void justCompletedOrder() {
     _timer = 1.0;
@@ -37,8 +43,6 @@ class TopLeftBar extends NineTileBoxComponent with HasGameRef<SnakeChef> {
     }
   }
 
-
-
   @override
   void render(Canvas canvas) {
     super.render(canvas);
@@ -47,6 +51,7 @@ class TopLeftBar extends NineTileBoxComponent with HasGameRef<SnakeChef> {
       labelText.render(canvas, '  Completed  ', textPosition);
     } else {
       labelText.render(canvas, 'Current order', textPosition);
+      labelRecipeName.render(canvas, gameRef.currentRecipe.recipeName, recipeName);
       Plates.getSprite(gameRef.currentRecipe.recipe).renderRect(canvas, spriteRect);
     }
   }

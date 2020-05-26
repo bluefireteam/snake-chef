@@ -52,15 +52,16 @@ enum RecipeName {
 class Recipe {
   final List<Ingredient> ingredients;
   RecipeName recipe;
+  String recipeName;
 
-  Recipe({this.ingredients, this.recipe});
+  Recipe({this.ingredients, this.recipe, this.recipeName});
 
   factory Recipe.fromJson(Map<String, dynamic> json) {
     final ingredients = json["ingredients"].map((ingredient) => Ingredient.values.firstWhere((e) => e.toString() == 'Ingredient.$ingredient'));
 
     final recipe = RecipeName.values.firstWhere((e) => e.toString() == 'RecipeName.${json['recipe']}');
 
-    return Recipe(ingredients: ingredients.toList().cast<Ingredient>(), recipe: recipe);
+    return Recipe(ingredients: ingredients.toList().cast<Ingredient>(), recipe: recipe, recipeName: json['recipeName']);
   }
 
   bool checkCompletion(List<Ingredient> collectedIngredients) {
