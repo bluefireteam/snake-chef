@@ -1,4 +1,5 @@
 {
   "recipe": "RICE_BOWL",
+  "recipeName": "Rice Bowl",
   "ingredients": ["RICE"]
 }

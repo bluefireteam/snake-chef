@@ -1,4 +1,5 @@
 {
   "recipe": "MUSHROOM_SOUP",
+  "recipeName": "Mushroom Soup",
   "ingredients": ["MUSHROOM", "MUSHROOM", "MUSHROOM"]
 }

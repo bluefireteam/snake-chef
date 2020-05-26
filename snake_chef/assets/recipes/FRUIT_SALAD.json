@@ -1,5 +1,6 @@
 {
   "recipe": "FRUIT_SALAD",
+  "recipeName": "Fruit Salad",
   "ingredients": ["BANANA", "ORANGE", "STRAWBERRY"]
 }
 

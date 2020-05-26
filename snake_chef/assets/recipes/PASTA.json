@@ -1,4 +1,5 @@
 {
   "recipe": "PASTA",
+  "recipeName": "Spaghetti and Meatballs",
   "ingredients": ["TOMATO", "PASTA", "MEAT_BALLS"]
 }

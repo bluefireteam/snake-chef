@@ -1,4 +1,5 @@
 {
   "recipe": "POKE",
+  "recipeName": "Poke",
   "ingredients": ["RICE", "SALMON", "CUCUMBER", "MUSHROOM"]
 }
