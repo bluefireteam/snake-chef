@@ -120,7 +120,7 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
     final gameWidth = gameboardOffset.x + boardScreenWidth;
 
     final scaleRaw = min(size.height / gameHeight, size.width / gameWidth);
-    _scaleFactor = scaleRaw + scaleRaw % 0.02;
+    _scaleFactor = scaleRaw - scaleRaw % 0.02;
 
     gameWidgetSize = Size(
       gameWidth * _scaleFactor,
