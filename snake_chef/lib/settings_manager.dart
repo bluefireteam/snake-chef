@@ -75,6 +75,8 @@ class StageProgress {
   List<StageDifficult> progress = List.generate(StageLoader.STAGE_COUNT, (index) => null);
 
   void updateStageProgress(StageDifficult difficult, int stage) {
-    progress[stage] = difficult;
+    if (Stage.stageToNumber(progress[stage]) < Stage.stageToNumber(difficult)) {
+      progress[stage] = difficult;
+    }
   }
 }

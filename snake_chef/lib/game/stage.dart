@@ -38,6 +38,22 @@ class Stage {
 
     return _ingredients;
   }
+
+  static int stageToNumber(StageDifficult difficult) {
+    if (difficult == null) {
+      return 0;
+    }
+
+    switch (difficult) {
+      case StageDifficult.NORMAL:
+        return 1;
+      case StageDifficult.MEDIUM:
+        return 2;
+      case StageDifficult.HARD:
+        return 3;
+    }
+    return 0;
+  }
 }
 
 enum RecipeName {
