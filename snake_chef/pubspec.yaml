@@ -38,7 +38,6 @@ flutter:
     - assets/images/fireslime-banner.png
 
     - assets/images/floor.png
-    - assets/images/ingredients.png
     - assets/images/plates.png
     - assets/images/snake.png
     - assets/images/buttons.png
@@ -66,6 +65,8 @@ flutter:
 
     - assets/audio/ingredient_collected.wav
     - assets/audio/recipe_done.wav
+
+    - assets/atlases/
 
   fonts:
     - family: VictorPixel

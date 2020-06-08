@@ -9,6 +9,7 @@ import 'package:flame/particles/accelerated_particle.dart';
 import 'package:flame/particles/translated_particle.dart';
 import 'package:flame/particle.dart';
 import 'package:flame/gestures.dart';
+import 'package:snake_chef/game/assets.dart';
 import 'package:snake_chef/game/widgets/game_win.dart';
 import 'package:snake_chef/game/widgets/pause_game.dart';
 import 'package:snake_chef/settings_manager.dart';
@@ -24,7 +25,6 @@ import './widgets/game_over.dart';
 import './stage.dart';
 import './cell.dart';
 import '../audio_manager.dart';
-import './ingredient_renderer.dart';
 import '../widgets/direction_pad.dart';
 
 class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector, VerticalDragDetector, TapDetector {
@@ -257,7 +257,7 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
               from: random.nextDouble() * pi,
               child: SpriteParticle(
                   size: Position(Cell.cellSize * 2, Cell.cellSize * 2),
-                  sprite: mapIngredientSprite(allIngredients[random.nextInt(allIngredients.length)]))),
+                  sprite: Ingredients.getSprite(allIngredients[random.nextInt(allIngredients.length)]))),
         ),
       ),
     )));

@@ -1,11 +1,12 @@
 import 'package:flame/sprite.dart';
 import 'package:flame/spritesheet.dart';
 import 'package:flame/flame.dart';
+import 'package:flame_fire_atlas/flame_fire_atlas.dart';
 
 import './stage.dart';
 
 class Assets {
-  static SpriteSheet ingredients;
+  static FireAtlas ingredients;
   static SpriteSheet floor;
   static SpriteSheet snake;
   static SpriteSheet plates;
@@ -13,13 +14,12 @@ class Assets {
   static Future<void> load() async {
     await Flame.images.loadAll([
       "floor.png",
-      "ingredients.png",
       "snake.png",
       "nine_box_tileset.png",
       "nine_box_white_tileset.png",
       "plates.png",
     ]);
-    ingredients = SpriteSheet(imageName: "ingredients.png", textureHeight: 16, textureWidth: 16, columns: 7, rows: 2);
+    ingredients = await FireAtlas.fromAsset('atlases/Ingredients.fa');
     floor = SpriteSheet(imageName: "floor.png", textureHeight: 16, textureWidth: 16, columns: 1, rows: 2);
     snake = SpriteSheet(imageName: "snake.png", textureHeight: 16, textureWidth: 16, columns: 5, rows: 5);
     plates = SpriteSheet(imageName: "plates.png", textureHeight: 32, textureWidth: 48, columns: 2, rows: 3);
@@ -27,40 +27,13 @@ class Assets {
 }
 
 class Ingredients {
-  static Sprite getTomato() {
-    return Assets.ingredients.getSprite(0, 0);
-  }
+  static Map<Ingredient, Sprite> spriteCache = {};
 
-  static Sprite getLettuce() {
-    return Assets.ingredients.getSprite(0, 1);
-  }
-
-  static Sprite getPasta() {
-    return Assets.ingredients.getSprite(0, 2);
-  }
-
-  static Sprite getMeatBalls() {
-    return Assets.ingredients.getSprite(0, 3);
-  }
-
-  static Sprite getBread() {
-    return Assets.ingredients.getSprite(0, 4);
-  }
-
-  static Sprite getCheese() {
-    return Assets.ingredients.getSprite(0, 5);
-  }
-
-  static Sprite getHamburguer() {
-    return Assets.ingredients.getSprite(0, 6);
-  }
-
-  static Sprite getOnion() {
-    return Assets.ingredients.getSprite(1, 0);
-  }
-
-  static Sprite getMushroom() {
-    return Assets.ingredients.getSprite(1, 1);
+  static Sprite getSprite(Ingredient ingredient) {
+    if (!spriteCache.containsKey(ingredient)) {
+      spriteCache[ingredient] = Assets.ingredients.getSprite(ingredient.toString().split('.')[1]);
+    }
+    return spriteCache[ingredient];
   }
 }
 
