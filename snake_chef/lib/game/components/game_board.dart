@@ -7,19 +7,77 @@ import 'package:flutter/material.dart';
 import 'package:snake_chef/game/game.dart';
 import 'package:snake_chef/game/snake.dart';
 import 'package:snake_chef/game/stage.dart';
+import 'package:snake_chef/game/assets.dart' hide Snake;
 
 import 'dart:ui';
 import '../cell.dart';
+import '../layer.dart';
+
+class BackgroundLayer extends DynamicLayer {
+  GameBoard board;
+
+  BackgroundLayer(this.board);
+
+  @override
+  void drawLayer() {
+    for (var y = 0; y < board.board.length; y++) {
+      for (var x = 0; x < board.board[y].length; x++) {
+        final cell = board.board[y][x];
+        final rect = Rect.fromLTWH(x * Cell.cellSize, y * Cell.cellSize, Cell.cellSize, Cell.cellSize);
+
+        if (cell.type is ObstacleCell) {
+          cell.render(canvas, board);
+        } else {
+          Floor.getFloorTile().renderRect(canvas, rect);
+        }
+
+        if (board.board.length - 1 == y) {
+          Floor.getFloorBorder().renderRect(canvas, rect.translate(0, Cell.cellSize));
+        }
+      }
+    }
+  }
+}
+
+class GameBoardLayer extends DynamicLayer {
+  GameBoard board;
+
+  GameBoardLayer(this.board) {
+    preProcessors.add(
+        ShadowProcessor(
+            offset: Offset(8, 8),
+            color: Color(0xFF1a1c2c),
+        )
+    );
+  }
+
+  @override
+  void drawLayer() {
+    for (var y = 0; y < board.board.length; y++) {
+      for (var x = 0; x < board.board[y].length; x++) {
+        final cell = board.board[y][x];
+        if (!(cell.type is ObstacleCell)) {
+          cell.render(canvas, board);
+        }
+      }
+    }
+  }
+}
 
 class GameBoard extends Component with HasGameRef<SnakeChef> {
   List<List<Cell>> board;
   Position renderOffset;
   int boardWidth;
   int boardHeight;
+  BackgroundLayer backgroundLayer;
+  GameBoardLayer gameLayer;
 
   Snake snake;
 
-  GameBoard({this.boardWidth, this.boardHeight, this.renderOffset});
+  GameBoard({this.boardWidth, this.boardHeight, this.renderOffset}) {
+    backgroundLayer = BackgroundLayer(this);
+    gameLayer = GameBoardLayer(this);
+  }
 
   @override
   void onMount() {
@@ -117,16 +175,7 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
 
   @override
   void render(Canvas canvas) {
-    canvas.save();
-    canvas.translate(renderOffset.x, renderOffset.y);
-
-    for (var y = 0; y < board.length; y++) {
-      for (var x = 0; x < board[y].length; x++) {
-        final cell = board[y][x];
-        cell.render(canvas, this);
-      }
-    }
-
-    canvas.restore();
+    backgroundLayer.render(canvas, x: renderOffset.x, y: renderOffset.y);
+    gameLayer.render(canvas, x: renderOffset.x, y: renderOffset.y);
   }
 }

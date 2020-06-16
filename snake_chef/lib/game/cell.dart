@@ -18,15 +18,8 @@ class Cell {
 
   void render(Canvas canvas, GameBoard gameBoard) {
     final rect = Rect.fromLTWH(x * Cell.cellSize, y * Cell.cellSize, Cell.cellSize, Cell.cellSize);
-    if (!(type is ObstacleCell)) {
-      Floor.getFloorTile().renderRect(canvas, rect);
-    }
 
     type?.render(canvas, gameBoard, this, rect);
-
-    if (gameBoard.board.length - 1 == y) {
-      Floor.getFloorBorder().renderRect(canvas, rect.translate(0, Cell.cellSize));
-    }
   }
 }
 
