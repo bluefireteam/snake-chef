@@ -1,14 +1,25 @@
 import 'package:flame/flame.dart';
 import 'package:flame/spritesheet.dart';
 import 'package:flame/sprite.dart';
+import 'package:flame_fire_atlas/flame_fire_atlas.dart';
 
 class WidgetsAssets {
   static SpriteSheet _buttons;
+  static FireAtlas _sliderAtlas;
 
   static Future<void> load() async {
     await Flame.images.loadAll(["buttons.png"]);
     _buttons = SpriteSheet(imageName: "buttons.png", textureHeight: 20, textureWidth: 60, columns: 2, rows: 8);
+
+    _sliderAtlas = await FireAtlas.fromAsset('atlases/slider.fa');
   }
+}
+
+class SlideSprites {
+  static Sprite leftTile() => WidgetsAssets._sliderAtlas.getSprite('left');
+  static Sprite rightTile() => WidgetsAssets._sliderAtlas.getSprite('right');
+  static Sprite middleTile() => WidgetsAssets._sliderAtlas.getSprite('middle');
+  static Sprite bullet() => WidgetsAssets._sliderAtlas.getSprite('bullet');
 }
 
 class ButtonSprites {
