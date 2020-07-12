@@ -4,6 +4,7 @@ import '../game/stage.dart';
 import '../stage_loader.dart';
 import '../audio_manager.dart';
 import '../widgets/direction_pad.dart';
+import '../widgets/action_button.dart';
 import '../widgets/button.dart';
 import '../settings_manager.dart';
 
@@ -15,6 +16,7 @@ class GameScreen extends StatelessWidget {
     final GameScreenArgs gameScreenArgs = ModalRoute.of(ctx).settings.arguments;
 
     return LayoutBuilder(builder: (ctx, constraints) {
+      final gamepadButtonSize = SettingsManager.gamePadOptions.buttonSize * constraints.maxHeight;
       return Container(
           color: Colors.black,
           child: Scaffold(
@@ -51,7 +53,7 @@ class GameScreen extends StatelessWidget {
                           left: 0,
                           bottom: 0,
                           child: DirectionPad(
-                              containerSize: SettingsManager.gamePadOptions.dpadSize,
+                              containerSize: gamepadButtonSize,
                               opacity: SettingsManager.gamePadOptions.opacity,
                               onPress: (key) {
                                 snakeChefGame?.onDpadEvent(key);
@@ -62,20 +64,17 @@ class GameScreen extends StatelessWidget {
                       children.add(
                         Positioned(
                           right: 0,
-                          bottom: 20,
-                          child: Opacity(
+                          bottom: 0,
+                          child: ActionButton(
+                              onAction: () {
+                                snakeChefGame?.enableFastMode();
+                              },
+                              onActionRelease: () {
+                                snakeChefGame?.disableFastMode();
+                              },
+                              dpadSize: gamepadButtonSize,
                               opacity: SettingsManager.gamePadOptions.opacity,
-                              child: Button(
-                                buttonType: ButtonType.SILVER,
-                                width: SettingsManager.gamePadOptions.actionButtonSize,
-                                height: SettingsManager.gamePadOptions.actionButtonSize,
-                                onPress: () {
-                                  snakeChefGame.enableFastMode();
-                                },
-                                onPressReleased: () {
-                                  snakeChefGame.disableFastMode();
-                                },
-                              )),
+                          ),
                         ),
                       );
                     }

@@ -78,7 +78,7 @@ class _SpriteSliderState extends State<SpriteSlider> {
 
   Rect _bulletRect() {
     return Rect.fromLTWH(
-        widget.value * widget.width,
+        _value * widget.width,
         0,
         widget.tileSize,
         widget.tileSize,
@@ -111,6 +111,7 @@ class _SpriteSliderState extends State<SpriteSlider> {
               if (_moving) {
                 final value = max(0.0, min(1.0, details.localPosition.dx / widget.width));
                 setState(() => _value = value);
+                widget.onChange?.call(_value);
               }
             },
             onPanCancel: () {

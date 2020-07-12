@@ -5,6 +5,8 @@ import '../widgets/label.dart';
 import '../widgets/pattern_container.dart';
 import '../widgets/sprite_slider.dart';
 
+import './gamepad_config/preview.dart';
+
 class GamePadConfigScreen extends StatefulWidget {
   @override
   State createState() {
@@ -13,108 +15,146 @@ class GamePadConfigScreen extends StatefulWidget {
 }
 
 class _GamePadConfigScreenState extends State<GamePadConfigScreen> {
+  double _size;
+  double _opacity;
+  double _borderPercentage;
 
   @override
   void initState() {
     super.initState();
+
+    _size = SettingsManager.gamePadOptions.buttonSize;
+    _opacity = SettingsManager.gamePadOptions.opacity;
+    _borderPercentage = SettingsManager.gamePadOptions.borderPercentage;
   }
 
   @override
   Widget build(ctx) {
     return PatternContainer(
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Label(
-              label: 'Game Pad Config',
-              fontColor: Color(0xFF566c86),
-              fontSize: 38,
-            ),
-            Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                      flex: 5,
+      child: SafeArea(
+        child: Center(
+          child: Column(
+            children: [
+              SizedBox(height: 10),
+              Label(
+                label: 'Game Pad Config',
+                fontColor: Color(0xFF566c86),
+                fontSize: 38,
+              ),
+              SizedBox(height: 20),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      flex: 4,
                       child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _ControlInput(
+                            label: 'Size',
+                            initialValue: _size,
+                            onChange: (value) {
+                              SettingsManager.gamePadOptions.buttonSize = value;
+                              SettingsManager.save();
+                              setState(() => _size = value);
+                            },
+                          ),
+                          _ControlInput(
+                            label: 'Opacity',
+                            initialValue: _opacity,
+                            onChange: (value) {
+                              SettingsManager.gamePadOptions.opacity = value;
+                              SettingsManager.save();
+                              setState(() => _opacity = value);
+                            },
+                          ),
+                          _ControlInput(
+                            label: 'Border',
+                            initialValue: _borderPercentage,
+                            onChange: (value) {
+                              SettingsManager.gamePadOptions.borderPercentage =
+                                  value;
+                              SettingsManager.save();
+                              setState(() => _borderPercentage = value);
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                        flex: 5,
+                        child: Column(
                           children: [
-                            _ScreenContainer(
-                                child: Label(
-                                    label: 'Size:',
-                                    fontSize: 22,
-                                    fontColor: Color(0xFF333c57),
-                                ),
+                            Label(
+                              label: 'Preview',
+                              fontColor: Color(0xFF566c86),
+                              fontSize: 22,
                             ),
-                            _ScreenContainer(
-                                child: Label(
-                                    label: 'Border:',
-                                    fontSize: 22,
-                                    fontColor: Color(0xFF333c57),
-                                ),
-                            ),
-                            _ScreenContainer(
-                                child: Label(
-                                    label: 'Opacity:',
-                                    fontSize: 22,
-                                    fontColor: Color(0xFF333c57),
-                                ),
+                            SizedBox(height: 10),
+                            Expanded(
+                              child: GamepadPreview(
+                                opacity: _opacity,
+                                size: _size,
+                                borderPercent: _borderPercentage,
+                              ),
                             ),
                           ],
-                      ),
-                  ),
-                  Expanded(
-                      flex: 5,
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            _ScreenContainer(
-                                child: SpriteSlider.primary(
-                                    value: 0,
-                                    width: 200,
-                                ),
-                            ),
-                            _ScreenContainer(
-                                child: SpriteSlider.primary(
-                                    value: 0,
-                                    width: 200,
-                                ),
-                            ),
-                            _ScreenContainer(
-                                child: SpriteSlider.primary(
-                                    value: 0,
-                                    width: 200,
-                                ),
-                            ),
-                          ],
-                      ),
-                  ),
-                ],
-            ),
-            Button(
+                        )),
+                    SizedBox(width: 10),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20),
+              Button(
                 buttonType: ButtonType.PRIMARY,
                 label: 'Back',
                 onPressed: () {
                   Navigator.of(ctx).pushNamed('/settings');
-                }),
-          ],
+                },
+              ),
+              SizedBox(height: 10),
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class _ScreenContainer extends StatelessWidget {
-  final Widget child;
+class _ControlInput extends StatelessWidget {
+  final void Function(double) onChange;
+  final String label;
+  final double initialValue;
 
-  _ScreenContainer({ this.child });
+  _ControlInput({
+    this.initialValue,
+    this.label,
+    this.onChange,
+  });
 
   @override
-  Widget build(_) {
-    return Container(
-        margin: EdgeInsets.only(top: 15),
-        padding: EdgeInsets.only(right: 20),
-        child: child,
+  Widget build(ctx) {
+    return LayoutBuilder(
+      builder: (ctx, constrainsts) {
+        return Container(
+          margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+          child: Column(
+            children: [
+              Label(
+                label: label,
+                fontSize: 22,
+                fontColor: Color(0xFF333c57),
+              ),
+              SpriteSlider.primary(
+                width: constrainsts.maxWidth,
+                value: initialValue,
+                onChange: onChange,
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
 
 import './button.dart';
 
@@ -17,24 +16,27 @@ class DirectionPad extends StatelessWidget {
 
   final double containerSize;
   final double opacity;
+  final double borderPercent;
 
   DirectionPad({
-    @required this.onPress,
+    this.onPress,
     this.containerSize = 200,
     this.opacity = 0.5,
+    this.borderPercent = 0.0,
   });
 
   @override
   Widget build(BuildContext ctx) {
-    final buttonSize = min(50.0, containerSize / 3);
+    final buttonSize = containerSize / 3;
+    final border = containerSize * borderPercent;
     return Opacity(opacity: opacity, child: Container(
         width: containerSize,
         height: containerSize,
+        margin: EdgeInsets.all(border),
         child: Center(
           child: Container(
-            margin: const EdgeInsets.all(5),
-            width: buttonSize * 3,
-            height: buttonSize * 3,
+            width: containerSize,
+            height: containerSize,
             child: Stack(children: [
               Positioned(
                 left: buttonSize,
@@ -42,7 +44,7 @@ class DirectionPad extends StatelessWidget {
                   buttonType: ButtonType.SILVER,
                   width: buttonSize,
                   height: buttonSize,
-                  onPressed: () => onPress(DpadKey.UP),
+                  onPressed: () => onPress?.call(DpadKey.UP),
                 ),
               ),
               Positioned(
@@ -51,7 +53,7 @@ class DirectionPad extends StatelessWidget {
                   buttonType: ButtonType.SILVER,
                   width: buttonSize,
                   height: buttonSize,
-                  onPressed: () => onPress(DpadKey.LEFT),
+                  onPressed: () => onPress?.call(DpadKey.LEFT),
                 ),
               ),
               Positioned(
@@ -61,7 +63,7 @@ class DirectionPad extends StatelessWidget {
                   buttonType: ButtonType.SILVER,
                   width: buttonSize,
                   height: buttonSize,
-                  onPressed: () => onPress(DpadKey.RIGHT),
+                  onPressed: () => onPress?.call(DpadKey.RIGHT),
                 ),
               ),
               Positioned(
@@ -71,7 +73,7 @@ class DirectionPad extends StatelessWidget {
                   buttonType: ButtonType.SILVER,
                   width: buttonSize,
                   height: buttonSize,
-                  onPressed: () => onPress(DpadKey.DOWN),
+                  onPressed: () => onPress?.call(DpadKey.DOWN),
                 ),
               ),
             ]),

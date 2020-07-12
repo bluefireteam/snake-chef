@@ -29,8 +29,8 @@ class SettingsManager {
 
     await prefs.setBool("SettingsManager.gamePadOptions.enabled", gamePadOptions.enabled);
     await prefs.setDouble("SettingsManager.gamePadOptions.opacity", gamePadOptions.opacity);
-    await prefs.setDouble("SettingsManager.gamePadOptions.dpadSize", gamePadOptions.dpadSize);
-    await prefs.setDouble("SettingsManager.gamePadOptions.actionButtonSize", gamePadOptions.actionButtonSize);
+    await prefs.setDouble("SettingsManager.gamePadOptions.buttonSize", gamePadOptions.buttonSize);
+    await prefs.setDouble("SettingsManager.gamePadOptions.borderPercentage", gamePadOptions.borderPercentage);
   }
 
   static Future<void> load() async {
@@ -59,16 +59,16 @@ class SettingsManager {
 
     gamePadOptions.enabled = prefs.getBool("SettingsManager.gamePadOptions.enabled") ?? true;
     gamePadOptions.opacity = prefs.getDouble("SettingsManager.gamePadOptions.opacity") ?? 0.5;
-    gamePadOptions.dpadSize = prefs.getDouble("SettingsManager.gamePadOptions.dpadSize") ?? 200;
-    gamePadOptions.actionButtonSize = prefs.getDouble("SettingsManager.gamePadOptions.actionButtonSize") ?? 65;
+    gamePadOptions.buttonSize = prefs.getDouble("SettingsManager.gamePadOptions.buttonSize") ?? 0.3;
+    gamePadOptions.borderPercentage = prefs.getDouble("SettingsManager.gamePadOptions.borderPercentage") ?? 0.1;
   }
 }
 
 class GamepadOptions {
   bool enabled;
   double opacity;
-  double dpadSize;
-  double actionButtonSize;
+  double buttonSize;
+  double borderPercentage;
 }
 
 class StageProgress {
