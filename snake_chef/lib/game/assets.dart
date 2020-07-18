@@ -7,9 +7,9 @@ import './stage.dart';
 
 class Assets {
   static FireAtlas ingredients;
+  static FireAtlas plates;
   static SpriteSheet floor;
   static SpriteSheet snake;
-  static SpriteSheet plates;
 
   static Future<void> load() async {
     await Flame.images.loadAll([
@@ -17,12 +17,11 @@ class Assets {
       "snake.png",
       "nine_box_tileset.png",
       "nine_box_white_tileset.png",
-      "plates.png",
     ]);
-    ingredients = await FireAtlas.fromAsset('atlases/Ingredients.fa');
+    ingredients = await FireAtlas.fromAsset("atlases/Ingredients.fa");
+    plates = await FireAtlas.fromAsset("atlases/plates.fa");
     floor = SpriteSheet(imageName: "floor.png", textureHeight: 16, textureWidth: 16, columns: 1, rows: 2);
     snake = SpriteSheet(imageName: "snake.png", textureHeight: 16, textureWidth: 16, columns: 5, rows: 5);
-    plates = SpriteSheet(imageName: "plates.png", textureHeight: 32, textureWidth: 48, columns: 2, rows: 3);
   }
 }
 
@@ -34,6 +33,17 @@ class Ingredients {
       spriteCache[ingredient] = Assets.ingredients.getSprite(ingredient.toString().split('.')[1]);
     }
     return spriteCache[ingredient];
+  }
+}
+
+class Plates {
+  static Map<RecipeName, Sprite> spriteCache = {};
+
+  static Sprite getSprite(RecipeName recipe) {
+    if (!spriteCache.containsKey(recipe)) {
+      spriteCache[recipe] = Assets.plates.getSprite(recipe.toString().split('.')[1]);
+    }
+    return spriteCache[recipe];
   }
 }
 
@@ -118,26 +128,5 @@ class Snake {
 
   static Sprite getBottomRightCorner() {
     return Assets.snake.getSprite(3, 3);
-  }
-}
-
-class Plates {
-  static Sprite getSprite(RecipeName recipe) {
-    switch (recipe) {
-      case RecipeName.SALAD:
-        return Assets.plates.getSprite(0, 0);
-      case RecipeName.PASTA:
-        return Assets.plates.getSprite(1, 0);
-      case RecipeName.BURGER:
-        return Assets.plates.getSprite(2, 0);
-      case RecipeName.MUSHROOM_SOUP:
-        return Assets.plates.getSprite(0, 1);
-      case RecipeName.ONION_SOUP:
-        return Assets.plates.getSprite(1, 1);
-      case RecipeName.TOMATO_SOUP:
-        return Assets.plates.getSprite(2, 1);
-    }
-
-    return null;
   }
 }
