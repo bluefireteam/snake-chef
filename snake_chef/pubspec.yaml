@@ -16,6 +16,7 @@ dependencies:
   ocarina: ^0.0.2
   shared_preferences: 0.5.7
   url_launcher: 5.4.7
+  flutter_vibrate: 1.0.0
 
   cupertino_icons: ^0.1.3
 

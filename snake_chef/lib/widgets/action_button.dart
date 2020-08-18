@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_vibrate/flutter_vibrate.dart';
 
 import '../widgets/button.dart';
 
@@ -31,6 +32,7 @@ class ActionButton extends StatelessWidget {
             height: gamepadButtonSize,
             onPress: () {
               onAction?.call();
+              Vibrate.vibrate();
             },
             onPressReleased: () {
               onActionRelease?.call();

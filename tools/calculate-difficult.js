@@ -5,7 +5,7 @@ const stages = requireDir('../snake_chef/assets/stages');
 
 const calculateRecipe = recipe => {
   const ingredientsCounted = recipe.ingredients.reduce((summary, current) => {
-    const count = recipe.ingredients.filter(r => r == current).length; 
+    const count = recipe.ingredients.filter(r => r == current).length;
     return { ...summary, [current]: count };
   }, {});
 
@@ -20,12 +20,12 @@ console.log('===================');
 
 const recipesDificult = Object
   .entries(recipes)
-  .map(([name, recipe]) => ({ name, difficult: calculateRecipe(recipe) }))
-  .reduce((obj, curr) => ({ ...obj, [curr.name]: curr.difficult }), {});
+  .map(([name, recipe]) => ({ name, difficult: calculateRecipe(recipe), ingredients: recipe.ingredients }))
+  .reduce((obj, curr) => ({ ...obj, [curr.name]: { difficult: curr.difficult, ingredients: curr.ingredients } }), {});
 
 Object.entries(recipesDificult)
-  .map(([name, difficult]) => ({ name, difficult }))
+  .map(([name, { difficult, ingredients }]) => ({ name, difficult, ingredients }))
   .sort((a, b) => a.difficult - b.difficult)
-  .forEach(({name, difficult}) => {
-    console.log(`${name}: ${difficult}`);
+  .forEach(({ name, difficult, ingredients }) => {
+    console.log(`${difficult}`);
   });
