@@ -20,12 +20,12 @@ console.log('===================');
 
 const recipesDificult = Object
   .entries(recipes)
-  .map(([name, recipe]) => ({ name, difficult: calculateRecipe(recipe), ingredients: recipe.ingredients }))
-  .reduce((obj, curr) => ({ ...obj, [curr.name]: { difficult: curr.difficult, ingredients: curr.ingredients } }), {});
+  .map(([name, recipe]) => ({ name, difficult: calculateRecipe(recipe) }))
+  .reduce((obj, curr) => ({ ...obj, [curr.name]: curr.difficult }), {});
 
 Object.entries(recipesDificult)
-  .map(([name, { difficult, ingredients }]) => ({ name, difficult, ingredients }))
+  .map(([name, difficult]) => ({ name, difficult }))
   .sort((a, b) => a.difficult - b.difficult)
-  .forEach(({ name, difficult, ingredients }) => {
-    console.log(`${difficult}`);
+  .forEach(({ name, difficult }) => {
+    console.log(`${name}: ${difficult}`);
   });
