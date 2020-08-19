@@ -18,7 +18,7 @@ class Assets {
       "nine_box_tileset.png",
       "nine_box_white_tileset.png",
     ]);
-    ingredients = await FireAtlas.fromAsset("atlases/Ingredients.fa");
+    ingredients = await FireAtlas.fromAsset("atlases/ingredients.fa");
     plates = await FireAtlas.fromAsset("atlases/plates.fa");
     floor = SpriteSheet(imageName: "floor.png", textureHeight: 16, textureWidth: 16, columns: 1, rows: 2);
     snake = SpriteSheet(imageName: "snake.png", textureHeight: 16, textureWidth: 16, columns: 5, rows: 5);

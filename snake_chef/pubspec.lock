@@ -42,7 +42,11 @@ packages:
       name: box2d_flame
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "0.4.5"
+=======
+    version: "0.4.6"
+>>>>>>> master
   characters:
     dependency: transitive
     description:
@@ -105,14 +109,14 @@ packages:
       name: flame
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.22.0"
+    version: "0.24.0"
   flame_fire_atlas:
     dependency: "direct main"
     description:
       name: flame_fire_atlas
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.2"
+    version: "0.0.3"
   flame_splash_screen:
     dependency: "direct main"
     description:
@@ -146,13 +150,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.7.5"
-  flutter_svg:
-    dependency: transitive
-    description:
-      name: flutter_svg
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.17.4"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -190,7 +187,7 @@ packages:
       name: image
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.12"
+    version: "2.1.14"
   js:
     dependency: transitive
     description:
@@ -233,20 +230,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.7.0"
-  path_drawing:
-    dependency: transitive
-    description:
-      name: path_drawing
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.4.1"
-  path_parsing:
-    dependency: transitive
-    description:
-      name: path_parsing
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.4"
   path_provider:
     dependency: transitive
     description:
@@ -281,7 +264,7 @@ packages:
       name: petitparser
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.4.0"
+    version: "3.0.4"
   platform:
     dependency: transitive
     description:
@@ -384,7 +367,7 @@ packages:
       name: tiled
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.1"
+    version: "0.6.0"
   typed_data:
     dependency: transitive
     description:
@@ -440,7 +423,7 @@ packages:
       name: xml
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.6.1"
+    version: "4.2.0"
   yaml:
     dependency: transitive
     description:
