@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './button.dart';
+import '../haptic.dart';
 
 enum DpadKey {
   UP,
@@ -25,6 +26,11 @@ class DirectionPad extends StatelessWidget {
     this.borderPercent = 0.0,
   });
 
+  void _callOnPress(DpadKey key) {
+    hapticFeedback();
+    onPress?.call(key);
+  }
+
   @override
   Widget build(BuildContext ctx) {
     final buttonSize = containerSize / 3;
@@ -44,7 +50,7 @@ class DirectionPad extends StatelessWidget {
                   buttonType: ButtonType.SILVER,
                   width: buttonSize,
                   height: buttonSize,
-                  onPressed: () => onPress?.call(DpadKey.UP),
+                  onPressed: () => _callOnPress(DpadKey.UP),
                 ),
               ),
               Positioned(
@@ -53,7 +59,7 @@ class DirectionPad extends StatelessWidget {
                   buttonType: ButtonType.SILVER,
                   width: buttonSize,
                   height: buttonSize,
-                  onPressed: () => onPress?.call(DpadKey.LEFT),
+                  onPressed: () => _callOnPress(DpadKey.LEFT),
                 ),
               ),
               Positioned(
@@ -63,7 +69,7 @@ class DirectionPad extends StatelessWidget {
                   buttonType: ButtonType.SILVER,
                   width: buttonSize,
                   height: buttonSize,
-                  onPressed: () => onPress?.call(DpadKey.RIGHT),
+                  onPressed: () => _callOnPress(DpadKey.RIGHT),
                 ),
               ),
               Positioned(
@@ -73,7 +79,7 @@ class DirectionPad extends StatelessWidget {
                   buttonType: ButtonType.SILVER,
                   width: buttonSize,
                   height: buttonSize,
-                  onPressed: () => onPress?.call(DpadKey.DOWN),
+                  onPressed: () => _callOnPress(DpadKey.DOWN),
                 ),
               ),
             ]),

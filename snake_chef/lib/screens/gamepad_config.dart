@@ -41,7 +41,7 @@ class _GamePadConfigScreenState extends State<GamePadConfigScreen> {
                 fontColor: Color(0xFF566c86),
                 fontSize: 38,
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 10),
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -79,6 +79,30 @@ class _GamePadConfigScreenState extends State<GamePadConfigScreen> {
                               setState(() => _borderPercentage = value);
                             },
                           ),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Label(
+                                    label: "Vibrate: ",
+                                    fontSize: 18,
+                                    fontColor: Color(0xFF333c57),
+                                ),
+                                Button(
+                                    width: 100,
+                                    height: 30,
+                                    buttonType: SettingsManager.isVibrateEnabled
+                                    ? ButtonType.SWITCH_ON
+                                    : ButtonType.SWITCH_OFF,
+                                    label: SettingsManager.isVibrateEnabled ? "On" : "Off",
+                                    onPress: () {
+                                      setState(() {
+                                        SettingsManager.isVibrateEnabled = !SettingsManager.isVibrateEnabled;
+                                        SettingsManager.save();
+                                      });
+                                    }
+                                ),
+                              ],
+                          ),
                         ],
                       ),
                     ),
@@ -105,7 +129,7 @@ class _GamePadConfigScreenState extends State<GamePadConfigScreen> {
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 10),
               Button(
                 buttonType: ButtonType.PRIMARY,
                 label: 'Back',
@@ -143,7 +167,7 @@ class _ControlInput extends StatelessWidget {
             children: [
               Label(
                 label: label,
-                fontSize: 22,
+                fontSize: 18,
                 fontColor: Color(0xFF333c57),
               ),
               SpriteSlider.primary(

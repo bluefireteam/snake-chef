@@ -54,6 +54,7 @@ class GameScreen extends StatelessWidget {
                           bottom: 0,
                           child: DirectionPad(
                               containerSize: gamepadButtonSize,
+                              borderPercent: SettingsManager.gamePadOptions.borderPercentage,
                               opacity: SettingsManager.gamePadOptions.opacity,
                               onPress: (key) {
                                 snakeChefGame?.onDpadEvent(key);
@@ -73,6 +74,7 @@ class GameScreen extends StatelessWidget {
                                 snakeChefGame?.disableFastMode();
                               },
                               dpadSize: gamepadButtonSize,
+                              borderPercent: SettingsManager.gamePadOptions.borderPercentage,
                               opacity: SettingsManager.gamePadOptions.opacity,
                           ),
                         ),

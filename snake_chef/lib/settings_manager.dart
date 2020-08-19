@@ -6,6 +6,7 @@ import './audio_manager.dart';
 class SettingsManager {
   static bool _isMusicEnabled;
   static bool isSfxEnabled;
+  static bool isVibrateEnabled;
   static GamepadOptions gamePadOptions = GamepadOptions();
   static StageProgress stageProgress = StageProgress();
 
@@ -26,6 +27,7 @@ class SettingsManager {
 
     await prefs.setBool("SettingsManager.isMusicEnabled", isMusicEnabled);
     await prefs.setBool("SettingsManager.isSfxEnabled", isSfxEnabled);
+    await prefs.setBool("SettingsManager.isVibrateEnabled", isVibrateEnabled);
 
     await prefs.setBool("SettingsManager.gamePadOptions.enabled", gamePadOptions.enabled);
     await prefs.setDouble("SettingsManager.gamePadOptions.opacity", gamePadOptions.opacity);
@@ -56,6 +58,7 @@ class SettingsManager {
 
     isMusicEnabled = prefs.getBool("SettingsManager.isMusicEnabled") ?? true;
     isSfxEnabled = prefs.getBool("SettingsManager.isSfxEnabled") ?? true;
+    isVibrateEnabled = prefs.getBool("SettingsManager.isVibrateEnabled") ?? false;
 
     gamePadOptions.enabled = prefs.getBool("SettingsManager.gamePadOptions.enabled") ?? true;
     gamePadOptions.opacity = prefs.getDouble("SettingsManager.gamePadOptions.opacity") ?? 0.5;
