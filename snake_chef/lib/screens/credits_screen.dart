@@ -18,7 +18,7 @@ class CreditsScreen extends StatelessWidget {
             child: Row(children: [
           Expanded(
               child: Container(
-                  margin: EdgeInsets.all(5),
+                  margin: EdgeInsets.all(15),
                   decoration: BoxDecoration(
                     border: Border.all(width: 5, color: Color(0xFFe3e3e3)),
                     color: Color(0xFF333c57),
@@ -31,7 +31,7 @@ class CreditsScreen extends StatelessWidget {
                   ]))),
           Expanded(
               child: Container(
-                  margin: EdgeInsets.all(5),
+                  margin: EdgeInsets.all(15),
                   decoration: BoxDecoration(
                     border: Border.all(width: 5, color: Color(0xFFe3e3e3)),
                     color: Color(0xFF333c57),
@@ -42,13 +42,14 @@ class CreditsScreen extends StatelessWidget {
                     Link(link: "https://fabrisounds.com.br", fontSize: 16, fontColor: Color(0xFF41a6f6)),
                   ]))),
         ])),
+        SizedBox(height: 20),
         Button(
             buttonType: ButtonType.SECONDARY,
             label: 'Back',
             onPress: () {
               Navigator.of(ctx).pushNamed('/title');
             }),
-        SizedBox(height: 10)
+        SizedBox(height: 20),
       ]),
     );
   }

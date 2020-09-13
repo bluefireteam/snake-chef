@@ -1,28 +1,52 @@
-import 'package:flame/position.dart';
-
 import '../recipe_loader.dart';
 
-enum Ingredient { TOMATO, LETTUCE, PASTA, MEAT_BALLS, BREAD, CHEESE, HAMBURGUER, ONION, MUSHROOM }
+enum Ingredient {
+  TOMATO,
+  LETTUCE,
+  PASTA,
+  MEAT_BALLS,
+  BREAD,
+  CHEESE,
+  HAMBURGUER,
+  ONION,
+  MUSHROOM,
+  CHERRY,
+  ORANGE,
+  CARROT,
+  ICE_CREAM,
+  BANANA,
+  CHOCOLATE,
+  SUGAR,
+  FLOUR,
+  EYEAST,
+  STRAWBERRY,
+  HOTDOG_BREAD,
+  SAUSAGE,
+  SALMON,
+  RICE,
+  PIZZA_DOUGH,
+  OLIVE,
+  CUCUMBER,
+  SEAWEED,
+  CHICKEN,
+  TACO
+}
 
 enum StageDifficult { NORMAL, MEDIUM, HARD }
 
 class Stage {
   final int stageNumber;
   final List<Recipe> recipes;
-  final List<Position> obstacles;
+  final int holes;
 
   int time;
-  int initialX;
-  int initialY;
 
-  Stage({this.recipes, this.obstacles, this.initialX, this.initialY, this.time, this.stageNumber});
+  Stage({this.recipes, this.holes, this.time, this.stageNumber});
 
   factory Stage.fromJson(Map<String, dynamic> json) => Stage(
       time: json["time"],
       recipes: json["recipes"].map((recipe) => Recipe.fromJson(RecipeLoader.recipes[recipe])).toList().cast<Recipe>(),
-      obstacles: json["obstacles"].map((obstacle) => Position(obstacle["x"].toDouble(), obstacle["y"].toDouble())).toList().cast<Position>(),
-      initialX: json["initialX"],
-      initialY: json["initialY"],
+      holes: json["holes"],
       stageNumber: json["stageNumber"]);
 
   List<Ingredient> stageIngredients() {
@@ -57,11 +81,27 @@ class Stage {
 }
 
 enum RecipeName {
-  SALAD,
-  PASTA,
+  BANANA_SPLIT,
   BURGER,
-  ONION_SOUP,
+  CARROT_CAKE,
+  CHOCOLATE_CAKE,
+  FRUIT_CAKE,
+  FRUIT_SALAD,
+  HOTDOG,
   MUSHROOM_SOUP,
+  NIGUIRI,
+  ONION_SOUP,
+  PASTA,
+  PETIT_GATAEU,
+  PIZZA,
+  POKE,
+  RICE_BOWL,
+  SALAD,
+  SASHIMI,
+  SUSHI_CUCUMBER,
+  SUSHI_SALMON,
+  TACO_CHICKEN,
+  TACO_MUSHROOM,
   TOMATO_SOUP,
 }
 

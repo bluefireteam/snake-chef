@@ -43,12 +43,10 @@ class GameBoardLayer extends DynamicLayer {
   GameBoard board;
 
   GameBoardLayer(this.board) {
-    preProcessors.add(
-        ShadowProcessor(
-            offset: Offset(8, 8),
-            color: Color(0xFF1a1c2c),
-        )
-    );
+    preProcessors.add(ShadowProcessor(
+      offset: Offset(8, 8),
+      color: Color(0xFF1a1c2c),
+    ));
   }
 
   @override
@@ -87,22 +85,39 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
   void resetBoard() {
     board = List.generate(boardHeight, (y) => List.generate(boardWidth, (x) => Cell(x: x, y: y)));
 
-    board[gameRef.stage.initialY][gameRef.stage.initialX].type = SnakeCell(SnakeCellType.HEAD);
-    board[gameRef.stage.initialY][gameRef.stage.initialX + 1].type = SnakeCell(SnakeCellType.PART);
+    final initialPosition = _getInitialPosition();
+
+    board[initialPosition.y.toInt()][initialPosition.x.toInt()].type = SnakeCell(SnakeCellType.HEAD);
+    board[initialPosition.y.toInt()][initialPosition.x.toInt() + 1].type = SnakeCell(SnakeCellType.PART);
 
     snake = Snake()
-      ..body.add(Position(gameRef.stage.initialX.toDouble(), gameRef.stage.initialY.toDouble()))
-      ..body.add(Position((gameRef.stage.initialX.toDouble() + 1), gameRef.stage.initialY.toDouble()))
+      ..body.add(Position(initialPosition.x.toDouble(), initialPosition.y.toDouble()))
+      ..body.add(Position((initialPosition.x.toDouble() + 1), initialPosition.y.toDouble()))
       ..direction = Position(-1, 0);
 
-    gameRef.stage.obstacles.forEach((obstacle) {
-      board[obstacle.y.toInt()][obstacle.x.toInt()].type = ObstacleCell(obstacle);
-    });
+    for (int i = 0; i < gameRef.stage.holes; i++) {
+      final holePosition = getRandomEmptySpace();
+      board[holePosition.y.toInt()][holePosition.x.toInt()].type = ObstacleCell(holePosition);
+    }
 
     gameRef.stage.stageIngredients().forEach((ingredient) {
       final emptyPosition = getRandomEmptySpace();
       board[emptyPosition.y.toInt()][emptyPosition.x.toInt()].type = IngredientCell(ingredient);
     });
+  }
+
+  Position _getInitialPosition() {
+    List<Position> emptySpaces = [];
+
+    for (var y = 0; y < board.length; y++) {
+      for (var x = 0; x < board[y].length; x++) {
+        if (board[y][x].type == null) {
+          emptySpaces.add(Position(x.toDouble(), y.toDouble()));
+        }
+      }
+    }
+
+    return emptySpaces[Random().nextInt(emptySpaces.length - 1)];
   }
 
   Position getRandomEmptySpace() {

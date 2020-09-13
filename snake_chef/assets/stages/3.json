@@ -1,25 +1,11 @@
 {
   "stageNumber": 3,
-  "time": 120,
+  "time": 30,
   "recipes": [
-    "MUSHROOM_SOUP",
-    "ONION_SOUP",
+    "TOMATO_SOUP",
+    "TOMATO_SOUP",
+    "TOMATO_SOUP",
     "TOMATO_SOUP"
   ],
-  "obstacles": [
-    {
-      "x": 3,
-      "y": 9
-    },
-    {
-      "x": 4,
-      "y": 3
-    },
-    {
-      "x": 7,
-      "y": 7
-    }
-  ],
-  "initialX": 5,
-  "initialY": 5
+  "holes": 5
 }

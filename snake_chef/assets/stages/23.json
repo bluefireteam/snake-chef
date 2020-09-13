@@ -1,0 +1,11 @@
+{
+  "stageNumber": 23,
+  "time": 120,
+  "recipes": [
+    "TOMATO_SOUP",
+    "ONION_SOUP",
+    "MUSHROOM_SOUP",
+    "TACO_CHICKEN"
+  ],
+  "holes": 5
+}

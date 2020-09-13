@@ -1,0 +1,11 @@
+{
+  "stageNumber": 5,
+  "time": 30,
+  "recipes": [
+    "MUSHROOM_SOUP",
+    "MUSHROOM_SOUP",
+    "MUSHROOM_SOUP",
+    "MUSHROOM_SOUP"
+  ],
+  "holes": 5
+}

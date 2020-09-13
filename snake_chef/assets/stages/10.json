@@ -1,0 +1,11 @@
+{
+  "stageNumber": 10,
+  "time": 60,
+  "recipes": [
+    "SASHIMI",
+    "SUSHI_SALMON",
+    "SASHIMI",
+    "SUSHI_SALMON"
+  ],
+  "holes": 2
+}

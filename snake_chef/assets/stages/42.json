@@ -1,0 +1,11 @@
+{
+  "stageNumber": 42,
+  "time": 60,
+  "recipes": [
+    "FRUIT_SALAD",
+    "FRUIT_SALAD",
+    "BANANA_SPLIT",
+    "BANANA_SPLIT"
+  ],
+  "holes": 16
+}

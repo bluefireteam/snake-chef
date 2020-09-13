@@ -1,0 +1,11 @@
+{
+  "stageNumber": 33,
+  "time": 120,
+  "recipes": [
+    "SASHIMI",
+    "SUSHI_SALMON",
+    "SUSHI_CUCUMBER",
+    "NIGUIRI"
+  ],
+  "holes": 0
+}

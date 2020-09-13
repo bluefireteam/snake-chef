@@ -16,18 +16,18 @@ const RECIPE_4 = 5;
 const TIME = 9;
 
 statesReadLine.on('line', (line) => {
-    const stageData = line.split(',');
+    const stageData = line.split(';');
 
     if (stageData[STAGE].toLowerCase() !== 'stage') {
         const stage = {
-            stageNumber: stageData[STAGE],
-            time: stageData[TIME],
+            stageNumber: parseInt(stageData[STAGE]),
+            time: parseInt(stageData[TIME]),
             recipes: [
                 stageData[RECIPE_1], stageData[RECIPE_2], stageData[RECIPE_3], stageData[RECIPE_4]
             ],
-            holes: stageData[HOLES]
+            holes: parseInt(stageData[HOLES])
         }
 
-        fs.writeFileSync(`../snake_chef/assets/stages/${process.argv[2]}/${stage.stageNumber}.json`, JSON.stringify(stage, null, 2), 'utf8')
+        fs.writeFileSync(`../snake_chef/assets/stages/${stage.stageNumber}.json`, JSON.stringify(stage, null, 2), 'utf8')
     }
 })

@@ -1,0 +1,11 @@
+{
+  "stageNumber": 35,
+  "time": 120,
+  "recipes": [
+    "TACO_CHICKEN",
+    "HOTDOG",
+    "MUSHROOM_SOUP",
+    "PETIT_GATAEU"
+  ],
+  "holes": 5
+}

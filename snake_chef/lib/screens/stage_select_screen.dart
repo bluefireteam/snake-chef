@@ -53,43 +53,51 @@ class _StageSelectScreenState extends State<StageSelectScreen> {
               fontColor: Color(0xFF566c86),
               fontSize: 60,
             ),
-            Column(
-              children: List.generate(rows, (r) {
-                return Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(itensPerColumn, (c) {
-                      final i = r * itensPerColumn + c;
+            SizedBox(height: 15),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: List.generate(rows, (r) {
+                    return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(itensPerColumn, (c) {
+                          final i = r * itensPerColumn + c;
 
-                      if (i < StageLoader.STAGE_COUNT) {
-                        final isEnabled = i == 0 || SettingsManager.stageProgress.progress[i - 1] != null;
-                        return Container(
-                          padding: EdgeInsets.all(20),
-                          child: Button(
-                              buttonType: getStageButtonType(i),
-                              disabled: !isEnabled,
-                              label: '${i + 1}',
-                              width: 80,
-                              height: 80,
-                              onPressed: () {
-                                if (isEnabled) {
-                                  setState(() {
-                                    _stageNumber = i;
-                                  });
-                                }
-                              }),
-                        );
-                      } else {
-                        return Container();
-                      }
-                    }));
-              }),
+                          if (i < StageLoader.STAGE_COUNT) {
+                            final isEnabled = i == 0 || SettingsManager.stageProgress.progress[i - 1] != null;
+                            return Container(
+                              padding: EdgeInsets.all(20),
+                              child: Button(
+                                  buttonType: getStageButtonType(i),
+                                  disabled: !isEnabled,
+                                  label: '${i + 1}',
+                                  width: 80,
+                                  height: 80,
+                                  onPressed: () {
+                                    if (isEnabled) {
+                                      setState(() {
+                                        _stageNumber = i;
+                                      });
+                                    }
+                                  }),
+                            );
+                          } else {
+                            return Container();
+                          }
+                        }));
+                  }),
+                ),
+              ),
             ),
+            SizedBox(height: 15),
             Button(
-                buttonType: ButtonType.SECONDARY,
-                label: 'Back',
-                onPressed: () {
-                  Navigator.of(ctx).pushReplacementNamed('/title');
-                }),
+              buttonType: ButtonType.SECONDARY,
+              label: 'Back',
+              onPressed: () {
+                Navigator.of(ctx).pushReplacementNamed('/title');
+              },
+            ),
+            SizedBox(height: 20),
           ],
         ),
       ),

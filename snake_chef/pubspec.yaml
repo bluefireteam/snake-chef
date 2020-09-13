@@ -46,17 +46,8 @@ flutter:
     - assets/images/nine_box_tileset.png
     - assets/images/nine_box_white_tileset.png
 
-    - assets/stages/0.json
-    - assets/stages/1.json
-    - assets/stages/2.json
-    - assets/stages/3.json
-
-    - assets/recipes/PASTA.json
-    - assets/recipes/SALAD.json
-    - assets/recipes/BURGER.json
-    - assets/recipes/ONION_SOUP.json
-    - assets/recipes/TOMATO_SOUP.json
-    - assets/recipes/MUSHROOM_SOUP.json
+    - assets/stages/
+    - assets/recipes/
 
     - assets/audio/gameover.aac
     - assets/audio/gameplay.wav

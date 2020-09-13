@@ -1,0 +1,11 @@
+{
+  "stageNumber": 36,
+  "time": 60,
+  "recipes": [
+    "PIZZA",
+    "PASTA",
+    "PASTA",
+    "PIZZA"
+  ],
+  "holes": 5
+}

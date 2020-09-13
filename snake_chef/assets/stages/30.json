@@ -1,11 +1,11 @@
 {
-  "stageNumber": 1,
-  "time": 60,
+  "stageNumber": 30,
+  "time": 120,
   "recipes": [
     "SASHIMI",
     "RICE_BOWL",
-    "SASHIMI",
-    "RICE_BOWL"
+    "NIGUIRI",
+    "POKE"
   ],
   "holes": 0
 }
