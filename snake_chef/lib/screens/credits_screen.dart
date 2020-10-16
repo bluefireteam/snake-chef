@@ -25,7 +25,7 @@ class CreditsScreen extends StatelessWidget {
                   ),
                   padding: EdgeInsets.all(16.0),
                   child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    Image.asset('assets/images/fireslime-banner.png', width: 200),
+                    Image.asset('assets/images/fireslime-banner.png', width: 160),
                     Label(label: "Game made by Fireslime", fontSize: 18, fontColor: Color(0xFF94b0c2)),
                     Link(link: "https://fireslime.xyz", fontSize: 18, fontColor: Color(0xFF41a6f6))
                   ]))),
