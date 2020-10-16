@@ -23,12 +23,14 @@ class BottomLeftBar extends NineTileBoxComponent with HasGameRef<SnakeChef> {
   List<_IngredientPos> _ingredientsPositions;
 
   final labelText = TextConfig(
-      fontFamily: 'VictorPixel',
-      fontSize: 28,
-      color: Color(0xFF333c57),
+    fontFamily: 'VictorPixel',
+    fontSize: 28,
+    color: Color(0xFF333c57),
   );
 
-  BottomLeftBar(): super(NineTileBox(Sprite('nine_box_white_tileset.png'), tileSize: 16, destTileSize: 50));
+  BottomLeftBar()
+      : super(NineTileBox(Sprite('nine_box_white_tileset.png'),
+            tileSize: 16, destTileSize: 50));
 
   void justCompletedOrder() {
     _timer = 1.0;
@@ -69,16 +71,14 @@ class BottomLeftBar extends NineTileBoxComponent with HasGameRef<SnakeChef> {
     for (var _y = 0; _y < rows; _y++) {
       final l = min(3, ingredients.length - c);
       for (var _x = 0; _x < l; _x++) {
-        _ingredientsPositions.add(
-            _IngredientPos()
-            ..ingredient = ingredients[c]
-            ..rect = Rect.fromLTWH(
-                padding + _x * size,
-                y + 90 + _y * size,
-                size - padding,
-                size - padding,
-            )
-        );
+        _ingredientsPositions.add(_IngredientPos()
+          ..ingredient = ingredients[c]
+          ..rect = Rect.fromLTWH(
+            padding + _x * size,
+            y + 90 + _y * size,
+            size - padding,
+            size - padding,
+          ));
         c++;
       }
     }

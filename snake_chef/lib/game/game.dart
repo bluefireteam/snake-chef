@@ -27,7 +27,12 @@ import './cell.dart';
 import '../audio_manager.dart';
 import '../widgets/direction_pad.dart';
 
-class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector, VerticalDragDetector, TapDetector {
+class SnakeChef extends BaseGame
+    with
+        HasWidgetsOverlay,
+        HorizontalDragDetector,
+        VerticalDragDetector,
+        TapDetector {
   GameBoard gameBoard;
   int boardWidth;
   int boardHeight;
@@ -59,7 +64,12 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
   bool cantMove;
   bool gameEnded = false;
 
-  SnakeChef({Size screenSize, this.boardWidth, this.boardHeight, this.stage, this.stageDifficult}) {
+  SnakeChef(
+      {Size screenSize,
+      this.boardWidth,
+      this.boardHeight,
+      this.stage,
+      this.stageDifficult}) {
     size = screenSize;
     switch (stageDifficult) {
       case StageDifficult.NORMAL:
@@ -205,7 +215,8 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
   }
 
   void collectIngredient(Ingredient ingredient) {
-    if (currentRecipe.validIngredient(ingredient) && currentRecipe.validRecipe(ingredient, collectedIngredients)) {
+    if (currentRecipe.validIngredient(ingredient) &&
+        currentRecipe.validRecipe(ingredient, collectedIngredients)) {
       AudioManager.collectSfx();
 
       collectedIngredients.add(ingredient);
@@ -229,7 +240,8 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
             AudioManager.winMusic();
             addCelebrationComponent();
             showGameWin();
-            SettingsManager.stageProgress.updateStageProgress(stageDifficult, stage.stageNumber);
+            SettingsManager.stageProgress
+                .updateStageProgress(stageDifficult, stage.stageNumber);
             SettingsManager.save();
           }
         } else {
@@ -251,13 +263,16 @@ class SnakeChef extends BaseGame with HasWidgetsOverlay, HorizontalDragDetector,
       generator: (i) => TranslatedParticle(
         offset: Offset(gameWidgetSize.width / 2, gameWidgetSize.height / 2),
         child: AcceleratedParticle(
-          speed: Offset(random.nextDouble() * 1000, -random.nextDouble() * 1000) * .5,
+          speed:
+              Offset(random.nextDouble() * 1000, -random.nextDouble() * 1000) *
+                  .5,
           acceleration: Offset(random.nextBool() ? -100 : 100, 400),
           child: RotatingParticle(
               from: random.nextDouble() * pi,
               child: SpriteParticle(
                   size: Position(Cell.cellSize * 2, Cell.cellSize * 2),
-                  sprite: Ingredients.getSprite(allIngredients[random.nextInt(allIngredients.length)]))),
+                  sprite: Ingredients.getSprite(
+                      allIngredients[random.nextInt(allIngredients.length)]))),
         ),
       ),
     )));

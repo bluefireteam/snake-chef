@@ -80,28 +80,30 @@ class _GamePadConfigScreenState extends State<GamePadConfigScreen> {
                             },
                           ),
                           Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Label(
-                                    label: "Vibrate: ",
-                                    fontSize: 18,
-                                    fontColor: Color(0xFF333c57),
-                                ),
-                                Button(
-                                    width: 100,
-                                    height: 30,
-                                    buttonType: SettingsManager.isVibrateEnabled
-                                    ? ButtonType.SWITCH_ON
-                                    : ButtonType.SWITCH_OFF,
-                                    label: SettingsManager.isVibrateEnabled ? "On" : "Off",
-                                    onPress: () {
-                                      setState(() {
-                                        SettingsManager.isVibrateEnabled = !SettingsManager.isVibrateEnabled;
-                                        SettingsManager.save();
-                                      });
-                                    }
-                                ),
-                              ],
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Label(
+                                label: "Vibrate: ",
+                                fontSize: 18,
+                                fontColor: Color(0xFF333c57),
+                              ),
+                              Button(
+                                  width: 100,
+                                  height: 30,
+                                  buttonType: SettingsManager.isVibrateEnabled
+                                      ? ButtonType.SWITCH_ON
+                                      : ButtonType.SWITCH_OFF,
+                                  label: SettingsManager.isVibrateEnabled
+                                      ? "On"
+                                      : "Off",
+                                  onPress: () {
+                                    setState(() {
+                                      SettingsManager.isVibrateEnabled =
+                                          !SettingsManager.isVibrateEnabled;
+                                      SettingsManager.save();
+                                    });
+                                  }),
+                            ],
                           ),
                         ],
                       ),

@@ -5,17 +5,23 @@ import './settings_manager.dart';
 class AudioManager {
   static OcarinaPlayer _lastPlayer;
 
-  static final OcarinaPlayer _title = OcarinaPlayer(asset: 'assets/audio/title.wav', loop: true);
+  static final OcarinaPlayer _title =
+      OcarinaPlayer(asset: 'assets/audio/title.wav', loop: true);
 
-  static final OcarinaPlayer _gameover = OcarinaPlayer(asset: 'assets/audio/gameover.aac', loop: false);
+  static final OcarinaPlayer _gameover =
+      OcarinaPlayer(asset: 'assets/audio/gameover.aac', loop: false);
 
-  static final OcarinaPlayer _gameplay = OcarinaPlayer(asset: 'assets/audio/gameplay.wav', loop: true);
+  static final OcarinaPlayer _gameplay =
+      OcarinaPlayer(asset: 'assets/audio/gameplay.wav', loop: true);
 
-  static final OcarinaPlayer _win = OcarinaPlayer(asset: 'assets/audio/win_fanfarre.aac', loop: false);
+  static final OcarinaPlayer _win =
+      OcarinaPlayer(asset: 'assets/audio/win_fanfarre.aac', loop: false);
 
-  static final OcarinaPlayer _collected = OcarinaPlayer(asset: 'assets/audio/ingredient_collected.wav', loop: false);
+  static final OcarinaPlayer _collected = OcarinaPlayer(
+      asset: 'assets/audio/ingredient_collected.wav', loop: false);
 
-  static final OcarinaPlayer _recipeDone = OcarinaPlayer(asset: 'assets/audio/recipe_done.wav', loop: false);
+  static final OcarinaPlayer _recipeDone =
+      OcarinaPlayer(asset: 'assets/audio/recipe_done.wav', loop: false);
 
   static Future<void> load() async {
     await Future.wait([

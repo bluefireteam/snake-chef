@@ -14,9 +14,9 @@ class Label extends StatelessWidget {
   @override
   Widget build(_) {
     return Text(
-        label,
-        style: TextStyle(color: fontColor, fontFamily: "VictorPixel", fontSize: fontSize),
+      label,
+      style: TextStyle(
+          color: fontColor, fontFamily: "VictorPixel", fontSize: fontSize),
     );
   }
 }
-

@@ -45,7 +45,10 @@ class Stage {
 
   factory Stage.fromJson(Map<String, dynamic> json) => Stage(
       time: json["time"],
-      recipes: json["recipes"].map((recipe) => Recipe.fromJson(RecipeLoader.recipes[recipe])).toList().cast<Recipe>(),
+      recipes: json["recipes"]
+          .map((recipe) => Recipe.fromJson(RecipeLoader.recipes[recipe]))
+          .toList()
+          .cast<Recipe>(),
       holes: json["holes"],
       stageNumber: json["stageNumber"]);
 
@@ -113,24 +116,34 @@ class Recipe {
   Recipe({this.ingredients, this.recipe, this.recipeName});
 
   factory Recipe.fromJson(Map<String, dynamic> json) {
-    final ingredients = json["ingredients"].map((ingredient) => Ingredient.values.firstWhere((e) => e.toString() == 'Ingredient.$ingredient'));
+    final ingredients = json["ingredients"].map((ingredient) => Ingredient
+        .values
+        .firstWhere((e) => e.toString() == 'Ingredient.$ingredient'));
 
-    final recipe = RecipeName.values.firstWhere((e) => e.toString() == 'RecipeName.${json['recipe']}');
+    final recipe = RecipeName.values
+        .firstWhere((e) => e.toString() == 'RecipeName.${json['recipe']}');
 
-    return Recipe(ingredients: ingredients.toList().cast<Ingredient>(), recipe: recipe, recipeName: json['recipeName']);
+    return Recipe(
+        ingredients: ingredients.toList().cast<Ingredient>(),
+        recipe: recipe,
+        recipeName: json['recipeName']);
   }
 
   bool checkCompletion(List<Ingredient> collectedIngredients) {
-    return ingredients.every((ingredient) => collectedIngredients.contains(ingredient));
+    return ingredients
+        .every((ingredient) => collectedIngredients.contains(ingredient));
   }
 
   bool validIngredient(Ingredient ingredient) {
     return ingredients.contains(ingredient);
   }
 
-  bool validRecipe(Ingredient ingredient, List<Ingredient> collectedIngredients) {
-    final ingredientsCount = ingredients.where((element) => element == ingredient).length;
-    final collectedIngredientsCount = collectedIngredients.where((element) => element == ingredient).length;
+  bool validRecipe(
+      Ingredient ingredient, List<Ingredient> collectedIngredients) {
+    final ingredientsCount =
+        ingredients.where((element) => element == ingredient).length;
+    final collectedIngredientsCount =
+        collectedIngredients.where((element) => element == ingredient).length;
 
     return (collectedIngredientsCount + 1) <= ingredientsCount;
   }

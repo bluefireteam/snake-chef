@@ -17,7 +17,8 @@ class Cell {
   CellType type;
 
   void render(Canvas canvas, GameBoard gameBoard) {
-    final rect = Rect.fromLTWH(x * Cell.cellSize, y * Cell.cellSize, Cell.cellSize, Cell.cellSize);
+    final rect = Rect.fromLTWH(
+        x * Cell.cellSize, y * Cell.cellSize, Cell.cellSize, Cell.cellSize);
 
     type?.render(canvas, gameBoard, this, rect);
   }
@@ -89,7 +90,8 @@ class SnakeCell extends CellType {
       sprite.renderRect(canvas, rect);
     }
     if (type == SnakeCellType.PART) {
-      final partIndex = gameBoard.snake.body.indexWhere((element) => element.x == cell.x && element.y == cell.y);
+      final partIndex = gameBoard.snake.body
+          .indexWhere((element) => element.x == cell.x && element.y == cell.y);
       final previous = gameBoard.snake.body[partIndex - 1];
 
       Sprite sprite;
@@ -111,13 +113,17 @@ class SnakeCell extends CellType {
           sprite = Snake.getTopViewBodyPart();
         } else if (cell.y == previous.y && cell.y == next.y) {
           sprite = Snake.getSideViewBodyPart();
-        } else if ((next.x > cell.x && previous.y < cell.y) || (next.y < cell.y && previous.x > cell.x)) {
+        } else if ((next.x > cell.x && previous.y < cell.y) ||
+            (next.y < cell.y && previous.x > cell.x)) {
           sprite = Snake.getBottomLeftCorner();
-        } else if ((next.x > cell.x && previous.y > cell.y) || (next.y > cell.y && previous.x > cell.x)) {
+        } else if ((next.x > cell.x && previous.y > cell.y) ||
+            (next.y > cell.y && previous.x > cell.x)) {
           sprite = Snake.getTopLeftCorner();
-        } else if ((next.x < cell.x && previous.y < cell.y) || (next.y < cell.y && previous.x < cell.x)) {
+        } else if ((next.x < cell.x && previous.y < cell.y) ||
+            (next.y < cell.y && previous.x < cell.x)) {
           sprite = Snake.getBottomRightCorner();
-        } else if ((next.x < cell.x && previous.y > cell.y) || (next.y > cell.y && previous.x < cell.x)) {
+        } else if ((next.x < cell.x && previous.y > cell.y) ||
+            (next.y > cell.y && previous.x < cell.x)) {
           sprite = Snake.getTopRightCorner();
         }
       }

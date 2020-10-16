@@ -28,7 +28,9 @@ class TopLeftBar extends NineTileBoxComponent with HasGameRef<SnakeChef> {
 
   double _timer = 0.0;
 
-  TopLeftBar() : super(NineTileBox(Sprite('nine_box_tileset.png'), tileSize: 16, destTileSize: 50));
+  TopLeftBar()
+      : super(NineTileBox(Sprite('nine_box_tileset.png'),
+            tileSize: 16, destTileSize: 50));
 
   void justCompletedOrder() {
     _timer = 1.0;
@@ -51,8 +53,10 @@ class TopLeftBar extends NineTileBoxComponent with HasGameRef<SnakeChef> {
       labelText.render(canvas, '  Completed  ', textPosition);
     } else {
       labelText.render(canvas, 'Current order', textPosition);
-      labelRecipeName.render(canvas, gameRef.currentRecipe.recipeName, recipeName);
-      Plates.getSprite(gameRef.currentRecipe.recipe).renderRect(canvas, spriteRect);
+      labelRecipeName.render(
+          canvas, gameRef.currentRecipe.recipeName, recipeName);
+      Plates.getSprite(gameRef.currentRecipe.recipe)
+          .renderRect(canvas, spriteRect);
     }
   }
 }

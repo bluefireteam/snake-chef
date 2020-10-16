@@ -35,55 +35,56 @@ class DirectionPad extends StatelessWidget {
   Widget build(BuildContext ctx) {
     final buttonSize = containerSize / 3;
     final border = containerSize * borderPercent;
-    return Opacity(opacity: opacity, child: Container(
-        width: containerSize,
-        height: containerSize,
-        margin: EdgeInsets.all(border),
-        child: Center(
-          child: Container(
+    return Opacity(
+        opacity: opacity,
+        child: Container(
             width: containerSize,
             height: containerSize,
-            child: Stack(children: [
-              Positioned(
-                left: buttonSize,
-                child: Button(
-                  buttonType: ButtonType.SILVER,
-                  width: buttonSize,
-                  height: buttonSize,
-                  onPressed: () => _callOnPress(DpadKey.UP),
+            margin: EdgeInsets.all(border),
+            child: Center(
+                child: Container(
+              width: containerSize,
+              height: containerSize,
+              child: Stack(children: [
+                Positioned(
+                  left: buttonSize,
+                  child: Button(
+                    buttonType: ButtonType.SILVER,
+                    width: buttonSize,
+                    height: buttonSize,
+                    onPressed: () => _callOnPress(DpadKey.UP),
+                  ),
                 ),
-              ),
-              Positioned(
-                top: buttonSize,
-                child: Button(
-                  buttonType: ButtonType.SILVER,
-                  width: buttonSize,
-                  height: buttonSize,
-                  onPressed: () => _callOnPress(DpadKey.LEFT),
+                Positioned(
+                  top: buttonSize,
+                  child: Button(
+                    buttonType: ButtonType.SILVER,
+                    width: buttonSize,
+                    height: buttonSize,
+                    onPressed: () => _callOnPress(DpadKey.LEFT),
+                  ),
                 ),
-              ),
-              Positioned(
-                top: buttonSize,
-                left: buttonSize * 2,
-                child: Button(
-                  buttonType: ButtonType.SILVER,
-                  width: buttonSize,
-                  height: buttonSize,
-                  onPressed: () => _callOnPress(DpadKey.RIGHT),
+                Positioned(
+                  top: buttonSize,
+                  left: buttonSize * 2,
+                  child: Button(
+                    buttonType: ButtonType.SILVER,
+                    width: buttonSize,
+                    height: buttonSize,
+                    onPressed: () => _callOnPress(DpadKey.RIGHT),
+                  ),
                 ),
-              ),
-              Positioned(
-                top: buttonSize * 2,
-                left: buttonSize,
-                child: Button(
-                  buttonType: ButtonType.SILVER,
-                  width: buttonSize,
-                  height: buttonSize,
-                  onPressed: () => _callOnPress(DpadKey.DOWN),
+                Positioned(
+                  top: buttonSize * 2,
+                  left: buttonSize,
+                  child: Button(
+                    buttonType: ButtonType.SILVER,
+                    width: buttonSize,
+                    height: buttonSize,
+                    onPressed: () => _callOnPress(DpadKey.DOWN),
+                  ),
                 ),
-              ),
-            ]),
-          ))
-        ));
-      }
+              ]),
+            ))));
+  }
 }
