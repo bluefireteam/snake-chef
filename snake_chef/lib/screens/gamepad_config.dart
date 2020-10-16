@@ -108,6 +108,7 @@ class _GamePadConfigScreenState extends State<GamePadConfigScreen> {
                         ],
                       ),
                     ),
+                    SizedBox(width: 30),
                     Expanded(
                         flex: 5,
                         child: Column(

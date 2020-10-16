@@ -77,7 +77,7 @@ class _SpriteSliderState extends State<SpriteSlider> {
 
   Rect _bulletRect() {
     return Rect.fromLTWH(
-      _value * widget.width,
+      (_value * widget.width) - widget.tileSize,
       0,
       widget.tileSize,
       widget.tileSize,
