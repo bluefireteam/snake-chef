@@ -23,7 +23,9 @@ class TopBar extends NineTileBoxComponent with HasGameRef<SnakeChef> {
     color: Color(0xFF333c57),
   );
 
-  TopBar() : super(NineTileBox(Sprite('nine_box_white_tileset.png'), tileSize: 16, destTileSize: 50));
+  TopBar()
+      : super(NineTileBox(Sprite('nine_box_white_tileset.png'),
+            tileSize: 16, destTileSize: 50));
 
   @override
   void render(Canvas canvas) {
@@ -33,14 +35,19 @@ class TopBar extends NineTileBoxComponent with HasGameRef<SnakeChef> {
     labelText.render(canvas, 'Collected', Position(refLeft, 20));
 
     labelText.render(canvas, 'Recipe', Position(x + width - 230, 20));
-    counterText.render(canvas, '${gameRef.recipeIndexLabel}/${gameRef.stage.recipes.length}', Position(x + width - 230, 45));
+    counterText.render(
+        canvas,
+        '${gameRef.recipeIndexLabel}/${gameRef.stage.recipes.length}',
+        Position(x + width - 230, 45));
 
     var i = 0;
     gameRef.collectedIngredients.forEach((ingredient) {
-      renderIngredient(canvas, ingredient, Rect.fromLTWH(refLeft + i++ * 25 + 5, 45, 25, 25));
+      renderIngredient(canvas, ingredient,
+          Rect.fromLTWH(refLeft + i++ * 25 + 5, 45, 25, 25));
     });
 
     labelText.render(canvas, 'Time', Position(x + width - 80, 20));
-    counterText.render(canvas, '${gameRef.stageTimer}', Position(x + width - 80, 45));
+    counterText.render(
+        canvas, '${gameRef.stageTimer}', Position(x + width - 80, 45));
   }
 }

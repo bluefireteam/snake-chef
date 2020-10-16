@@ -23,22 +23,28 @@ class SettingsManager {
 
   static void save() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString("SettingsManager.stageProgress", stageProgress.progress.join(';'));
+    await prefs.setString(
+        "SettingsManager.stageProgress", stageProgress.progress.join(';'));
 
     await prefs.setBool("SettingsManager.isMusicEnabled", isMusicEnabled);
     await prefs.setBool("SettingsManager.isSfxEnabled", isSfxEnabled);
     await prefs.setBool("SettingsManager.isVibrateEnabled", isVibrateEnabled);
 
-    await prefs.setBool("SettingsManager.gamePadOptions.enabled", gamePadOptions.enabled);
-    await prefs.setDouble("SettingsManager.gamePadOptions.opacity", gamePadOptions.opacity);
-    await prefs.setDouble("SettingsManager.gamePadOptions.buttonSize", gamePadOptions.buttonSize);
-    await prefs.setDouble("SettingsManager.gamePadOptions.borderPercentage", gamePadOptions.borderPercentage);
+    await prefs.setBool(
+        "SettingsManager.gamePadOptions.enabled", gamePadOptions.enabled);
+    await prefs.setDouble(
+        "SettingsManager.gamePadOptions.opacity", gamePadOptions.opacity);
+    await prefs.setDouble(
+        "SettingsManager.gamePadOptions.buttonSize", gamePadOptions.buttonSize);
+    await prefs.setDouble("SettingsManager.gamePadOptions.borderPercentage",
+        gamePadOptions.borderPercentage);
   }
 
   static Future<void> load() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    final stageProgressSaved = prefs.getString("SettingsManager.stageProgress")?.split(';') ?? [];
+    final stageProgressSaved =
+        prefs.getString("SettingsManager.stageProgress")?.split(';') ?? [];
 
     for (var i = 0; i < stageProgressSaved.length; i++) {
       var stageDifficult;
@@ -58,12 +64,18 @@ class SettingsManager {
 
     isMusicEnabled = prefs.getBool("SettingsManager.isMusicEnabled") ?? true;
     isSfxEnabled = prefs.getBool("SettingsManager.isSfxEnabled") ?? true;
-    isVibrateEnabled = prefs.getBool("SettingsManager.isVibrateEnabled") ?? false;
+    isVibrateEnabled =
+        prefs.getBool("SettingsManager.isVibrateEnabled") ?? false;
 
-    gamePadOptions.enabled = prefs.getBool("SettingsManager.gamePadOptions.enabled") ?? true;
-    gamePadOptions.opacity = prefs.getDouble("SettingsManager.gamePadOptions.opacity") ?? 0.5;
-    gamePadOptions.buttonSize = prefs.getDouble("SettingsManager.gamePadOptions.buttonSize") ?? 0.3;
-    gamePadOptions.borderPercentage = prefs.getDouble("SettingsManager.gamePadOptions.borderPercentage") ?? 0.1;
+    gamePadOptions.enabled =
+        prefs.getBool("SettingsManager.gamePadOptions.enabled") ?? true;
+    gamePadOptions.opacity =
+        prefs.getDouble("SettingsManager.gamePadOptions.opacity") ?? 0.5;
+    gamePadOptions.buttonSize =
+        prefs.getDouble("SettingsManager.gamePadOptions.buttonSize") ?? 0.3;
+    gamePadOptions.borderPercentage =
+        prefs.getDouble("SettingsManager.gamePadOptions.borderPercentage") ??
+            0.1;
   }
 }
 
@@ -75,7 +87,8 @@ class GamepadOptions {
 }
 
 class StageProgress {
-  List<StageDifficult> progress = List.generate(StageLoader.STAGE_COUNT, (index) => null);
+  List<StageDifficult> progress =
+      List.generate(StageLoader.STAGE_COUNT, (index) => null);
 
   void updateStageProgress(StageDifficult difficult, int stage) {
     if (Stage.stageToNumber(progress[stage]) < Stage.stageToNumber(difficult)) {

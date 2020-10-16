@@ -64,15 +64,17 @@ class _StageSelectScreenState extends State<StageSelectScreen> {
                           final i = r * itensPerColumn + c;
 
                           if (i < StageLoader.STAGE_COUNT) {
-                            final isEnabled = i == 0 || SettingsManager.stageProgress.progress[i - 1] != null;
+                            final isEnabled = i == 0 ||
+                                SettingsManager.stageProgress.progress[i - 1] !=
+                                    null;
                             return Container(
-                              padding: EdgeInsets.all(20),
+                              padding: EdgeInsets.all(15),
                               child: Button(
                                   buttonType: getStageButtonType(i),
                                   disabled: !isEnabled,
                                   label: '${i + 1}',
-                                  width: 80,
-                                  height: 80,
+                                  width: 75,
+                                  height: 75,
                                   onPressed: () {
                                     if (isEnabled) {
                                       setState(() {
@@ -118,32 +120,50 @@ class _StageSelectScreenState extends State<StageSelectScreen> {
                 Column(
                   children: [
                     SizedBox(height: 10),
-                    Label(label: 'Select Difficult', fontSize: 35, fontColor: Color(0xFF94b0c2)),
+                    Label(
+                        label: 'Select Difficult',
+                        fontSize: 35,
+                        fontColor: Color(0xFF94b0c2)),
                     SizedBox(height: 20),
                     Button(
                       buttonType: ButtonType.BRONZE,
                       label: 'Normal',
                       onPressed: () {
-                        Navigator.pushNamed(ctx, '/game', arguments: GameScreenArgs(stageNumber: _stageNumber, difficult: StageDifficult.NORMAL));
+                        Navigator.pushNamed(ctx, '/game',
+                            arguments: GameScreenArgs(
+                                stageNumber: _stageNumber,
+                                difficult: StageDifficult.NORMAL));
                       },
                     ),
                     SizedBox(height: 5),
                     Button(
                       buttonType: ButtonType.SILVER,
                       label: 'Medium',
-                      disabled: SettingsManager.stageProgress.progress[_stageNumber] == null,
+                      disabled: SettingsManager
+                              .stageProgress.progress[_stageNumber] ==
+                          null,
                       onPressed: () {
-                        Navigator.pushNamed(ctx, '/game', arguments: GameScreenArgs(stageNumber: _stageNumber, difficult: StageDifficult.MEDIUM));
+                        Navigator.pushNamed(ctx, '/game',
+                            arguments: GameScreenArgs(
+                                stageNumber: _stageNumber,
+                                difficult: StageDifficult.MEDIUM));
                       },
                     ),
                     SizedBox(height: 5),
                     Button(
                       buttonType: ButtonType.PRIMARY,
                       label: 'Hard',
-                      disabled: !(SettingsManager.stageProgress.progress[_stageNumber] == StageDifficult.MEDIUM ||
-                          SettingsManager.stageProgress.progress[_stageNumber] == StageDifficult.HARD),
+                      disabled: !(SettingsManager
+                                  .stageProgress.progress[_stageNumber] ==
+                              StageDifficult.MEDIUM ||
+                          SettingsManager
+                                  .stageProgress.progress[_stageNumber] ==
+                              StageDifficult.HARD),
                       onPressed: () {
-                        Navigator.pushNamed(ctx, '/game', arguments: GameScreenArgs(stageNumber: _stageNumber, difficult: StageDifficult.HARD));
+                        Navigator.pushNamed(ctx, '/game',
+                            arguments: GameScreenArgs(
+                                stageNumber: _stageNumber,
+                                difficult: StageDifficult.HARD));
                       },
                     ),
                   ],

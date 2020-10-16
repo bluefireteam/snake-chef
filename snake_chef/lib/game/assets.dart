@@ -20,8 +20,18 @@ class Assets {
     ]);
     ingredients = await FireAtlas.fromAsset("atlases/ingredients.fa");
     plates = await FireAtlas.fromAsset("atlases/plates.fa");
-    floor = SpriteSheet(imageName: "floor.png", textureHeight: 16, textureWidth: 16, columns: 1, rows: 2);
-    snake = SpriteSheet(imageName: "snake.png", textureHeight: 16, textureWidth: 16, columns: 5, rows: 5);
+    floor = SpriteSheet(
+        imageName: "floor.png",
+        textureHeight: 16,
+        textureWidth: 16,
+        columns: 1,
+        rows: 2);
+    snake = SpriteSheet(
+        imageName: "snake.png",
+        textureHeight: 16,
+        textureWidth: 16,
+        columns: 5,
+        rows: 5);
   }
 }
 
@@ -30,7 +40,8 @@ class Ingredients {
 
   static Sprite getSprite(Ingredient ingredient) {
     if (!spriteCache.containsKey(ingredient)) {
-      spriteCache[ingredient] = Assets.ingredients.getSprite(ingredient.toString().split('.')[1]);
+      spriteCache[ingredient] =
+          Assets.ingredients.getSprite(ingredient.toString().split('.')[1]);
     }
     return spriteCache[ingredient];
   }
@@ -41,7 +52,8 @@ class Plates {
 
   static Sprite getSprite(RecipeName recipe) {
     if (!spriteCache.containsKey(recipe)) {
-      spriteCache[recipe] = Assets.plates.getSprite(recipe.toString().split('.')[1]);
+      spriteCache[recipe] =
+          Assets.plates.getSprite(recipe.toString().split('.')[1]);
     }
     return spriteCache[recipe];
   }

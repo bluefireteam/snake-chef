@@ -10,7 +10,12 @@ class GameModal extends StatelessWidget {
   final secondaryButtonLabel;
   final secondaryButtonPress;
 
-  GameModal({this.title, this.primaryButtonLabel, this.primaryButtonPress, this.secondaryButtonLabel, this.secondaryButtonPress});
+  GameModal(
+      {this.title,
+      this.primaryButtonLabel,
+      this.primaryButtonPress,
+      this.secondaryButtonLabel,
+      this.secondaryButtonPress});
 
   @override
   Widget build(ctx) {

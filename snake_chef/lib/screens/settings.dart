@@ -75,26 +75,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Button(
-                                buttonType: _isMusicEnabled ? ButtonType.SWITCH_ON : ButtonType.SWITCH_OFF,
+                                buttonType: _isMusicEnabled
+                                    ? ButtonType.SWITCH_ON
+                                    : ButtonType.SWITCH_OFF,
                                 label: '${_isMusicEnabled ? 'on' : 'off'}',
                                 width: 70,
                                 onPressed: () {
                                   setState(() {
                                     _isMusicEnabled = !_isMusicEnabled;
-                                    SettingsManager.isMusicEnabled = _isMusicEnabled;
+                                    SettingsManager.isMusicEnabled =
+                                        _isMusicEnabled;
                                     SettingsManager.save();
                                   });
                                 },
                               ),
                               SizedBox(height: 5),
                               Button(
-                                buttonType: _isSfxEnabled ? ButtonType.SWITCH_ON : ButtonType.SWITCH_OFF,
+                                buttonType: _isSfxEnabled
+                                    ? ButtonType.SWITCH_ON
+                                    : ButtonType.SWITCH_OFF,
                                 label: '${_isSfxEnabled ? 'on' : 'off'}',
                                 width: 70,
                                 onPressed: () {
                                   setState(() {
                                     _isSfxEnabled = !_isSfxEnabled;
-                                    SettingsManager.isSfxEnabled = _isSfxEnabled;
+                                    SettingsManager.isSfxEnabled =
+                                        _isSfxEnabled;
                                     SettingsManager.save();
                                   });
                                 },
@@ -103,13 +109,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               Row(
                                 children: [
                                   Button(
-                                    buttonType: _isGamepadEnabled ? ButtonType.SWITCH_ON : ButtonType.SWITCH_OFF,
-                                    label: '${_isGamepadEnabled ? 'on' : 'off'}',
+                                    buttonType: _isGamepadEnabled
+                                        ? ButtonType.SWITCH_ON
+                                        : ButtonType.SWITCH_OFF,
+                                    label:
+                                        '${_isGamepadEnabled ? 'on' : 'off'}',
                                     width: 70,
                                     onPressed: () {
                                       setState(() {
                                         _isGamepadEnabled = !_isGamepadEnabled;
-                                        SettingsManager.gamePadOptions.enabled = _isGamepadEnabled;
+                                        SettingsManager.gamePadOptions.enabled =
+                                            _isGamepadEnabled;
                                         SettingsManager.save();
                                       });
                                     },
@@ -121,7 +131,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                           label: 'Edit',
                                           width: 150,
                                           onPressed: () {
-                                            Navigator.of(ctx).pushNamed('/gamepad_config');
+                                            Navigator.of(ctx)
+                                                .pushNamed('/gamepad_config');
                                           },
                                         ))
                                       : Container(),

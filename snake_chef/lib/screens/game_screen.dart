@@ -81,7 +81,12 @@ class _GameWrapperState extends State<GameWrapper> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    snakeChefGame = SnakeChef(screenSize: widget.size, boardWidth: 10, boardHeight: 10, stage: widget.stage, stageDifficult: widget.difficult);
+    snakeChefGame = SnakeChef(
+        screenSize: widget.size,
+        boardWidth: 10,
+        boardHeight: 10,
+        stage: widget.stage,
+        stageDifficult: widget.difficult);
   }
 
   @override
@@ -92,14 +97,16 @@ class _GameWrapperState extends State<GameWrapper> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.paused || state == AppLifecycleState.inactive) {
+    if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.inactive) {
       snakeChefGame?.pause();
     }
   }
 
   @override
   Widget build(_) {
-    final gamepadButtonSize = SettingsManager.gamePadOptions.buttonSize * widget.size.height;
+    final gamepadButtonSize =
+        SettingsManager.gamePadOptions.buttonSize * widget.size.height;
 
     final List<Widget> children = [snakeChefGame.widget];
 

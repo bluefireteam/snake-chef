@@ -34,24 +34,22 @@ void main() async {
     await futures;
   }
 
-  runApp(MaterialApp(
-    routes: {
-      '/splash_screen': (ctx) => FlameSplashScreen(
-            theme: FlameSplashTheme.dark,
-            showBefore: (BuildContext context) {
-              return Image.asset('assets/images/fireslime-banner.png', width: 400);
-            },
-            onFinish: (BuildContext context) {
-              Navigator.pushNamed(context, "/title");
-            },
-          ),
-      '/title': (ctx) => TitleScreen(),
-      '/game': (ctx) => GameScreen(),
-      '/stage_select': (ctx) => StageSelectScreen(),
-      '/settings': (ctx) => SettingsScreen(),
-      '/gamepad_config': (ctx) => GamePadConfigScreen(),
-      '/credits': (ctx) => CreditsScreen(),
-    },
-    initialRoute: kReleaseMode ? '/splash_screen' : '/title'
-  ));
+  runApp(MaterialApp(routes: {
+    '/splash_screen': (ctx) => FlameSplashScreen(
+          theme: FlameSplashTheme.dark,
+          showBefore: (BuildContext context) {
+            return Image.asset('assets/images/fireslime-banner.png',
+                width: 400);
+          },
+          onFinish: (BuildContext context) {
+            Navigator.pushNamed(context, "/title");
+          },
+        ),
+    '/title': (ctx) => TitleScreen(),
+    '/game': (ctx) => GameScreen(),
+    '/stage_select': (ctx) => StageSelectScreen(),
+    '/settings': (ctx) => SettingsScreen(),
+    '/gamepad_config': (ctx) => GamePadConfigScreen(),
+    '/credits': (ctx) => CreditsScreen(),
+  }, initialRoute: kReleaseMode ? '/splash_screen' : '/title'));
 }
