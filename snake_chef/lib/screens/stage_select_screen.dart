@@ -66,13 +66,13 @@ class _StageSelectScreenState extends State<StageSelectScreen> {
                           if (i < StageLoader.STAGE_COUNT) {
                             final isEnabled = i == 0 || SettingsManager.stageProgress.progress[i - 1] != null;
                             return Container(
-                              padding: EdgeInsets.all(20),
+                              padding: EdgeInsets.all(15),
                               child: Button(
                                   buttonType: getStageButtonType(i),
                                   disabled: !isEnabled,
                                   label: '${i + 1}',
-                                  width: 80,
-                                  height: 80,
+                                  width: 75,
+                                  height: 75,
                                   onPressed: () {
                                     if (isEnabled) {
                                       setState(() {

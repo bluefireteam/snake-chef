@@ -11,6 +11,7 @@ class CreditsScreen extends StatelessWidget {
   @override
   Widget build(ctx) {
     return PatternContainer(
+        child: SafeArea(
       child: Column(children: [
         SizedBox(height: 40),
         Label(label: "Credits", fontSize: 32, fontColor: Color(0xFF566c86)),
@@ -51,6 +52,6 @@ class CreditsScreen extends StatelessWidget {
             }),
         SizedBox(height: 20),
       ]),
-    );
+    ));
   }
 }
