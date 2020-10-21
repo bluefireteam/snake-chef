@@ -46,6 +46,9 @@ flutter:
     - assets/images/nine_box_tileset.png
     - assets/images/nine_box_white_tileset.png
 
+    - assets/images/gamepad_tutorial.png
+    - assets/images/touch_tutorial.png
+
     - assets/stages/
     - assets/recipes/
 

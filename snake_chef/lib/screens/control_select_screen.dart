@@ -1,4 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Animation;
+import 'package:flame/flame.dart';
+import 'package:flame/animation.dart';
+import 'package:flame/widgets/animation_widget.dart';
 import 'package:snake_chef/screens/game_screen.dart';
 import 'package:snake_chef/settings_manager.dart';
 import 'package:snake_chef/widgets/label.dart';
@@ -23,20 +26,35 @@ class ControlSelectScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Label(
-              label: "Stage Selection",
+              label: "How do you want to play?",
               fontColor: Color(0xFF566c86),
-              fontSize: 60,
+              fontSize: 38,
             ),
-            SizedBox(height: 15),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.all(50),
+                padding:
+                    EdgeInsets.only(top: 25, left: 50, right: 50, bottom: 10),
                 child: Row(
                   children: [
                     Expanded(
                       child: GestureDetector(
-                        child: Container(
-                          color: Colors.red,
+                        child: Column(
+                          children: [
+                            Label(
+                              label: "Touch",
+                              fontColor: Color(0xFF29366f),
+                              fontSize: 20,
+                            ),
+                            SizedBox(height: 20),
+                            Expanded(
+                              child: Container(
+                                width: double.infinity,
+                                height: double.infinity,
+                                child: _AnimationContainer(
+                                    image: 'touch_tutorial.png'),
+                              ),
+                            ),
+                          ],
                         ),
                         onTap: () => confirmEdition(ctx, false),
                       ),
@@ -46,7 +64,24 @@ class ControlSelectScreen extends StatelessWidget {
                     ),
                     Expanded(
                       child: GestureDetector(
-                        child: Container(color: Colors.blue),
+                        child: Column(
+                          children: [
+                            Label(
+                              label: "Screen gamepad",
+                              fontColor: Color(0xFF29366f),
+                              fontSize: 20,
+                            ),
+                            SizedBox(height: 20),
+                            Expanded(
+                              child: Container(
+                                width: double.infinity,
+                                height: double.infinity,
+                                child: _AnimationContainer(
+                                    image: 'gamepad_tutorial.png'),
+                              ),
+                            ),
+                          ],
+                        ),
                         onTap: () => confirmEdition(ctx, true),
                       ),
                     ),
@@ -58,5 +93,30 @@ class ControlSelectScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class _AnimationContainer extends StatelessWidget {
+  final String image;
+
+  _AnimationContainer({this.image});
+
+  @override
+  Widget build(_) {
+    return FutureBuilder(
+        future: Flame.images.load(image).then((_) => Animation.sequenced(
+              image,
+              4,
+              stepTime: 0.4,
+              textureWidth: 144,
+              textureHeight: 128,
+            )),
+        builder: (_, snapshot) {
+          if (snapshot.hasData) {
+            return AnimationWidget(animation: snapshot.data);
+          }
+
+          return Container();
+        });
   }
 }
