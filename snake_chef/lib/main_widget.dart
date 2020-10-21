@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flame_splash_screen/flame_splash_screen.dart';
 import 'package:snake_chef/audio_manager.dart';
+import 'package:snake_chef/screens/control_select_screen.dart';
 import 'package:snake_chef/screens/settings.dart';
 import 'package:flutter/foundation.dart';
 
@@ -32,7 +33,8 @@ class _MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.paused || state == AppLifecycleState.inactive) {
+    if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.inactive) {
       AudioManager.pauseMusic();
     } else {
       AudioManager.resumeMusic();
@@ -45,7 +47,8 @@ class _MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
       '/splash_screen': (ctx) => FlameSplashScreen(
             theme: FlameSplashTheme.dark,
             showBefore: (BuildContext context) {
-              return Image.asset('assets/images/fireslime-banner.png', width: 400);
+              return Image.asset('assets/images/fireslime-banner.png',
+                  width: 400);
             },
             onFinish: (BuildContext context) {
               Navigator.pushNamed(context, "/title");
@@ -57,6 +60,7 @@ class _MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
       '/settings': (ctx) => SettingsScreen(),
       '/gamepad_config': (ctx) => GamePadConfigScreen(),
       '/credits': (ctx) => CreditsScreen(),
+      '/control_select_screen': (ctx) => ControlSelectScreen(),
     }, initialRoute: kReleaseMode ? '/splash_screen' : '/title');
   }
 }

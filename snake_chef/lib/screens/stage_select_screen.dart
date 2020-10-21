@@ -129,10 +129,17 @@ class _StageSelectScreenState extends State<StageSelectScreen> {
                       buttonType: ButtonType.BRONZE,
                       label: 'Normal',
                       onPressed: () {
-                        Navigator.pushNamed(ctx, '/game',
-                            arguments: GameScreenArgs(
-                                stageNumber: _stageNumber,
-                                difficult: StageDifficult.NORMAL));
+                        if (SettingsManager.isFirstAccess) {
+                          Navigator.pushNamed(ctx, '/control_select_screen',
+                              arguments: GameScreenArgs(
+                                  stageNumber: _stageNumber,
+                                  difficult: StageDifficult.NORMAL));
+                        } else {
+                          Navigator.pushNamed(ctx, '/game',
+                              arguments: GameScreenArgs(
+                                  stageNumber: _stageNumber,
+                                  difficult: StageDifficult.NORMAL));
+                        }
                       },
                     ),
                     SizedBox(height: 5),

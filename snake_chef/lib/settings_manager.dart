@@ -4,6 +4,7 @@ import 'package:snake_chef/stage_loader.dart';
 import './audio_manager.dart';
 
 class SettingsManager {
+  static bool isFirstAccess;
   static bool _isMusicEnabled;
   static bool isSfxEnabled;
   static bool isVibrateEnabled;
@@ -21,11 +22,22 @@ class SettingsManager {
 
   static get isMusicEnabled => _isMusicEnabled;
 
+  static void setControlsInFirstAccess(bool useGamepad) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    isFirstAccess = false;
+    await prefs.setBool("SettingsManager.isFirstAccess", false);
+
+    gamePadOptions.enabled = useGamepad;
+    await prefs.setBool("SettingsManager.gamePadOptions.enabled", useGamepad);
+  }
+
   static void save() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString(
         "SettingsManager.stageProgress", stageProgress.progress.join(';'));
 
+    await prefs.setBool("SettingsManager.isFirstAccess", isFirstAccess);
     await prefs.setBool("SettingsManager.isMusicEnabled", isMusicEnabled);
     await prefs.setBool("SettingsManager.isSfxEnabled", isSfxEnabled);
     await prefs.setBool("SettingsManager.isVibrateEnabled", isVibrateEnabled);
@@ -62,13 +74,14 @@ class SettingsManager {
       stageProgress.progress[i] = stageDifficult;
     }
 
+    isFirstAccess = prefs.getBool("SettingsManager.isFirstAccess") ?? true;
     isMusicEnabled = prefs.getBool("SettingsManager.isMusicEnabled") ?? true;
     isSfxEnabled = prefs.getBool("SettingsManager.isSfxEnabled") ?? true;
     isVibrateEnabled =
-        prefs.getBool("SettingsManager.isVibrateEnabled") ?? false;
+        prefs.getBool("SettingsManager.isVibrateEnabled") ?? true;
 
     gamePadOptions.enabled =
-        prefs.getBool("SettingsManager.gamePadOptions.enabled") ?? true;
+        prefs.getBool("SettingsManager.gamePadOptions.enabled") ?? false;
     gamePadOptions.opacity =
         prefs.getDouble("SettingsManager.gamePadOptions.opacity") ?? 0.5;
     gamePadOptions.buttonSize =
