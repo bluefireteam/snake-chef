@@ -1,5 +1,9 @@
 {
-  "recipe": "SALMON_CUCUMBER",
+  "recipe": "SUSHI_CUCUMBER",
   "recipeName": "Cucumber Sushi",
-  "ingredients": ["CUCUMBER", "RICE", "SEAWEED"]
+  "ingredients": [
+    "CUCUMBER",
+    "RICE",
+    "SEAWEED"
+  ]
 }
