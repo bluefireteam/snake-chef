@@ -95,7 +95,7 @@ enum RecipeName {
   NIGUIRI,
   ONION_SOUP,
   PASTA,
-  PETIT_GATAEU,
+  PETIT_GATEAU,
   PIZZA,
   POKE,
   RICE_BOWL,

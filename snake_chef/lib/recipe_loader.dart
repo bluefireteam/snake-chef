@@ -18,7 +18,7 @@ class RecipeLoader {
       _loadFile("NIGUIRI"),
       _loadFile("ONION_SOUP"),
       _loadFile("PASTA"),
-      _loadFile("PETIT_GATAEU"),
+      _loadFile("PETIT_GATEAU"),
       _loadFile("PIZZA"),
       _loadFile("POKE"),
       _loadFile("RICE_BOWL"),
