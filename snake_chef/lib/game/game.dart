@@ -316,13 +316,13 @@ class SnakeChef extends BaseGame
   }
 
   void enableFastMode() {
-    tickTimer.stop();
-    fastTickTimer.start();
+    tickTimer.pause();
+    fastTickTimer.resume();
   }
 
   void disableFastMode() {
-    tickTimer.start();
-    fastTickTimer.stop();
+    tickTimer.resume();
+    fastTickTimer.pause();
   }
 
   @override

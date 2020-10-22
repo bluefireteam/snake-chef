@@ -109,16 +109,20 @@ packages:
   flame:
     dependency: "direct main"
     description:
-      name: flame
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.24.0"
+      path: "."
+      ref: develop
+      resolved-ref: e2448d2a8595de07581a9da90889e04200907a16
+      url: "git@github.com:tyemy/flame.git"
+    source: git
+    version: "0.27.0"
   flame_fire_atlas:
     dependency: "direct main"
     description:
-      name: flame_fire_atlas
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: flame_fire_atlas
+      ref: "snake-chef/test"
+      resolved-ref: "3d0be0ed42b1e15021c9a384b7d2efe848f68c37"
+      url: "git@github.com:tyemy/fire-atlas.git"
+    source: git
     version: "0.0.4"
   flame_splash_screen:
     dependency: "direct main"
@@ -399,13 +403,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.19-nullsafety.2"
-  tiled:
-    dependency: transitive
-    description:
-      name: tiled
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.6.0"
   typed_data:
     dependency: transitive
     description:

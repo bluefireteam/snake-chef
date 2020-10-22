@@ -10,9 +10,16 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^0.12.0+4
-  flame: 0.24.0
+  flame:
+    git:
+      url: git@github.com:tyemy/flame.git
+      ref: develop
   flame_splash_screen: 0.0.1
-  flame_fire_atlas: 0.0.4
+  flame_fire_atlas:
+    git:
+      url: git@github.com:tyemy/fire-atlas.git
+      ref: snake-chef/test
+      path: flame_fire_atlas
   ocarina: ^0.0.2
   shared_preferences: 0.5.7
   url_launcher: 5.4.7
