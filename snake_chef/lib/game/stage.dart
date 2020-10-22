@@ -18,7 +18,7 @@ enum Ingredient {
   CHOCOLATE,
   SUGAR,
   FLOUR,
-  EYEAST,
+  YEAST,
   STRAWBERRY,
   HOTDOG_BREAD,
   SAUSAGE,
