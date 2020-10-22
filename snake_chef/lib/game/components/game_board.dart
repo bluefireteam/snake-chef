@@ -119,8 +119,8 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
     List<Position> emptySpaces = [];
 
     for (var y = 0; y < board.length; y++) {
-      for (var x = 0; x < board[y].length; x++) {
-        if (board[y][x].type == null) {
+      for (var x = 3; x < board[y].length; x++) {
+        if (board[y][x].type == null && ((x + 1) < (board[y].length - 1))) {
           emptySpaces.add(Position(x.toDouble(), y.toDouble()));
         }
       }
