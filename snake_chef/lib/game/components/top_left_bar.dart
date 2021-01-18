@@ -24,7 +24,7 @@ class TopLeftBar extends NineTileBoxComponent with HasGameRef<SnakeChef> {
 
   final textPosition = Position(35, 50);
   final recipeName = Position(35, 75);
-  final spriteRect = Rect.fromLTWH(10, 60, 270, 180);
+  final spriteRect = Rect.fromLTWH(10, 75, 270, 180);
 
   double _timer = 0.0;
 
