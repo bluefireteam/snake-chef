@@ -33,7 +33,7 @@ class TopLeftBar extends NineTileBoxComponent with HasGameRef<SnakeChef> {
             tileSize: 16, destTileSize: 50));
 
   void justCompletedOrder() {
-    _timer = 1.0;
+    _timer = 0.5;
   }
 
   @override
