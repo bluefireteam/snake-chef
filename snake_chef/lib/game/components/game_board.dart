@@ -129,6 +129,15 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
     return emptySpaces[Random().nextInt(emptySpaces.length - 1)];
   }
 
+  bool _isBoardEmptyAt(int x, int y) {
+    if (y < 0 || y > board.length - 1)
+      return false;
+    else if (x < 0 || x > board[y].length - 1)
+      return false;
+    else
+      return board[y][x].type == null;
+  }
+
   Position getRandomEmptySpace() {
     List<Position> emptySpaces = [];
 
@@ -138,7 +147,21 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
       for (var x = 0; x < board[y].length; x++) {
         if (board[y][x].type == null &&
             (nextSnakeSpace.x != x && nextSnakeSpace.y != y)) {
-          emptySpaces.add(Position(x.toDouble(), y.toDouble()));
+
+          int freeSpaces = 4;
+
+          if (!_isBoardEmptyAt(x - 1, y))
+            freeSpaces--;
+          if (!_isBoardEmptyAt(x + 1, y))
+            freeSpaces--;
+          if (!_isBoardEmptyAt(x, y - 1))
+            freeSpaces--;
+          if (!_isBoardEmptyAt(x, y + 1))
+            freeSpaces--;
+
+          if (freeSpaces >= 3) {
+            emptySpaces.add(Position(x.toDouble(), y.toDouble()));
+          }
         }
       }
     }
