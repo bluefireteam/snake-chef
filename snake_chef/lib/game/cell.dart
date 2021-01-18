@@ -30,12 +30,13 @@ abstract class CellType {
 
 class ObstacleCell extends CellType {
   Position obstacle;
+  bool isFirst;
 
-  ObstacleCell(this.obstacle);
+  ObstacleCell(this.obstacle, this.isFirst);
 
   @override
   void render(Canvas canvas, GameBoard gameBoard, Cell cell, Rect rect) {
-    Floor.getFloorBorder().renderRect(canvas, rect);
+    if (isFirst) Floor.getFloorBorder().renderRect(canvas, rect);
   }
 }
 

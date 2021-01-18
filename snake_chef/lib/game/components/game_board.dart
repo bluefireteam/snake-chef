@@ -102,11 +102,16 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
           (initialPosition.x.toDouble() + 1), initialPosition.y.toDouble()))
       ..direction = Position(-1, 0);
 
-    for (int i = 0; i < gameRef.stage.holes; i++) {
-      final holePosition = getRandomEmptySpace();
-      board[holePosition.y.toInt()][holePosition.x.toInt()].type =
-          ObstacleCell(holePosition);
-    }
+    List.generate(gameRef.stage.holes, (index) => getRandomEmptySpace())
+      ..sort((p1, p2) => (p1.y - p2.y).toInt())
+      ..forEach((holePosition) {
+        final isFirst = holePosition.y != 0 &&
+            !(board[holePosition.y.toInt() - 1][holePosition.x.toInt()].type
+                is ObstacleCell);
+
+        board[holePosition.y.toInt()][holePosition.x.toInt()].type =
+            ObstacleCell(holePosition, isFirst);
+      });
 
     gameRef.stage.stageIngredients().forEach((ingredient) {
       final emptyPosition = getRandomEmptySpace();
@@ -147,17 +152,12 @@ class GameBoard extends Component with HasGameRef<SnakeChef> {
       for (var x = 0; x < board[y].length; x++) {
         if (board[y][x].type == null &&
             (nextSnakeSpace.x != x && nextSnakeSpace.y != y)) {
-
           int freeSpaces = 4;
 
-          if (!_isBoardEmptyAt(x - 1, y))
-            freeSpaces--;
-          if (!_isBoardEmptyAt(x + 1, y))
-            freeSpaces--;
-          if (!_isBoardEmptyAt(x, y - 1))
-            freeSpaces--;
-          if (!_isBoardEmptyAt(x, y + 1))
-            freeSpaces--;
+          if (!_isBoardEmptyAt(x - 1, y)) freeSpaces--;
+          if (!_isBoardEmptyAt(x + 1, y)) freeSpaces--;
+          if (!_isBoardEmptyAt(x, y - 1)) freeSpaces--;
+          if (!_isBoardEmptyAt(x, y + 1)) freeSpaces--;
 
           if (freeSpaces >= 3) {
             emptySpaces.add(Position(x.toDouble(), y.toDouble()));
